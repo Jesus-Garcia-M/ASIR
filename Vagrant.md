@@ -13,7 +13,7 @@
 
 
 
-Crear ḾV:
+Crear VM:
 Crear un directio por cada vagrantfile
 Modificar el vagrantfile con nuestra configuración
 config.vm.box = "{box}": selecciona el box de la máquina
