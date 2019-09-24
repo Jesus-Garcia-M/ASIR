@@ -2,7 +2,7 @@
 
 - `vagrant box list`: Muestra los box instalados.
 - `vagrant box add`: Añade un box.
-	- `vagrant box add {Ruta Local} --name {Nombre} --version {Versión}`: Añade un box a través de un fichero local.
+	- `vagrant box add {Ruta Local} --name {Nombre} --version {Versión}`: Añade un box a través de un fichero.
 	- `vagrant box add {usuario/S.O}`: Añade un box a través de los repositorios de Vagrant.
 - `vagrant init`: Crea un Vagrantfile.
 - `vagrant ssh`: Conecta a la VM via SSH. 
