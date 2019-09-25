@@ -1,0 +1,10 @@
+- __HTTP:__ 80
+- __HTTPS:__ 443
+- __DHCP:__ 63, 68 (udp)
+- __SSH:__ 22
+- __DNS:__ 53 (udp)
+- __FTP:__ 20, 21
+- __MySQL:__ 3306
+- __PostgreSQL:__ 5432
+- __Oracle:__ 1521
+- __DHCPv6:__ 546, 547 (udp)
