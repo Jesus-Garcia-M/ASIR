@@ -36,3 +36,5 @@ Cambiar el tema:
 ~~~
 THEME = "{Ruta}"
 ~~~
+\
+#### Ejercicio 4: Genera un sitio web estático con al menos 3 páginas. Deben estar escritas en Markdown y deben tener los siguientes elementos HTML: títulos, listas, párrafos, enlaces e imágenes. El código que estas desarrollando, configuración del generado, páginas en markdown,… debe estar en un repositorio Git (no es necesario que el código generado se guarde en el repositorio, evitalo usando el fichero .gitignore).
