@@ -2,8 +2,7 @@
 \
 Creación y activación de un entorno virtual operativo para el uso de Pelican:
 ~~~
-virtualenv ~/EntornoPelican
-source bin/activate
+virtualenv ~/VirtualEnvs/Pelican
 ~~~
 \
 Instalación de Pelican en el entorno virtual:
@@ -14,4 +13,24 @@ pip install pelican
 Instalación de Markdown:
 ~~~
 pip install Markdown
+~~~
+\
+Generación de la estructura de ficheros:
+~~~
+pelican-quickstart
+~~~
+\
+\
+#### Ejercicio 3: Configura el generador para cambiar el nombre de tu página, el tema o estilo de la página,… Indica cualquier otro cambio de configuración que hayas realizado.
+\
+Fichero de configuración: `pelicanconf.py`.
+\
+Cambiar el nombre de la página:
+~~~
+SITENAME = u'Mi primera estática'
+~~~
+\
+Cambiar el tema:
+~~~
+THEME = "{Ruta}"
 ~~~
