@@ -20,10 +20,9 @@ Generación de la estructura de ficheros:
 pelican-quickstart
 ~~~
 \
-\
 #### Ejercicio 3: Configura el generador para cambiar el nombre de tu página, el tema o estilo de la página,… Indica cualquier otro cambio de configuración que hayas realizado.
 \
-Fichero de configuración: `pelicanconf.py`.
+Fichero de configuración: `pelicanconf.py`
 \
 Cambiar el nombre de la página:
 ~~~
