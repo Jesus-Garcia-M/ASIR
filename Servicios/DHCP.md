@@ -7,9 +7,9 @@
 - `max-lease-time`: Tiempo máximo de concesión.
 - `default-lease-time`: Tiempo de renovación de la concesión.
 - `option routers`: Dirección de la puerta de enlace.
-- `option domain-name-server`: Dirección de los servidores DNS.
+- `option domain-name-servers`: Dirección de los servidores DNS.
 - `option domain-name`: Nombre de dominio.
-- `option subnetmask`: Subred.
+- `option subnetmask`: Máscara de subred.
 - `option broadcast-address`: Dirección de difusión de la red.
 - `range`: Rango de dirección IP a asignar.
 - `hardware ethernet`: Dirección MAC del cliente (Utilizado en reservas).
