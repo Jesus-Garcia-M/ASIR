@@ -3,8 +3,6 @@
 - `/etc/default/isc-dhcp-server`
 - `/etc/dhcp/dhcpd.conf`
 
-\
-
 #### Parámetros configurables:
 - `max-lease-time`: Tiempo máximo de concesión.
 - `default-lease-time`: Tiempo de renovación de la concesión.
