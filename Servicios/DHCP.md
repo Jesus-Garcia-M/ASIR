@@ -3,7 +3,10 @@
 - `/etc/default/isc-dhcp-server`
 - `/etc/dhcp/dhcpd.conf`
 
-#### Parámetros configurables:
+##### Log de concesiones:
+- `/var/lib/dhcp/dhcp.lease`
+
+##### Parámetros configurables:
 - `max-lease-time`: Tiempo máximo de concesión.
 - `default-lease-time`: Tiempo de renovación de la concesión.
 - `option routers`: Dirección de la puerta de enlace.
