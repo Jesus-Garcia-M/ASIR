@@ -19,7 +19,7 @@ config.vm.define :nodo_lan1 do |nodo_lan1|
     inline: "sudo ip r del default"  
 end
 ~~~
- \
+  
 
 ##### Configuración del servidor DHCP.
 - Seleccionar la interfaz por la que va a trabajar (`/etc/default/isc-dhcp-server`):
