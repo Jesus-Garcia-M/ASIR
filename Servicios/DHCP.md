@@ -4,7 +4,7 @@
 - `/etc/dhcp/dhcpd.conf`
 
 ##### Log de concesiones:
-- `/var/lib/dhcp/dhcp.lease`
+- `/var/lib/dhcp/dhcpd.leases`
 
 ##### Parámetros configurables:
 - `max-lease-time`: Tiempo máximo de concesión.
