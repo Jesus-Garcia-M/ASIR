@@ -20,6 +20,8 @@ config.vm.define :servidor do |servidor|
   servidor.vm.network :public_network,:bridge=>"wlan0"
   servidor.vm.network :private_network, ip: "192.168.100.1",
     virtualbox__intnet: "dhcp"
+  servidor.vm.network :private_network, ip: "192.168.200.1",
+    virtualbox__intnet: "dhcp-2"
 end
 
 config.vm.define :nodo_lan1 do |nodo_lan1|
@@ -27,6 +29,13 @@ config.vm.define :nodo_lan1 do |nodo_lan1|
   nodo_lan1.vm.hostname = "clienteDHCP"
   nodo_lan1.vm.network :private_network, type: "dhcp",
     virtualbox__intnet: "dhcp"
+end
+
+config.vm.define :nodo_lan2 do |nodo_lan2|
+  nodo_lan2.vm.box = "buster"
+  nodo_lan2.vm.hostname = "clienteDHCP-2"
+  nodo_lan2.vm.network :private_network, type: "dhcp",
+    virtualbox__intnet: "dhcp-2"
 end
 
   # Disable automatic box update checking. If you disable this, then
