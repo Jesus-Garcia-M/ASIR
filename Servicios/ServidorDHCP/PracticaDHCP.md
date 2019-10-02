@@ -40,13 +40,30 @@ subnet 192.168.100.0 netmask 255.255.255.0 {
 ~~~
 
 #### Configuración del servidor como RouterNAT.
+- Cambio de la ruta de encaminamiento por defecto:
+~~~
+vagrant@servidorDHCP:~$ sudo ip r del default
+vagrant@servidorDHCP:~$ sudo ip r add default via 172.22.0.1
+~~~
+
 - Activación del bit de forward:
 ~~~
-root@servidorDHCP:~# echo 1 > /proc/sys/net/ipv4/ip_forward
-root@servidorDHCP:~# sysctl -p
+vagrant@servidorDHCP:~$ sudo sysctl -w net.ipv4.ip_forward=1
+vagrant@servidorDHCP:~$ sudo sysctl -p
 ~~~
 
 - Creación de la regla de `ip tables` para hacer SNAT:
 ~~~
+vagrant@servidorDHCP:~$ sudo iptables -t nat -A POSTROUTING -s 192.168.100.0/24 -o eth1 -j MASQUERADE
+~~~
 
+#### Captura de los paquetes de una concesión:
+- Captura con `dhcpdump`:
+~~~
+vagrant@servidorDHCP:~$ sudo dhcpdump -i eth2
+~~~
+
+- Captura con `tcpdump`:
+~~~
+vagrant@servidorDHCP:~$ sudo tcpdump -i eth2 -nn -s0 -v port 68
 ~~~
