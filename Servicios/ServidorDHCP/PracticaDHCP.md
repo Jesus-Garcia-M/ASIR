@@ -20,7 +20,7 @@ end
 ~~~
 
 ##### Configuración del servidor DHCP.
-- Seleccionar la interfaz por la que va a trabajar (`/etc/default/isc-dhcp-server`):
+- Configuración de la interfaz por la que va a trabajar (`/etc/default/isc-dhcp-server`):
 ~~~
 ...
 INTERFACESv4="eth2"
@@ -105,3 +105,22 @@ config.vm.define :nodo_lan2 do |nodo_lan2|
     virtualbox__intnet: "dhcp-2"
 end
 ~~~
+
+#### Configuración del servidor DHCP.
+- Configuración de la nueva interfaz (`/etc/default/isc-dhcp-server`):
+~~~
+INTERFACESv4="eth2 eth3"
+~~~
+
+- Configuración del nuevo ámbito (`/etc/dhcp/dhcpd.conf`):
+~~~
+subnet 192.168.200.0 netmask 255.255.255.0 {
+        range 192.168.200.10 192.168.200.20;
+        max-lease-time 86400;
+        default-lease-time 43200;
+        option routers 192.168.200.1;
+        option domain-name-servers 192.168.202.2;
+}
+~~~
+
+#### Configuración del servidor como RouterNAT
