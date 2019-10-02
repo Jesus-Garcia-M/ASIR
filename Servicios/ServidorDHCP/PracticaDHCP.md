@@ -123,4 +123,20 @@ subnet 192.168.200.0 netmask 255.255.255.0 {
 }
 ~~~
 
-#### Configuración del servidor como RouterNAT
+#### Configuración del servidor como RouterNAT.
+- Cambio de la ruta de encaminamiento por defecto:
+~~~
+vagrant@servidorDHCP:~$ sudo ip r del default
+vagrant@servidorDHCP:~$ sudo ip r add default via 172.22.0.1
+~~~
+
+- Activación del bit de forward:
+~~~
+vagrant@servidorDHCP:~$ sudo sysctl -w net.ipv4.ip_forward=1
+vagrant@servidorDHCP:~$ sudo sysctl -p
+~~~
+
+- Creación de la regla de `ip tables` para hacer SNAT:
+~~~
+vagrant@servidorDHCP:~$ sudo iptables -t nat -A POSTROUTING -s 192.168.200.0/24 -o eth1 -j MASQUERADE
+~~~
