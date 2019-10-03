@@ -1,5 +1,5 @@
 # Índice de contenido.
-## Base de Datos,
+## Base de Datos.
 #### Instalación de Servidores y Clientes.
 - [Documentación MariaDB](ADB/InstalacionClientes-Servidores/DocsMariaDB.md)
 - [Documentación PostgreSQL](ADB/InstalacionClientes-Servidores/DocsPostgreSQL.md)
