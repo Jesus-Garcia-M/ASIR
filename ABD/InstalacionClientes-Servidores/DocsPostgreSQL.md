@@ -1,4 +1,4 @@
-#### Instalación del servidor PostgreSQL.
+#### Instalación del servidor.
 - Instalación de PostgreSQL 11.5.
 ~~~
 apt install postgresql
