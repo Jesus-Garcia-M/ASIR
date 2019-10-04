@@ -1,0 +1,10 @@
+- `/etc/{servicio}:` Ficheros de configuración de los distintos servicios
+- `/etc/default/{servicio}:` Ficheros de configuración de los demonios de los distintos servicios.
+- `/etc/hosts:` Fichero de resolución de nombres.
+- `/etc/netwrok/interfaces:` Fichero de configuración de red
+- `/etc/apt/sources.list:` Fichero de configuración de repositorios.
+- `/etc/resolv.conf:` Fichero de configuración de servidores DNS.
+- `/usr/share/doc:` Directorio contenedor de documentación de paquetes.
+- `/home/{usuario}/.bash_profile:` Modificación del perfil de la terminal bash.
+- `/proc/sys/net/ipv6/conf/{interfaz}:` Parámetros configurables de las distintas interfaces ipv6.
+- `/var/cache/apt/archives:` Lista de los paquetes instalados.
