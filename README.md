@@ -1,8 +1,7 @@
 # Índice de contenido.
-## Sistemas.
-##### Tarea Paquetería.
-- [Documentación.](ASO/TareaPaqueteria/DocsPaqueteria.md)
-- [Tarea.](ASO/TareaPaqueteria/Tarea.md)
+## Aplicaciones.
+##### Instalación y Despliegue de una Aplicación Web Estática.
+- [Práctica.](IAW/DespliegueWebEstatica/DocAppWebEstatica.md)
 
 ## Base de Datos.
 ##### Instalación de Servidores y Clientes.
@@ -11,12 +10,17 @@
 - [Documentación Oracle.](ABD/InstalacionClientes-Servidores/DocsOracle.md)
 - [Documentación MongoDB.](ABD/InstalacionClientes-Servidores/DocsMongoDB.md)
 
-## Aplicaciones.
-##### Instalación y Despliegue de una Aplicación Web Estática.
-- [Práctica.](IAW/DespliegueWebEstatica/DocAppWebEstatica.md)
+## HLC.
+##### Uso de OpenStack mediante línea de comandos.
+- [Documentación](HLC/DocsOpenStack.md)
 
 ## Servicios.
 ##### Servidor DHCP.
 - [Documentación.](Servicios/ServidorDHCP/DocsDHCP.md)
 - [Práctica.](Servicios/ServidorDHCP/PracticaDHCP.md)
 - [Escenario Vagrant.](Servicios/ServidorDHCP/Vagrantfile)
+
+## Sistemas.
+##### Tarea Paquetería.
+- [Documentación.](ASO/TareaPaqueteria/DocsPaqueteria.md)
+- [Tarea.](ASO/TareaPaqueteria/Tarea.md)
