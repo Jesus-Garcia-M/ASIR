@@ -1,7 +1,7 @@
 #### Instalación del servidor.
 - Instalación de PostgreSQL 11.5.
 ~~~
-apt install postgresql
+ftirado@nazo:~$ sudo apt install postgresql
 ~~~
 
 - Creación del usuario `postgres` en caso de que no exista.
