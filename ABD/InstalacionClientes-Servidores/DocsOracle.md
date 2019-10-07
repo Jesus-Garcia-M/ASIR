@@ -1,3 +1,7 @@
+#### Instalación Oracle 12c.
+##### Configuración previa.
+- 
+
 #### Instalación SQLPlus 12.1.
 - Instalación de `alien`:
 ~~~
