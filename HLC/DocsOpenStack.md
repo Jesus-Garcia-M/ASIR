@@ -30,6 +30,10 @@ root@jesus:~# update-ca-certificates
 export OS_CACERT=/urs/local/share/ca-certificates/gonzalonazareno.crt
 ~~~
 
+- Para poder accerder a la API de volúmenes añadir la siguiente variable al fichero de información:
+~~~
+export OS_VOLUME_API_VERSION=2
+~~~
 
 #### Comandos.
 - ``
