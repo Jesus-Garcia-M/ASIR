@@ -9,9 +9,9 @@
 - `/var/www/html`: Document root del sitio por defecto.
 
 #### Comandos de administración.
-- `a2ensite {Fichero .conf sitio web}`: Crea un enlace simbólico para activar el sitio web.
-- `a2dissite {Fichero .conf sitio web}`: Elimina el enlace simbólico para desactivar el sitio web.
-- `a2enconf {Fichero .conf }`: Activa un
-- `a2disconf`: 
-- `a2enmod`: 
-- `a2dismod`: 
+- `a2ensite {Fichero .conf sitio web}`: Activa un sitio web.
+- `a2dissite {Fichero .conf sitio web}`: Desactiva un sitio web.
+- `a2enconf {Fichero .conf configuración}`: Activa una configuración.
+- `a2disconf {Fichero .conf configuración}`: Desactiva una configuración.
+- `a2enmod {Fichero .conf módulo}`: Activa un módulo.
+- `a2dismod {Fichero .conf módulo}`: Desactiva un módulo.
