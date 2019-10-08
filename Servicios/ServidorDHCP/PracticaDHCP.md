@@ -1,7 +1,7 @@
 # Práctica DHCP.
 
 ## Primer Escenario.
-#### Creación del escenario Vagrant.
+### Creación del escenario Vagrant.
 ~~~
 config.vm.define :servidor do |servidor|
   servidor.vm.box = "buster"
@@ -19,7 +19,7 @@ config.vm.define :nodo_lan1 do |nodo_lan1|
 end
 ~~~
 
-#### Configuración del servidor DHCP.
+### Configuración del servidor DHCP.
 - Configuración de la interfaz por la que va a trabajar (`/etc/default/isc-dhcp-server`):
 ~~~
 ...
