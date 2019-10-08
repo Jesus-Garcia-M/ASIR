@@ -79,7 +79,7 @@ root@OracleJessie:~# apt -y install build-essential binutils libcap-dev gcc g++ 
 
 - *Nota:* Configurar el idioma del sistema en `es_ES.UTF-8`.
 
-#### Instalación de Oracle 12c.
+### Instalación de Oracle 12c.
 - Ejecución del instalador:
 ~~~
 oracle@OracleJessie:~$ database/runInstaller -IgnoreSysPreReqs -ignorePrereq
@@ -125,7 +125,7 @@ SQL> startup
 SQL> alter session set "_ORACLE_SCRIPT"=true; 
 ~~~
 
-#### Instalación SQLPlus 12.1.
+### Instalación SQLPlus 12.1.
 - Instalación de `alien`:
 ~~~
 vagrant@ClienteOracle:~$ sudo apt install alien
