@@ -1,5 +1,5 @@
 # Práctica Apache2.
-#### Creación del escenario Vagrant.
+### Creación del escenario Vagrant.
 ~~~
 config.vm.define :servidor do |servidor|  
   servidor.vm.box = "buster"
@@ -8,7 +8,7 @@ config.vm.define :servidor do |servidor|
 end
 ~~~
 
-#### Configuración de virtual hostings.
+### Configuración de virtual hostings.
 - Creación de la estructura de directorios y asignación de permisos:
 ~~~
 vagrant@servidorApache:/srv/www$ ls -l

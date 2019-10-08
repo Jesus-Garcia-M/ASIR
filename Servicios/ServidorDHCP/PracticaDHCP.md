@@ -1,7 +1,7 @@
 # Práctica DHCP.
 
 ## Primer Escenario.
-##### Creación del escenario Vagrant.
+#### Creación del escenario Vagrant.
 ~~~
 config.vm.define :servidor do |servidor|
   servidor.vm.box = "buster"
@@ -19,7 +19,7 @@ config.vm.define :nodo_lan1 do |nodo_lan1|
 end
 ~~~
 
-##### Configuración del servidor DHCP.
+#### Configuración del servidor DHCP.
 - Configuración de la interfaz por la que va a trabajar (`/etc/default/isc-dhcp-server`):
 ~~~
 ...
@@ -40,7 +40,7 @@ subnet 192.168.100.0 netmask 255.255.255.0 {
 ...
 ~~~
 
-#### Configuración del servidor como RouterNAT.
+### Configuración del servidor como RouterNAT.
 - Cambio de la ruta de encaminamiento por defecto:
 ~~~
 vagrant@servidorDHCP:~$ sudo ip r del default
@@ -58,7 +58,7 @@ vagrant@servidorDHCP:~$ sudo sysctl -p
 vagrant@servidorDHCP:~$ sudo iptables -t nat -A POSTROUTING -s 192.168.100.0/24 -o eth1 -j MASQUERADE
 ~~~
 
-#### Captura de los paquetes de una concesión.
+### Captura de los paquetes de una concesión.
 - Captura con `dhcpdump`:
 ~~~
 vagrant@servidorDHCP:~$ sudo dhcpdump -i eth2
@@ -69,7 +69,7 @@ vagrant@servidorDHCP:~$ sudo dhcpdump -i eth2
 vagrant@servidorDHCP:~$ sudo tcpdump -i eth2 -nn -s0 -vv port 68
 ~~~
 
-#### Creación de una reserva para el cliente.
+### Creación de una reserva para el cliente.
 - Creación de la reserva (`/etc/dhcp/dhcpd.conf`):
 ~~~
 host ClienteDebian {
@@ -79,7 +79,7 @@ fixed-address 192.168.100.100;
 ~~~
 
 ## Segundo Escenario.
-#### Creación del escenario Vagrant.
+### Creación del escenario Vagrant.
 ~~~
 config.vm.define :servidor do |servidor|
   servidor.vm.box = "buster"
@@ -106,7 +106,7 @@ config.vm.define :nodo_lan2 do |nodo_lan2|
 end
 ~~~
 
-#### Configuración del servidor DHCP.
+### Configuración del servidor DHCP.
 - Configuración de la nueva interfaz (`/etc/default/isc-dhcp-server`):
 ~~~
 INTERFACESv4="eth2 eth3"
@@ -123,7 +123,7 @@ subnet 192.168.200.0 netmask 255.255.255.0 {
 }
 ~~~
 
-#### Configuración del servidor como RouterNAT.
+### Configuración del servidor como RouterNAT.
 - Cambio de la ruta de encaminamiento por defecto:
 ~~~
 vagrant@servidorDHCP:~$ sudo ip r del default

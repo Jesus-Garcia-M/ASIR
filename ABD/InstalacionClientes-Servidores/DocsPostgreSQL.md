@@ -1,4 +1,4 @@
-#### Instalación del servidor.
+### Instalación del servidor.
 - Instalación de PostgreSQL 11.5.
 ~~~
 ftirado@nazo:~$ sudo apt install postgresql
@@ -9,7 +9,7 @@ ftirado@nazo:~$ sudo apt install postgresql
 useradd -m postgres
 ~~~
 
-#### Configuración de acceso remoto.
+### Configuración de acceso remoto.
 - Modificación del parámetro `listen addresses` en el fichero `/etc/postgresql/11/main/postgresql.conf`:
 ~~~
 #------------------------------------------------------------------------------
@@ -32,7 +32,7 @@ host	all		all		all		md5
 sudo systemctl restart postgresql
 ~~~
 
-#### Creación del usuario y base de datos para el acceso remoto.
+### Creación del usuario y base de datos para el acceso remoto.
 - Creación del usuario:
 ~~~
 createuser invitado 1

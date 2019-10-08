@@ -1,12 +1,12 @@
 # ISC-DHCP-Server
-##### Ficheros de configuración:
+#### Ficheros de configuración:
 - `/etc/default/isc-dhcp-server`
 - `/etc/dhcp/dhcpd.conf`
 
-##### Log de concesiones:
+#### Log de concesiones:
 - `/var/lib/dhcp/dhcpd.leases`
 
-##### Parámetros configurables:
+#### Parámetros configurables:
 - `max-lease-time`: Tiempo máximo de concesión.
 - `default-lease-time`: Tiempo de renovación de la concesión.
 - `option routers`: Dirección de la puerta de enlace.

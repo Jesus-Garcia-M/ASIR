@@ -1,4 +1,4 @@
-#### Administración a través de línea de comandos.
+### Administración a través de línea de comandos.
 - Creación del entorno virtual:
 ~~~
 jesus@jesus:~/Documentos/VirtualEnvs$ python3 -m venv Openstack/
@@ -35,7 +35,7 @@ export OS_CACERT=/urs/local/share/ca-certificates/gonzalonazareno.crt
 export OS_VOLUME_API_VERSION=2
 ~~~
 
-#### Comandos.
+### Comandos.
 - ``
 - ``
 - ``
