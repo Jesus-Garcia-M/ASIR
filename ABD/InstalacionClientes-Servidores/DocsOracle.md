@@ -86,11 +86,44 @@ oracle@OracleJessie:~$ database/runInstaller -IgnoreSysPreReqs -ignorePrereq
 ~~~
 
 - Pasos de la instalación:
-	- 1. "Crear y configurar base de datos".
-	- 2. "Clase Servidor".
-	- 3. "Instalación de base de datos de instancia única".
-	- 4. "Instalación avanzada".
-	- 5. 
+	- Paso 1. "Crear y configurar base de datos".
+	- Paso 2. "Clase Servidor".
+	- Paso 3. "Instalación de base de datos de instancia única".
+	- Paso 4. "Instalación avanzada".
+	- Paso 5. Seleccionar idiomas.
+	- Paso 6. Enterprise Edition.
+	- Paso 7. Configuración automática debido a la configuración realizada previamente.
+	- Paso 8. Configuración por defecto.
+	- Paso 9. "Uso General".
+	- Paso 10. Valores por defecto.
+	- Paso 11. "Juego de caracteres/Unicode" y marcar opción en "Esquemas de Ejemplo"
+	- Paso 12. Valores por defecto.
+	- Paso 13. No se selecciona nada.
+	- Paso 14. No se selecciona nada.
+	- Paso 15. Establecer contraseña a los administradores.
+	- Paso 16. Valores por defecto.
+	- Paso 17. Instalar
+	- Paso 18. Ejecución de los scripts necesarios:
+~~~
+root@OracleJessie:~# source /opt/oraInventory/orainstRoot.sh
+root@OracleJessie:~# source /opt/oracle/product/12.1.0/dbhome_1/root.sh
+~~~
+
+- Inicio del listener:
+~~~
+oracle@OracleJessie:~$ lsnrctl start
+~~~
+
+- Conexión e inicio de la base de datos:
+~~~
+oracle@OracleJessie:~$ sqlplus SYSTEM/(PASS) as sysdba
+SQL> startup
+~~~
+
+- Modificación de la variable `_ORACLE_SCRIPT` para permitir el uso de la base de datos;
+~~~
+SQL> alter session set "_ORACLE_SCRIPT"=true; 
+~~~
 
 #### Instalación SQLPlus 12.1.
 - Instalación de `alien`:
