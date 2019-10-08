@@ -52,3 +52,45 @@ postgres=# alter user invitado1 with password 'hola123';
 ~~~
 invitado1_db=# grant all privileges on all tables in schema public to invitado1;
 ~~~
+
+### Conexión desde cliente remoto y prueba de funcionamiento.
+- Conexión remota:
+~~~
+vagrant@psql:~$ sudo psql -h {IP} -U {Usuario} -d {Base de datos}
+~~~
+
+- Prueba de funcionamiento:
+~~~
+vagrant@psql:~$ sudo psql -h 192.168.1.41 -U invitado1 -d invitado1_db
+Password for user invitado1: 
+psql (11.5 (Debian 11.5-1+deb10u1))
+SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)
+Type "help" for help.
+
+invitado1_db=> create table Personal
+invitado1_db-> (
+invitado1_db(>  DNI VARCHAR(9),
+invitado1_db(>  Nombre VARCHAR(20),
+invitado1_db(>  Apellidos VARCHAR(20),
+invitado1_db(>  Direccion VARCHAR(50),
+invitado1_db(>  Telefono VARCHAR(9),
+invitado1_db(>  Correo_electronico VARCHAR(50),
+invitado1_db(>  FechaNacimiento DATE,
+invitado1_db(>  constraint pk_personal PRIMARY KEY(DNI),
+invitado1_db(>  constraint telefunico UNIQUE(Telefono),
+invitado1_db(>  constraint correounico UNIQUE(Correo_electronico),
+invitado1_db(>  constraint restricdni check((DNI ~ '^[0-9]{8}[A-Z]$') or (DNI ~ '^[K,L,M,X,Y,Z][0-9]{7}[A-Z]$')),
+invitado1_db(>  constraint restriccorreo check(Correo_electronico ~ '^.+@.+\.(com|es|org|uk|eu|edu|gov|gob|net|info)$')
+invitado1_db(> );
+CREATE TABLE
+invitado1_db=> insert into Personal
+invitado1_db-> values('49090698G','Juan','Pérez','Calle Alfonso Díaz, 6','654345231','juanperez@hotmail.com','15-10-1982');
+INSERT 0 1
+invitado1_db=> insert into Personal
+invitado1_db-> values('38234545N','Paola','Domenech','Avenida Llano, 16','685447635','mapuchin@hotmail.com','23-07-1990');
+INSERT 0 1
+invitado1_db=> insert into Personal
+invitado1_db-> values('95844075Q','Leire','Cortes','Calle Plata, 8','610430005','leirco@hotmail.com','12-09-1963');
+INSERT 0 1
+invitado1_db=>
+~~~
