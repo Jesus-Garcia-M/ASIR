@@ -1,4 +1,4 @@
-#### Configuración previa a la instalación de Oracle 12c.
+### Configuración previa a la instalación de Oracle 12c.
 - Creación de grupos y usuarios:
 ~~~
 root@OracleJessie:~# addgroup --system oinstall
