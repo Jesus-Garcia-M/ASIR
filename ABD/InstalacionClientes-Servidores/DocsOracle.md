@@ -125,6 +125,39 @@ SQL> startup
 SQL> alter session set "_ORACLE_SCRIPT"=true; 
 ~~~
 
+### Configuración de acceso remoto.
+- Modificación de la configuración del fichero `$ORACLE_HOME/network/admin/listener.ora`:
+~~~
+oracle@OracleJessie:~$ echo ””” 
+SID_LIST_LISTENER =
+ (SID_LIST =
+  (SID_DESC =
+   (GLOBAL_DBNAME = orcl)
+   (ORACLE_HOME = /opt/oracle/product/12.1.0.2/dbhome_1)
+   (SID_NAME = orcl)
+  )
+ )
+
+LISTENER=
+ (DESCRIPTION_LIST =
+  (DESCRIPTION =
+   (ADDRESS_LIST =
+    (ADDRESS = (PROTOCOL = IPC)(KEY = EXTPROC1521))
+   )
+   (ADDRESS_LIST =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 0.0.0.0)(PORT = 1521))
+   )
+  )
+ )
+””” >> $ORACLE_HOME/network/admin/listener.ora
+~~~
+
+- Reinicio del listener:
+~~~
+oracle@OracleJessie:~$ lsnrctl stop
+oracle@OracleJessie:~$ lsnrctl start
+~~~
+
 ### Instalación SQLPlus 12.1.
 - Instalación de `alien`:
 ~~~
