@@ -84,3 +84,8 @@ vagrant@LAMP:~$ sudo apt install php libapache2-mod-php php-cli php-fpm php-json
 ~~~
 vagrant@Lvagrant@LAMP:~$ sudo a2enmod php7.3
 ~~~
+
+- Creación del script `phpinfo.php` para comprobar el funcionamiento:
+~~~
+vagrant@LAMP:~$ echo "<?php phpinfo(); ?>" | sudo tee /var/www/html/phpinfo.php
+~~~
