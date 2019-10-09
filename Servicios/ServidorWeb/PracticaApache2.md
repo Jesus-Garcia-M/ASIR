@@ -42,3 +42,44 @@ ServerName departamentos.iesgn.org
 DocumentRoot /srv/www/departamento
 ...
 ~~~
+
+- Activación de los sitios web:
+~~~
+vagrant@servidorApache:~$ sudo a2ensite iesgn.conf
+Enabling site iesgn.
+To activate the new configuration, you need to run:
+  systemctl reload apache2 
+vagrant@servidorApache:~$ sudo a2ensite departamento.conf
+Enabling site departamento.
+To activate the new configuration, you need to run:
+  systemctl reload apache2
+vagrant@servidorApache:~$
+~~~
+
+- Resolución estática en los clientes:
+~~~
+# Práctica Apache2
+172.22.9.56	www.iesgn.org
+172.22.9.56	departamentos.iesgn.org
+~~~
+
+### Creación de redirección.
+- Creación de la redirección en el fichero `iesgn.conf`:
+~~~
+# Redirección:
+RedirectMatch ^/$ http://www.iesgn.org/principal/
+<Directory "/srv/www/iesgn/principal">
+	Require all granted
+</Directory>
+~~~
+
+### Creación de alias.
+- Creación del alias `www.iesgn.org/principal/documentos` a `/srv/doc` en el fichero `iesgn.conf`:
+~~~
+# Alias:
+Alias "/principal/documentos" "/srv/doc"
+<Directory "/srv/doc">
+	Options Indexes FollowSymLinks
+	Require all granted
+</Directory>
+~~~
