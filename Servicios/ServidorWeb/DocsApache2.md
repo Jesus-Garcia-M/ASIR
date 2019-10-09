@@ -7,6 +7,8 @@
 - `/etc/apache2/mod-available`: Directorio contenedor de los módulos disponibles.
 - `/etc/apache2/mod-enables`: Directorio contenedor de los módulos activas.
 - `/var/www/html`: Document root del sitio por defecto.
+- `/etc/apache2/ports.conf`: Fichero de configuración de puertos.
+- `/etc/apache2/apache2.conf`: Fichero de configuración de los directorios de trabajo.
 
 ### Comandos de administración.
 - `a2ensite {Fichero .conf sitio web}`: Activa un sitio web.
