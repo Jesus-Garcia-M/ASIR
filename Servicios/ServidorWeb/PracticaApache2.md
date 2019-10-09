@@ -29,8 +29,10 @@ vagrant@servidorApache:/srv/www$
 
 - Modificación del fichero de configuración `iesgn.conf` en `/etc/apache2/sites-available`:
 ~~~
+...
 ServerName www.iesgn.org
 DocumentRoot /srv/www/iesgn
+...
 ~~~
 
 - Modificación del fichero de configuración `departamento.conf` en `/etc/apache2/sites-available`:
