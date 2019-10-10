@@ -29,7 +29,6 @@
 #### Servidor Web Apache2.
 - [Documentación.](Servicios/ServidorWeb/DocsApache2.md)
 - [Práctica.](Servicios/ServidorWeb/PracticaApache2.md)
-- [Escenario Vagrant.](Servicios/ServidorWeb/Vagrantfile)
 
 ## Sistemas.
 ##### Tarea Paquetería.
