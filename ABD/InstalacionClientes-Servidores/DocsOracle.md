@@ -195,5 +195,27 @@ root@ClienteMDB:~# echo "export LD_LIBRARY_PATH=/usr/lib/oracle/12.1/client64/li
 
 - Conexión remota:
 ~~~
-vagrant@ClienteOracle:~$ sqlplus64 {usuario}/{contraseña}@{IP}:1521/orcl
+vagrant@ClienteMDB:~$ sqlplus64 jesus/jesus@172.22.2.51:1521/orcl
+
+SQL*Plus: Release 12.1.0.2.0 Production on Tue Oct 8 12:05:17 2019
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+Last Successful login time: Tue Oct 08 2019 11:49:58 +00:00
+
+Connected to:
+Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production
+With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options
+
+SQL> select * from cat;
+
+TABLE_NAME
+--------------------------------------------------------------------------------
+TABLE_TYPE
+-----------
+PRUEBA
+TABLE
+
+
+SQL> 
 ~~~
