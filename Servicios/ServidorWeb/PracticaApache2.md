@@ -64,7 +64,7 @@ vagrant@servidorApache:~$
 ~~~
 
 ### Creación de redirección.
-- Creación de la redirección en el fichero `iesgn.conf`:
+- Creación de la redirección del sitio `www.iesgn.org` a `www.iesgn.org/principal` (`/etc/apache2/sites-available/iesgn.conf`):
 ~~~
 # Redirección:
 RedirectMatch ^/$ http://www.iesgn.org/principal/
@@ -74,7 +74,7 @@ RedirectMatch ^/$ http://www.iesgn.org/principal/
 ~~~
 
 ### Creación de alias.
-- Creación del alias `www.iesgn.org/principal/documentos` a `/srv/doc` en el fichero `iesgn.conf` (`/etc/apache2/sites-available`):
+- Creación del alias `www.iesgn.org/principal/documentos` a `/srv/doc` (`/etc/apache2/sites-available/iesgn.conf`):
 ~~~
 # Alias:
 Alias "/principal/documentos" "/srv/doc"
@@ -139,3 +139,10 @@ end
 ~~~
 
 ### Restricciones de acceso.
+- Modificación del sitio `departamentos.iesgn.org/intranet` (`/etc/apache2/sites-available/departamento.conf`):
+~~~
+# Restricción de acceso
+<Directory /srv/www/departamento/intranet>
+    Require ip 192.168.1
+</Directory>
+~~~
