@@ -27,7 +27,7 @@ vagrant@servidorApache:/srv/www$
 </Directory>
 ~~~
 
-- Modificación del fichero de configuración `iesgn.conf` en `/etc/apache2/sites-available`:
+- Modificación del fichero de configuración `iesgn.conf` (`/etc/apache2/sites-available`):
 ~~~
 ...
 ServerName www.iesgn.org
@@ -35,7 +35,7 @@ DocumentRoot /srv/www/iesgn
 ...
 ~~~
 
-- Modificación del fichero de configuración `departamento.conf` en `/etc/apache2/sites-available`:
+- Modificación del fichero de configuración `departamento.conf` (`/etc/apache2/sites-available`):
 ~~~
 ...
 ServerName departamentos.iesgn.org
@@ -74,7 +74,7 @@ RedirectMatch ^/$ http://www.iesgn.org/principal/
 ~~~
 
 ### Creación de alias.
-- Creación del alias `www.iesgn.org/principal/documentos` a `/srv/doc` en el fichero `iesgn.conf`:
+- Creación del alias `www.iesgn.org/principal/documentos` a `/srv/doc` en el fichero `iesgn.conf` (`/etc/apache2/sites-available`):
 ~~~
 # Alias:
 Alias "/principal/documentos" "/srv/doc"
@@ -83,3 +83,59 @@ Alias "/principal/documentos" "/srv/doc"
 	Require all granted
 </Directory>
 ~~~
+
+### Modificación de mensajes de error.
+- Creación del mensaje de error 404 (`/srv/www/{V.host}/error/404.html`):
+~~~
+<h1 style='color:red'>
+  Error 404: Not found
+</h1>
+
+<p>
+El recurso al que se intenta acceder no existe en el servidor.
+</p>
+~~~
+
+- Creación del mensaje de error 403 (`/srv/www/{V.host}/error/403.html`):
+~~~
+<h1 style='color:red'>
+  Error 403: Forbidden
+</h1>
+<p>
+No tienes permisos para acceder a ese recurso.
+</p>
+~~~
+
+- Añadir el directorio de errores a la configuración del sitio `www.iesgn.org` (`/etc/apache2/sites-enabled/iesgn.conf`):
+~~~
+# Mensajes de error custom
+ErrorDocument 404 /error/404.html
+ErrorDocument 403 /error/403.html
+~~~
+
+- Añadir el directorio de errores a la configuración del sitio `departamentos.iesgn.org` (`/etc/apache2/sites-enabled/iesgn.conf`):
+~~~
+# Mensajes de error custom
+ErrorDocument 404 /error/404.html
+ErrorDocument 403 /error/403.html
+~~~
+
+### Modificación del escenario Vagrant.
+~~~
+config.vm.define :servidor do |servidor|  
+  servidor.vm.box = "buster"
+  servidor.vm.hostname = "servidorApache"
+  servidor.vm.network :public_network,:bridge=>"wlan0"
+  servidor.vm.network :private_network, ip: "192.168.1.1",
+    virtualbox__intnet: "apache2"
+end
+
+config.vm.define :cliente do |cliente|
+  cliente.vm.box = "buster"
+  cliente.vm.hostname = "clienteApache"
+  cliente.vm.network :private_network, ip: "192.168.1.2",
+    virtualbox__intnet: "apache2"
+end
+~~~
+
+### Restricciones de acceso.
