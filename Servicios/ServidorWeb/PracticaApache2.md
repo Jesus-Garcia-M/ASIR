@@ -18,7 +18,7 @@ drwxr-xr-x 2 www-data www-data 4096 Oct  8 08:02 iesgn
 vagrant@servidorApache:/srv/www$ 
 ~~~
 
-- Activación del directorio `/srv/www` en `/etc/apache2/apache2.conf`:
+- Activación del directorio `/srv/www` (`/etc/apache2/apache2.conf`):
 ~~~
 <Directory /srv/www>
         Options Indexes FollowSymLinks
@@ -27,7 +27,7 @@ vagrant@servidorApache:/srv/www$
 </Directory>
 ~~~
 
-- Modificación del fichero de configuración `iesgn.conf` (`/etc/apache2/sites-available`):
+- Modificación del fichero de configuración `iesgn.conf` (`/etc/apache2/sites-enabled`):
 ~~~
 ...
 ServerName www.iesgn.org
@@ -35,7 +35,7 @@ DocumentRoot /srv/www/iesgn
 ...
 ~~~
 
-- Modificación del fichero de configuración `departamento.conf` (`/etc/apache2/sites-available`):
+- Modificación del fichero de configuración `departamento.conf` (`/etc/apache2/sites-enabled`):
 ~~~
 ...
 ServerName departamentos.iesgn.org
@@ -64,7 +64,7 @@ vagrant@servidorApache:~$
 ~~~
 
 ### Creación de redirección.
-- Creación de la redirección del sitio `www.iesgn.org` a `www.iesgn.org/principal` (`/etc/apache2/sites-available/iesgn.conf`):
+- Creación de la redirección del sitio `www.iesgn.org` a `www.iesgn.org/principal` (`/etc/apache2/sites-enabled/iesgn.conf`):
 ~~~
 # Redirección:
 RedirectMatch ^/$ http://www.iesgn.org/principal/
@@ -74,7 +74,7 @@ RedirectMatch ^/$ http://www.iesgn.org/principal/
 ~~~
 
 ### Creación de alias.
-- Creación del alias `www.iesgn.org/principal/documentos` a `/srv/doc` (`/etc/apache2/sites-available/iesgn.conf`):
+- Creación del alias `www.iesgn.org/principal/documentos` a `/srv/doc` (`/etc/apache2/sites-enabled/iesgn.conf`):
 ~~~
 # Alias:
 Alias "/principal/documentos" "/srv/doc"
@@ -82,6 +82,18 @@ Alias "/principal/documentos" "/srv/doc"
 	Options Indexes FollowSymLinks
 	Require all granted
 </Directory>
+~~~
+
+- Creación del enlace simbólico:
+~~~
+root@servidorApache:/srv/doc# ln -s /srv/www/iesgn/pruebasymlink.html pruebasymlink
+root@servidorApache:/srv/doc# ls -l
+total 0
+-rw-r--r-- 1 www-data www-data  0 Oct  9 07:45 prueba1.txt
+-rw-r--r-- 1 www-data www-data  0 Oct  9 07:45 prueba2.txt
+-rw-r--r-- 1 www-data www-data  0 Oct  9 07:45 prueba3.txt
+lrwxrwxrwx 1 root     root     31 Oct  9 07:52 pruebasymlink -> ../www/iesgn/pruebasymlink.html
+root@servidorApache:/srv/doc# 
 ~~~
 
 ### Modificación de mensajes de error.
@@ -139,10 +151,45 @@ end
 ~~~
 
 ### Restricciones de acceso.
-- Modificación del sitio `departamentos.iesgn.org/intranet` (`/etc/apache2/sites-available/departamento.conf`):
+- Modificación del sitio `departamentos.iesgn.org/intranet` (`/etc/apache2/sites-enabled/departamento.conf`):
 ~~~
 # Restricción de acceso
 <Directory /srv/www/departamento/intranet>
-    Require ip 192.168.1
+  Require ip 192.168
 </Directory>
+~~~
+
+- Modificación del sitio `departamentos.iesgn.org/internet` (`/etc/apache2/sites-enabled/departamento.conf`):
+~~~
+<Directory /srv/www/departamento/internet>
+  <RequireAll>
+    Require all granted
+    Require not ip 192.168
+  </RequireAll>
+</Directory>
+~~~
+
+### Autentificación básica.
+- Modificación del sitio `departamentos.iesgn.org/secreto` (`/etc/apache2/sites-enabled/departamento.conf`):
+~~~
+# Autentificación básica
+<Directory /srv/www/departamento/secreto>
+  AuthUserFile "/etc/apache2/autentificacion/basica.txt"
+  AuthName "Identificate:"
+  AuthType Basic
+  Require valid-user
+</Directory>
+~~~
+
+- Creación de usuarios:
+~~~
+root@servidorApache:~# htpasswd -c /etc/apache2/autentificacion/basica.txt jesus
+New password:
+Re-type new password:
+Adding password for user jesus
+root@servidorApache:~# servidorApache:~# htpasswd /etc/apache2/autentificacion/basica.txt prueba
+New password:
+Re-type new password:
+Adding password for user prueba
+root@servidorApache:~#
 ~~~
