@@ -187,7 +187,7 @@ root@servidorApache:~# htpasswd -c /etc/apache2/autentificacion/basica.txt jesus
 New password:
 Re-type new password:
 Adding password for user jesus
-root@servidorApache:~# servidorApache:~# htpasswd /etc/apache2/autentificacion/basica.txt prueba
+root@servidorApache:~# htpasswd /etc/apache2/autentificacion/basica.txt prueba
 New password:
 Re-type new password:
 Adding password for user prueba
