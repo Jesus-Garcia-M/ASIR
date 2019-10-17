@@ -70,7 +70,27 @@ Enter password:
 root@dbdrupal:~# 
 ~~~
 
-- Modificación de la configuración (`/var/www/drupal-8.7.8/sites/default/settings.php`:
+- Creación del usuario remoto:
+~~~
+MariaDB [(none)]> grant all on dbdrupal.* to usuariodrupal@192.168.1.10 identified by 'usuariodrupal';
+Query OK, 0 rows affected (0.001 sec)
+
+MariaDB [(none)]> 
+~~~
+
+- Configuración del acceso remoto (`/etc/mysql/mariadb.conf.d/50-server.cnf`):
+~~~
+...
+bind-address = 192.168.1.100
+...
+~~~
+
+- Configuración de cortafuegos:
+~~~
+root@dbdrupal:~# iptables -I INPUT -p tcp -m tcp --dport 3306 -j ACCEPT
+~~~
+
+- Modificación de la configuración de Drupal (`/var/www/drupal-8.7.8/sites/default/settings.php`):
 ~~~
 $databases['default']['default'] = array (
   'database' => 'dbdrupal',
@@ -82,24 +102,4 @@ $databases['default']['default'] = array (
   'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
   'driver' => 'mysql',
 );
-~~~
-
-- Configuración del acceso remoto:
-~~~
-...
-bind-address            = 192.168.1.100
-...
-~~~
-
-- Creación del usuario remoto:
-~~~
-MariaDB [(none)]> grant all on dbdrupal.* to usuariodrupal@192.168.1.10 identified by 'usuariodrupal';
-Query OK, 0 rows affected (0.001 sec)
-
-MariaDB [(none)]> 
-~~~
-
-- Configuración de cortafuegos:
-~~~
-root@dbdrupal:~# iptables -I INPUT -p tcp -m tcp --dport 3306 -j ACCEPT
 ~~~
