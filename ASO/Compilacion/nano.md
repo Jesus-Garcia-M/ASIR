@@ -204,3 +204,6 @@ Homepage: https://invisible-island.net/ncurses/
 
 jesus@jesus:~/nano$ 
 ~~~
+
+### Compilación.
+- Ejecución de `./autogen.sh`
