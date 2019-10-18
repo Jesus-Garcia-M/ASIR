@@ -26,7 +26,7 @@ vagrant@MariaDBServer:~$
 - Secure instalation:
 ~~~
 vagrant@MariaDBServer:~$ sudo mysql_secure_installation
-# Indicamos la contraseña de root para poder continuar.
+*# Indicamos la contraseña de root para poder continuar.*
 Enter current password for root (enter for none):
 OK, successfully used password, moving on...
 # Elegimos “n”, como root ya tiene contraseña no queremos cambiarla.
