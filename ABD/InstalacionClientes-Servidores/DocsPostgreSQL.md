@@ -6,7 +6,7 @@ ftirado@nazo:~$ sudo apt install postgresql
 
 - Creación del usuario `postgres` en caso de que no exista.
 ~~~
-useradd -m postgres
+ftirado@nazo:~$ sudo useradd -m postgres
 ~~~
 
 ### Configuración de acceso remoto.
@@ -53,12 +53,7 @@ postgres=# alter user invitado1 with password 'hola123';
 invitado1_db=# grant all privileges on all tables in schema public to invitado1;
 ~~~
 
-### Conexión desde cliente remoto y prueba de funcionamiento.
-- Conexión remota:
-~~~
-vagrant@psql:~$ sudo psql -h {IP} -U {Usuario} -d {Base de datos}
-~~~
-
+### Conexión desde cliente remoto.
 - Prueba de funcionamiento:
 ~~~
 vagrant@psql:~$ sudo psql -h 192.168.1.41 -U invitado1 -d invitado1_db
@@ -93,4 +88,37 @@ invitado1_db=> insert into Personal
 invitado1_db-> values('95844075Q','Leire','Cortes','Calle Plata, 8','610430005','leirco@hotmail.com','12-09-1963');
 INSERT 0 1
 invitado1_db=>
+~~~
+
+### Herramienta de administración phppgadmin.
+- Instalación de dependencias:
+~~~
+vagrant@psqlserver:~$ sudo apt install php-pgsql
+~~~
+
+- Instalación:
+~~~
+vagrant@psqlserver:~$ sudo apt install phppgadmin
+~~~
+
+- Comentar la directiva `Require` (`/etc/apache2/conf-available/phppgadmin.conf`):
+- Modificación del parámetro `extra_login_security` a `false` (`/etc/phppgadmin/config.inc.php`):
+- Modificación de los parámetros de conexión necesarios (`/etc/phppgadmin/config.inc.php`):
+~~~
+...
+// Display name for the server on the login screen
+$conf['servers'][0]['desc'] = 'PostgreSQL';
+$conf['servers'][1]['desc'] = 'Servidor';
+// Hostname or IP address for
+// use 'localhost' for TCP/IP
+$conf['servers'][0]['host'] =
+$conf['servers'][1]['host'] =
+server. Use '' for UNIX domain soc$
+connection on this computer
+'localhost';
+'192.168.1.55';
+// Database port on server (5432 is the PostgreSQL default)
+$conf['servers'][0]['port'] = 5432;
+$conf['servers'][1]['port'] = 5432;
+...
 ~~~
