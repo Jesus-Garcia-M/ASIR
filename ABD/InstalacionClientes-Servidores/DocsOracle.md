@@ -175,7 +175,7 @@ vagrant@ClienteOracle:~$ sudo alien --to-deb --scripts oracle-instantclient12.1-
 ~~~
 vagrant@ClienteOracle:~$ sudo dpkg -i oracle-instantclient12.1-basic_12.1.0.2.0-2_amd64.deb
 vagrant@ClienteOracle:~$ sudo dpkg -i oracle-instantclient12.1-sqlplus_12.1.0.2.0-2_amd64.deb
-vagrant@ClienteOracle:~$ sudo dpkg -i oracle-instantclient12.1-devel-12.1.0.2.0-1.x86_64.rpm
+vagrant@ClienteOracle:~$ sudo dpkg -i oracle-instantclient12.1-devel_12.1.0.2.0-2_amd64.deb
 ~~~
 
 - Instalación de dependencias:
