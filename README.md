@@ -30,6 +30,10 @@
 - [Documentación.](Servicios/ServidorWeb/DocsApache2.md)
 - [Práctica.](Servicios/ServidorWeb/PracticaApache2.md)
 
+#### Servidor Web Nginx.
+- [Documentación.](Servicios/ServidorWeb/DocsNginx.md)
+- [Práctica.](Servicios/ServidorWeb/PracticaNginx.md)
+
 ## Sistemas.
 ##### Tarea Paquetería.
 - [Documentación.](ASO/TareaPaqueteria/DocsPaqueteria.md)

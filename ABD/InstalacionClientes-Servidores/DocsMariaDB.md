@@ -26,27 +26,33 @@ vagrant@MariaDBServer:~$
 - Secure instalation:
 ~~~
 vagrant@MariaDBServer:~$ sudo mysql_secure_installation
-### Indicamos la contraseña de root para poder continuar.
+
+## Indicamos la contraseña de root para poder continuar.
 Enter current password for root (enter for none):
 OK, successfully used password, moving on...
-### Elegimos “n”, como root ya tiene contraseña no queremos cambiarla.
+
+## Elegimos “n”, como root ya tiene contraseña no queremos cambiarla.
 Change the root password? [Y/n] n
 ... skipping.
-### MariaDB cuenta con usuarios anónimos por defecto, vamos a
+
+## MariaDB cuenta con usuarios anónimos por defecto, vamos a
 eliminarlos para permitir conexiones unicamente con usuarios
 existentes.
 Remove anonymous users? [Y/n] Y
 ... Success!
-### Desactivamos la conexión de root de forma remota.
+
+## Desactivamos la conexión de root de forma remota.
 Disallow root login remotely? [Y/n] Y
 ... Success!
-### Eliminamos las bases de datos “test” creadas por defecto.
+
+## Eliminamos las bases de datos “test” creadas por defecto.
 Remove test database and access to it? [Y/n] Y
 - Dropping test database...
 ... Success!
 - Removing privileges on test database...
 ... Success!
-### Recargamos las tablas de privilegios para que los cambios tengan
+
+## Recargamos las tablas de privilegios para que los cambios tengan
 efecto.
 Reload privilege tables now? [Y/n] Y
 ... Success!

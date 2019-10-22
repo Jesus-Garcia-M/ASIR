@@ -8,7 +8,7 @@ config.vm.define :servidor do |servidor|
 end
 ~~~
 
-### Configuración de virtual hostings.
+### Configuración de virtual hosting.
 - Creación de la estructura de directorios y asignación de permisos:
 ~~~
 vagrant@servidorApache:/srv/www$ ls -l
