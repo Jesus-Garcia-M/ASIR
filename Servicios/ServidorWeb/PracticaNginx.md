@@ -78,3 +78,14 @@ rewrite ^/$ http://www.iesgn.org/principal redirect;
 # Redirección permanente.
 rewrite ^/$ http://www.iesgn.org/principal permanent;
 ~~~
+
+### Creación de alias.
+- Creación del alias `www.iesgn.org/principal/documentos` a `/srv/doc` (`/etc/nginx/sites-enabled/iesgn`):
+~~~
+# Alias.
+location /principal/documentos/ {
+  alias /srv/doc/;
+  autoindex on;
+  disable_symlinks off;
+}
+~~~
