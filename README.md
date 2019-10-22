@@ -16,6 +16,12 @@
 - [Documentación Oracle.](ABD/InstalacionClientes-Servidores/DocsOracle.md)
 - [Documentación MongoDB.](ABD/InstalacionClientes-Servidores/DocsMongoDB.md)
 
+##### Repaso PL/SQL.
+- [Departamento Universitario.](ABD/RepasoPLSQL/DepartamentoUniversitario/Ejercicios.sql)
+- [Inventario Informático.](ABD/RepasoPLSQL/InventarioInformatico/Ejercicios.sql)
+- [Investigadores.](ABD/RepasoPLSQL/Investigadores/Ejercicios.sql)
+- [Torneo Ajedrez.](ABD/RepasoPLSQL/TorneoAjedrez/Ejercicios.sql)
+
 ## HLC.
 ##### Uso de OpenStack mediante línea de comandos.
 - [Documentación.](HLC/DocsOpenStack.md)
