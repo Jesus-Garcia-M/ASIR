@@ -185,17 +185,17 @@ vagrant@ClienteOracle:~$ sudo apt install libaio1
 
 - Añadir configuración de Oracle:
 ~~~
-root@ClienteMDB:~# echo /usr/lib/oracle/12.1/client/lib > /etc/ld.so.conf.d/oracle.conf
+root@ClienteOracle:~# echo /usr/lib/oracle/12.1/client/lib > /etc/ld.so.conf.d/oracle.conf
 ~~~
 
 - Modificación de la variable de entorno necesaria:
 ~~~
-root@ClienteMDB:~# echo "export LD_LIBRARY_PATH=/usr/lib/oracle/12.1/client64/lib" >> /etc/bash.bashrc
+root@ClienteOracle:~# echo "export LD_LIBRARY_PATH=/usr/lib/oracle/12.1/client64/lib" >> /etc/bash.bashrc
 ~~~
 
 - Conexión remota:
 ~~~
-vagrant@ClienteMDB:~$ sqlplus64 jesus/jesus@172.22.2.51:1521/orcl
+vagrant@ClienteOracle:~$ sqlplus64 jesus/jesus@172.22.2.51:1521/orcl
 
 SQL*Plus: Release 12.1.0.2.0 Production on Tue Oct 8 12:05:17 2019
 
