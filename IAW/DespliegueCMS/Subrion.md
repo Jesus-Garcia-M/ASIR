@@ -6,21 +6,20 @@
 	ServerAdmin webmaster@localhost
 	DocumentRoot /var/www/subrion
 </VirtualHost>
-
 ~~~
 
-- Modificación del parámetro `AllowOverride` en `/etc/apache2/sites-available/drupal.conf`:
+- Modificación del parámetro `AllowOverride` en `/etc/apache2/sites-available/subrion.conf`:
 ~~~
 <Directory /var/www/subrion>
-	Options Indexes FollowSymLinks
-	AllowOverride All
-	Require all granted
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
 </Directory>
 ~~~
 
 - Activación del módulo `rewrite`:
 ~~~
-root@drupal:~# a2enmod rewrite
+root@subrion:~# a2enmod rewrite
 ~~~
 
 - Activación del sitio:
