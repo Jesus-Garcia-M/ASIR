@@ -8,23 +8,23 @@ DocumentRoot /var/www/drupal-8.7.8
 ...
 ~~~
 
-- Activación del sitio:
-~~~
-root@drupal:~# a2ensite drupal.conf
-~~~
-
 - Modificación del parámetro `AllowOverride` en `/etc/apache2/sites-available/drupal.conf`:
 ~~~
 <Directory /var/www/drupal-8.7.8>
-	Options Indexes FollowSymLinks
-	AllowOverride All
-	Require all granted
+  Options Indexes FollowSymLinks
+  AllowOverride All
+  Require all granted
 </Directory>
 ~~~
 
 - Activación del módulo `rewrite`:
 ~~~
 root@drupal:~# a2enmod rewrite
+~~~
+
+- Activación del sitio:
+~~~
+root@drupal:~# a2ensite drupal.conf
 ~~~
 
 ### Configuración MariaDB.
