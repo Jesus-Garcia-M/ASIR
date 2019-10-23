@@ -125,7 +125,7 @@ ErrorDocument 404 /error/404.html
 ErrorDocument 403 /error/403.html
 ~~~
 
-- Añadir el directorio de errores a la configuración del sitio `departamentos.iesgn.org` (`/etc/apache2/sites-enabled/iesgn.conf`):
+- Añadir el directorio de errores a la configuración del sitio `departamentos.iesgn.org` (`/etc/apache2/sites-enabled/departamento.conf`):
 ~~~
 # Mensajes de error custom
 ErrorDocument 404 /error/404.html

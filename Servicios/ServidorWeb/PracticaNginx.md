@@ -89,3 +89,111 @@ location /principal/documentos/ {
   disable_symlinks off;
 }
 ~~~
+
+- Creación del enlace simbólico:
+~~~
+root@servidorNginx:~# ln -s /srv/www/iesgn/principal/pruebasymlink.txt
+root@servidorNginx:~# ls -l /srv/doc
+total 0
+-rw-r--r-- 1 www-data www-data  0 Oct 22 07:11 prueba_alias1.txt
+-rw-r--r-- 1 www-data www-data  0 Oct 22 07:11 prueba_alias2.txt
+lrwxrwxrwx 1 www-data www-data 42 Oct 22 08:09 pruebasymlink.txt -> /srv/www/iesgn/principal/pruebasymlink.txt
+root@servidorNginx:~# 
+~~~
+
+### Modificación de mensajes de error.
+- Creación del mensaje de error 404 (`/srv/www/{V.host}/errors/custom404.html`):
+~~~
+<h1 style='color:red'>
+  Error 404: Not found
+</h1>
+
+<p>
+El recurso al que se intenta acceder no existe.
+</p>
+~~~
+
+- Creación del mensaje de error 403 (`/srv/www/{V.host}/errors/custom403.html`):
+~~~
+<h1 style='color:red'>
+  Error 403: Forbidden
+</h1>
+<p>
+No tienes permisos para acceder a ese recurso.
+</p>
+~~~
+
+- Añadir el directorio de errores a la configuración del sitio `www.iesgn.org` (`/etc/nginx/sites-enabled/iesgn`):
+~~~
+server {
+  listen 80;
+
+  root /srv/www/iesgn;
+  index index.html;
+  server_name www.iesgn.org;
+
+# Mensajes de error.
+error_page 404 /custom404.html;
+location = /custom404.html {
+  root /srv/www/iesgn/errors;
+  internal;
+}
+
+error_page 403 /custom403.html;
+location = /custom403.html {
+  root /srv/www/iesgn/errors;
+  internal;
+}
+~~~
+
+- Añadir el directorio de errores a la configuración del sitio `departamentos.iesgn.org` (`/etc/nginx/sites-enabled/departamentos`):
+~~~
+server {
+  listen 80;
+
+  root /srv/www/departamentos;
+  index index.html;
+  server_name departamentos.iesgn.org;
+
+# Mensajes de error.
+error_page 404 /custom404.html;
+location = /custom404.html {
+  root /srv/www/departamentos/errors;
+  internal;
+}
+
+error_page 403 /custom403.html;
+location = /custom403.html {
+  root /srv/www/departamentos/errors;
+  internal;
+}
+~~~
+
+### Modificación del escenario Vagrant.
+~~~
+config.vm.define :servidor do |servidor|  
+  servidor.vm.box = "buster"
+  servidor.vm.hostname = "servidorNginx"
+  servidor.vm.network :public_network,:bridge=>"wlan0"
+  servidor.vm.network :private_network, ip: "192.168.1.10",
+    virtualbox__intnet: "nginx"
+end
+
+config.vm.define :cliente do |cliente|
+  cliente.vm.box = "buster"
+  cliente.vm.hostname = "clienteNginx"
+  cliente.vm.network :private_network, ip: "192.168.1.2",
+    virtualbox__intnet: "nginx"
+end
+~~~
+
+### Restricciones de acceso.
+- Modificación del sitio `departamentos.iesgn.org/intranet` (`/etc/apache2/sites-enabled/departamento.conf`):
+~~~
+
+~~~
+
+- Modificación del sitio `departamentos.iesgn.org/internet` (`/etc/apache2/sites-enabled/departamento.conf`):
+~~~
+
+~~~
