@@ -7,7 +7,10 @@
 - [Documentación.](IAW/StackLAMP.md)
 
 ##### Instalación de Drupal.
-- [Práctica.](IAW/DespliegueCMS/PracticaDrupal.md)
+- [Práctica.](IAW/DespliegueCMS/Drupal.md)
+
+##### Instalación de Subrion.
+- [Práctica.](IAW/DespliegueCMS/Subrion.md)
 
 ## Base de Datos.
 ##### Instalación de Servidores y Clientes.
