@@ -188,12 +188,7 @@ end
 ~~~
 
 ### Restricciones de acceso.
-- Modificación del sitio `departamentos.iesgn.org/intranet` (`/etc/apache2/sites-enabled/departamento.conf`):
-~~~
-
-~~~
-
-- Modificación del sitio `departamentos.iesgn.org/internet` (`/etc/apache2/sites-enabled/departamento.conf`):
+- Creación del fichero de configuración de control de acceso (`/etc/nginx/acceso.conf`):
 ~~~
 
 ~~~
