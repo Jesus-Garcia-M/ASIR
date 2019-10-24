@@ -39,6 +39,8 @@ _Investigadores._
 - [Fase 1.](ABD/RepasoPLSQL/Investigadores/Fase1.pdf)
 - [Fase 2.](ABD/RepasoPLSQL/Investigadores/Fase2/Fase2.pdf)
 	- [Creación Tablas Oracle](ABD/RepasoPLSQL/Investigadores/Fase2/Oracle.sql)
+	- [Creación Tablas PostgreSQL](ABD/RepasoPLSQL/Investigadores/Fase2/PostgreSQL.sql)
+	- [Creación Tablas MariaDB](ABD/RepasoPLSQL/Investigadores/Fase2/MariaDB.sql)
 - [Fase 4.](ABD/RepasoPLSQL/Investigadores/Fase4.pdf)
 - [Ejercicios.](ABD/RepasoPLSQL/Investigadores/Ejercicios.sql)
 
