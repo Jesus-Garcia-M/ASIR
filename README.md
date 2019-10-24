@@ -20,32 +20,32 @@
 - [Documentación MongoDB.](ABD/InstalacionClientes-Servidores/DocsMongoDB.md)
 
 ##### Repaso PL/SQL.
-- [Departamento Universitario.]
-	- [Fase 1.](ABD/RepasoPLSQL/DepartamentoUniversitario/Fase1)
-	- [Fase 2.](ABD/RepasoPLSQL/DepartamentoUniversitario/Fase2/Fase2)
+- Departamento Universitario.
+	- [Fase 1.](ABD/RepasoPLSQL/DepartamentoUniversitario/Fase1.pdf)
+	- [Fase 2.](ABD/RepasoPLSQL/DepartamentoUniversitario/Fase2/Fase2.pdf)
 		- [Creación Tablas Oracle](ABD/RepasoPLSQL/DepartamentoUniversitario/Fase2/Oracle.sql)
-	- [Fase 4.](ABD/RepasoPLSQL/DepartamentoUniversitario/Fase4)
+	- [Fase 4.](ABD/RepasoPLSQL/DepartamentoUniversitario/Fase4.pdf)
 	- [Ejercicios.](ABD/RepasoPLSQL/DepartamentoUniversitario/Ejercicios.sql)
-- [Inventario Informático.]
-	- [Fase 1.](ABD/RepasoPLSQL/InventarioInformatico/Fase1)
-	- [Fase 2.](ABD/RepasoPLSQL/InventarioInformatico/Fase2/Fase2)
+- Inventario Informático.
+	- [Fase 1.](ABD/RepasoPLSQL/InventarioInformatico/Fase1.pdf)
+	- [Fase 2.](ABD/RepasoPLSQL/InventarioInformatico/Fase2/Fase2.pdf)
 		- [Creación Tablas Oracle](ABD/RepasoPLSQL/InventarioInformatico/Fase2/Oracle.sql)
 		- [Creación Tablas PostgreSQL](ABD/RepasoPLSQL/InventarioInformatico/Fase2/PostgreSQL.sql)
-	- [Fase 4.](ABD/RepasoPLSQL/InventarioInformatico/Fase4)
+	- [Fase 4.](ABD/RepasoPLSQL/InventarioInformatico/Fase4.pdf)
 	- [Ejercicios.](ABD/RepasoPLSQL/InventarioInformatico/Ejercicios.sql)
-- [Investigadores.](ABD/RepasoPLSQL/Investigadores/Ejercicios.sql)
-	- [Fase 1.](ABD/RepasoPLSQL/Investigadores/Fase1)
-	- [Fase 2.](ABD/RepasoPLSQL/Investigadores/Fase2/Fase2)
+- Investigadores.
+	- [Fase 1.](ABD/RepasoPLSQL/Investigadores/Fase1.pdf)
+	- [Fase 2.](ABD/RepasoPLSQL/Investigadores/Fase2/Fase2.pdf)
 		- [Creación Tablas Oracle](ABD/RepasoPLSQL/Investigadores/Fase2/Oracle.sql)
-	- [Fase 4.](ABD/RepasoPLSQL/Investigadores/Fase4)
+	- [Fase 4.](ABD/RepasoPLSQL/Investigadores/Fase4.pdf)
 	- [Ejercicios.](ABD/RepasoPLSQL/Investigadores/Ejercicios.sql)
-- [Torneo Ajedrez.](ABD/RepasoPLSQL/TorneoAjedrez/Ejercicios.sql)
-	- [Fase 1.](ABD/RepasoPLSQL/TorneoAjedrez/Fase1)
-	- [Fase 2.](ABD/RepasoPLSQL/TorneoAjedrez/Fase2/Fase2)
+- Torneo Ajedrez.
+	- [Fase 1.](ABD/RepasoPLSQL/TorneoAjedrez/Fase1.pdf)
+	- [Fase 2.](ABD/RepasoPLSQL/TorneoAjedrez/Fase2/Fase2.pdf)
 		- [Creación Tablas Oracle](ABD/RepasoPLSQL/TorneoAjedrez/Fase2/Oracle.sql)
 		- [Creación Tablas PostgreSQL](ABD/RepasoPLSQL/TorneoAjedrez/Fase2/PostgreSQL.sql)
 		- [Creación Tablas MariaDB](ABD/RepasoPLSQL/TorneoAjedrez/Fase2/MariaDB.sql)
-	- [Fase 4.](ABD/RepasoPLSQL/TorneoAjedrez/Fase4)
+	- [Fase 4.](ABD/RepasoPLSQL/TorneoAjedrez/Fase4.pdf)
 	- [Ejercicios.](ABD/RepasoPLSQL/TorneoAjedrez/Ejercicios.sql)
 
 ## HLC.
