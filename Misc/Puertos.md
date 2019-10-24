@@ -1,10 +1,10 @@
-- `HTTP:` 80
-- `HTTPS:` 443
-- `DHCP:` 63, 68 (udp)
-- `SSH:` 22
-- `DNS:` 53 (udp)
-- `FTP:` 20, 21
-- `MySQL:` 3306
-- `PostgreSQL:` 5432
-- `Oracle:` 1521
-- `DHCPv6:` 546, 547 (udp)
+- `HTTP`: 80
+- `HTTPS`: 443
+- `DHCP`: 63, 68 (udp)
+- `SSH`: 22
+- `DNS`: 53 (udp)
+- `FTP`: 20, 21
+- `MySQL`: 3306
+- `PostgreSQL`: 5432
+- `Oracle`: 1521
+- `DHCPv6`: 546, 547 (udp)
