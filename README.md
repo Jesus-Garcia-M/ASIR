@@ -64,12 +64,14 @@ _Torneo Ajedrez._
 - [Escenario Vagrant.](Servicios/ServidorDHCP/Vagrantfile)
 
 #### Servidor Web Apache2.
-- [Documentación.](Servicios/ServidorWeb/DocsApache2.md)
-- [Práctica.](Servicios/ServidorWeb/PracticaApache2.md)
+- [Documentación.](Servicios/ServidorWeb/Apache2/DocsApache2.md)
+- [Práctica.](Servicios/ServidorWeb/Apache2/PracticaApache2.md)
+- [Vagrantfile.](Servicios/ServidorWeb/Apache2/Vagrantfile)
 
 #### Servidor Web Nginx.
-- [Documentación.](Servicios/ServidorWeb/DocsNginx.md)
-- [Práctica.](Servicios/ServidorWeb/PracticaNginx.md)
+- [Documentación.](Servicios/ServidorWeb/Nginx/DocsNginx.md)
+- [Práctica.](Servicios/ServidorWeb/Nginx/PracticaNginx.md)
+- [Vagrantfile](Servicios/ServidorWeb/Nginx/Vagrantfile)
 
 ## Sistemas.
 #### Compilación.
