@@ -1,25 +1,25 @@
 # Índice de contenido.
 ## Aplicaciones.
-##### Instalación y Despliegue de una Aplicación Web Estática.
+#### Instalación y Despliegue de una Aplicación Web Estática.
 - [Práctica.](IAW/DespliegueWebEstatica/DocAppWebEstatica.md)
 
-##### Instalación de stack LAMP.
+#### Instalación de stack LAMP.
 - [Documentación.](IAW/StackLAMP.md)
 
-##### Instalación de Drupal.
+#### Instalación de Drupal.
 - [Práctica.](IAW/DespliegueCMS/Drupal.md)
 
-##### Instalación de Subrion.
+#### Instalación de Subrion.
 - [Práctica.](IAW/DespliegueCMS/Subrion.md)
 
 ## Base de Datos.
-##### Instalación de Servidores y Clientes.
+#### Instalación de Servidores y Clientes.
 - [Documentación MariaDB.](ABD/InstalacionClientes-Servidores/DocsMariaDB.md)
 - [Documentación PostgreSQL.](ABD/InstalacionClientes-Servidores/DocsPostgreSQL.md)
 - [Documentación Oracle.](ABD/InstalacionClientes-Servidores/DocsOracle.md)
 - [Documentación MongoDB.](ABD/InstalacionClientes-Servidores/DocsMongoDB.md)
 
-##### Repaso PL/SQL.
+#### Repaso PL/SQL.
 - Departamento Universitario.
 	- [Fase 1.](ABD/RepasoPLSQL/DepartamentoUniversitario/Fase1.pdf)
 	- [Fase 2.](ABD/RepasoPLSQL/DepartamentoUniversitario/Fase2/Fase2.pdf)
@@ -52,11 +52,11 @@
 	- [Ejercicios.](ABD/RepasoPLSQL/TorneoAjedrez/Ejercicios.sql)
 
 ## HLC.
-##### Uso de OpenStack mediante línea de comandos.
+#### Uso de OpenStack mediante línea de comandos.
 - [Documentación.](HLC/DocsOpenStack.md)
 
 ## Servicios.
-##### Servidor DHCP.
+#### Servidor DHCP.
 - [Documentación.](Servicios/ServidorDHCP/DocsDHCP.md)
 - [Práctica.](Servicios/ServidorDHCP/PracticaDHCP.md)
 - [Escenario Vagrant.](Servicios/ServidorDHCP/Vagrantfile)
@@ -70,11 +70,7 @@
 - [Práctica.](Servicios/ServidorWeb/PracticaNginx.md)
 
 ## Sistemas.
-##### Tarea Paquetería.
-- [Documentación.](ASO/TareaPaqueteria/DocsPaqueteria.md)
-- [Tarea.](ASO/TareaPaqueteria/Tarea.md)
-
-##### Compilación.
+#### Compilación.
 - [Nano](ASO/Compilacion/nano.md)
 
 ## Misc.
