@@ -60,3 +60,7 @@ jesus@jesus:~/Kernel$ cp /boot/config-4.19.0-6-amd64 linux-source-4.19/.config
 ~~~
 jesus@jesus:~/Kernel/linux-source-4.19$ make localmodconfig
 ~~~
+
+## Anotaciones.
+- Fichero `Makefile` - Variable `EXTRAVERSION`: Indica una nueva versión al paquete generado.
+- Comando `make` - Parámetro `-j`: Indica el número de cores a utilizar en la compilación.
