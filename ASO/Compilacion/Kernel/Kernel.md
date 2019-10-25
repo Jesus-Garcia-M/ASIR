@@ -83,15 +83,45 @@ jesus@jesus:~/Kernel/linux-source-4.19$ make nconfig
 ~~~
 
 ### Modificaciones.
-_Primer Kernel_:
-- `Virtualization`.
-- `Procesor Type and Features`:
-	- `AMD ACPI2Platform devices support`.
-	- `AMD MCE features`.
-	- `AMD miAMD microcode loading support crocode loading support`.
-	- `Old style AMD Opteron NUMA detection`.
-- `Networking support`:
+###### Primer Kernel.
+- Virtualization.
+- Procesor Type and Features:
+	- AMD ACPI2Platform devices support.
+	- AMD MCE features.
+	- AMD miAMD microcode loading support crocode loading support.
+	- Old style AMD Opteron NUMA detection.
+	- Linux Guest support.
+	- Old AMD GART IOMMU support
+	- IBM Calgary IOMMU support
+	- Enable support for 16-bit segments
+	- Enable the LDT (local descriptor table)
+- Networking support:
+	- Amateur Radio Support.
+	- Bluetooth subsystem support.
+- Device Drivers:
+	- Macintosh Device Drivers.
+	- Hardware Monitoring support.
+	- Multimedia Support:
+		- Cameras/video grabbers support.
+		- Analog TV support.
+		- Digital TV support.
+		- AM/FM radio receivers/transmitters support.
+		- Software defined radio support.
+		- HDMI CEC support.
+		- Radio Adapters.
+	- LED support.
+	- Virtualization drivers.
+	- Virtio drivers.
+	- Platform support for Chrome hardware.
+	- X86 Platform Specific Device Drivers.
+- File systems:
+	- Quota Support.
+	- Btrfs filesystem support.
+	- Network File Systems.
+- Security Options:
+	- NSA SELinux Support
 
+###### Segundo Kernel.
 
 ## Anotaciones.
 - Fichero `Makefile` - Variable `EXTRAVERSION`: Indica una nueva versión al paquete generado.
