@@ -1,3 +1,14 @@
+### Instalación de dependencias.
+- libelf-dev:
+~~~
+jesus@jesus:~/Kernel/linux-source-4.19$ sudo apt install libelf-dev
+~~~
+
+- libssl-dev:
+~~~
+jesus@jesus:~/Kernel/linux-source-4.19$ sudo apt install libssl-dev
+~~~
+
 ### Descarga y creación del directorio de trabajo.
 - Descarga de la versión de kernel que está en uso:
 ~~~
@@ -48,7 +59,6 @@ drwxr-xr-x  32 jesus sudo   4096 ago 16 10:12 tools
 drwxr-xr-x   2 jesus sudo   4096 ago 16 10:12 usr
 drwxr-xr-x   4 jesus sudo   4096 ago 16 10:12 virt
 jesus@jesus:~/Kernel$ 
-
 ~~~
 
 - Creación de la copia del fichero de configuración usado en el arranque:
@@ -56,10 +66,32 @@ jesus@jesus:~/Kernel$
 jesus@jesus:~/Kernel$ cp /boot/config-4.19.0-6-amd64 linux-source-4.19/.config
 ~~~
 
+### Proceso de compilación.
 - Creación de la configuración con el hardware actual:
 ~~~
 jesus@jesus:~/Kernel/linux-source-4.19$ make localmodconfig
 ~~~
+
+- Creación del paquete `.deb`:
+~~~
+jesus@jesus:~/Kernel/linux-source-4.19$ make -j6 deb-pkg
+~~~
+
+- Modificación de la configuración:
+~~~
+jesus@jesus:~/Kernel/linux-source-4.19$ make nconfig
+~~~
+
+### Modificaciones.
+_Primer Kernel_:
+- `Virtualization`.
+- `Procesor Type and Features`:
+	- `AMD ACPI2Platform devices support`.
+	- `AMD MCE features`.
+	- `AMD miAMD microcode loading support crocode loading support`.
+	- `Old style AMD Opteron NUMA detection`.
+- `Networking support`:
+
 
 ## Anotaciones.
 - Fichero `Makefile` - Variable `EXTRAVERSION`: Indica una nueva versión al paquete generado.
