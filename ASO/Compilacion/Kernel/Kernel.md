@@ -83,7 +83,7 @@ jesus@jesus:~/Kernel/linux-source-4.19$ make nconfig
 ~~~
 
 ### Modificaciones.
-###### Primer Kernel.
+##### Primer Kernel.
 - Virtualization.
 - Procesor Type and Features:
 	- AMD ACPI2Platform devices support.
