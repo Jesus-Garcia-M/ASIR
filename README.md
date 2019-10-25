@@ -1,82 +1,78 @@
-# Índice de contenido.
-## Aplicaciones.
-#### Instalación y Despliegue de una Aplicación Web Estática.
-- [Práctica.](IAW/DespliegueWebEstatica/DocAppWebEstatica.md)
+# Content Index.
+## IWA.
+#### Install and Deploy of a Static Web Application.
+- [Task.](IWA/StaticWebDeployment/StaticWebDocs.md)
 
-#### Instalación de stack LAMP.
-- [Documentación.](IAW/StackLAMP.md)
+#### LAMP Stack Install.
+- [Docs.](IWA/LAMPStack.md)
 
-#### Instalación de Drupal.
-- [Práctica.](IAW/DespliegueCMS/Drupal.md)
+#### Drupal Install.
+- [Task.](IWA/CMSDeployment/Drupal.md)
 
-#### Instalación de Subrion.
-- [Práctica.](IAW/DespliegueCMS/Subrion.md)
+#### Subrion Install.
+- [Task.](IWA/CMSDeployment/Subrion.md)
 
-## Base de Datos.
-#### Instalación de Servidores y Clientes.
-- [Documentación MariaDB.](ABD/InstalacionClientes-Servidores/DocsMariaDB.md)
-- [Documentación PostgreSQL.](ABD/InstalacionClientes-Servidores/DocsPostgreSQL.md)
-- [Documentación Oracle.](ABD/InstalacionClientes-Servidores/DocsOracle.md)
-- [Documentación MongoDB.](ABD/InstalacionClientes-Servidores/DocsMongoDB.md)
+## DBA.
+#### Servers and Clients Install.
+- [MariaDB Docs.](DBA/ClientServerInstall/MariaDBDocs.md)
+- [PostgreSQL Docs.](DBA/ClientServerInstall/PostgreSQLDocs.md)
+- [Oracle Docs.](DBA/ClientServerInstall/OracleDocs.md)
+- [MongoDB Docs.](DBA/ClientServerInstall/MongoDBDocs.md)
 
-#### Repaso PL/SQL.
-_Departamento Universitario._
-- [Fase 1.](ABD/RepasoPLSQL/DepartamentoUniversitario/Fase1.pdf)
-- [Fase 2.](ABD/RepasoPLSQL/DepartamentoUniversitario/Fase2/Fase2.pdf)
-	- [Creación Tablas Oracle](ABD/RepasoPLSQL/DepartamentoUniversitario/Fase2/Oracle.sql)
-- [Fase 4.](ABD/RepasoPLSQL/DepartamentoUniversitario/Fase4.pdf)
-- [Ejercicios.](ABD/RepasoPLSQL/DepartamentoUniversitario/Ejercicios.sql)
+#### PL/SQL.
+_University Department._
+- [Fase 1.](DBA/PLSQL/UDepartment/Fase1.pdf)
+- [Fase 2.](DBA/PLSQL/UDepartment/Fase2/Fase2.pdf)
+	- [Oracle Create Tables.](DBA/PLSQL/UDepartment/Fase2/Oracle.sql)
+- [Fase 4.](DBA/PLSQL/UDepartment/Fase4.pdf)
+- [Exercises.](DBA/PLSQL/UDepartment/Exercises.sql)
 
-_Inventario Informático._
-- [Fase 1.](ABD/RepasoPLSQL/InventarioInformatico/Fase1.pdf)
-- [Fase 2.](ABD/RepasoPLSQL/InventarioInformatico/Fase2/Fase2.pdf)
-	- [Creación Tablas Oracle](ABD/RepasoPLSQL/InventarioInformatico/Fase2/Oracle.sql)
-	- [Creación Tablas PostgreSQL](ABD/RepasoPLSQL/InventarioInformatico/Fase2/PostgreSQL.sql)
-- [Fase 4.](ABD/RepasoPLSQL/InventarioInformatico/Fase4.pdf)
-- [Ejercicios.](ABD/RepasoPLSQL/InventarioInformatico/Ejercicios.sql)
+_Inventory._
+- [Fase 1.](DBA/PLSQL/Inventory/Fase1.pdf)
+- [Fase 2.](DBA/PLSQL/Inventory/Fase2/Fase2.pdf)
+	- [Oracle Create Tables.](DBA/PLSQL/Inventory/Fase2/Oracle.sql)
+	- [PostgreSQL Create Tables.](DBA/PLSQL/Inventory/Fase2/PostgreSQL.sql)
+- [Fase 4.](DBA/PLSQL/Inventory/Fase4.pdf)
+- [Exercises.](DBA/PLSQL/Inventory/Exercises.sql)
 
-_Investigadores._
-- [Fase 1.](ABD/RepasoPLSQL/Investigadores/Fase1.pdf)
-- [Fase 2.](ABD/RepasoPLSQL/Investigadores/Fase2/Fase2.pdf)
-	- [Creación Tablas Oracle](ABD/RepasoPLSQL/Investigadores/Fase2/Oracle.sql)
-	- [Creación Tablas PostgreSQL](ABD/RepasoPLSQL/Investigadores/Fase2/PostgreSQL.sql)
-	- [Creación Tablas MariaDB](ABD/RepasoPLSQL/Investigadores/Fase2/MariaDB.sql)
-- [Fase 4.](ABD/RepasoPLSQL/Investigadores/Fase4.pdf)
-- [Ejercicios.](ABD/RepasoPLSQL/Investigadores/Ejercicios.sql)
+_Researchers._
+- [Fase 1.](DBA/PLSQL/Researchers/Fase1.pdf)
+- [Fase 2.](DBA/PLSQL/Researchers/Fase2/Fase2.pdf)
+	- [Oracle Create Tables.](DBA/PLSQL/Researchers/Fase2/Oracle.sql)
+	- [PostgreSQL Create Tables.](DBA/PLSQL/Researchers/Fase2/PostgreSQL.sql)
+- [Fase 4.](DBA/PLSQL/Researchers/Fase4.pdf)
+- [Exercises.](DBA/PLSQL/Researchers/Exercises.sql)
 
-_Torneo Ajedrez._
-- [Fase 1.](ABD/RepasoPLSQL/TorneoAjedrez/Fase1.pdf)
-- [Fase 2.](ABD/RepasoPLSQL/TorneoAjedrez/Fase2/Fase2.pdf)
-	- [Creación Tablas Oracle](ABD/RepasoPLSQL/TorneoAjedrez/Fase2/Oracle.sql)
-	- [Creación Tablas PostgreSQL](ABD/RepasoPLSQL/TorneoAjedrez/Fase2/PostgreSQL.sql)
-	- [Creación Tablas MariaDB](ABD/RepasoPLSQL/TorneoAjedrez/Fase2/MariaDB.sql)
-- [Fase 4.](ABD/RepasoPLSQL/TorneoAjedrez/Fase4.pdf)
-- [Ejercicios.](ABD/RepasoPLSQL/TorneoAjedrez/Ejercicios.sql)
+_Chess Tournament._
+- [Fase 1.](DBA/PLSQL/Chess/Fase1.pdf)
+- [Fase 2.](DBA/PLSQL/Chess/Fase2/Fase2.pdf)
+	- [Oracle Create Tables.](DBA/PLSQL/Chess/Fase2/Oracle.sql)
+	- [PostgreSQL Create Tables.](DBA/PLSQL/Chess/Fase2/PostgreSQL.sql)
+- [Fase 4.](DBA/PLSQL/Chess/Fase4.pdf)
+- [Exercises.](DBA/PLSQL/Chess/Exercises.sql)
 
-## HLC.
-#### Uso de OpenStack mediante línea de comandos.
-- [Documentación.](HLC/DocsOpenStack.md)
+## FCH.
+#### Openstack Commandline Usage.
+- [Docs.](FCH/OpenStackDocs.md)
 
-## Servicios.
-#### Servidor DHCP.
-- [Documentación.](Servicios/ServidorDHCP/DocsDHCP.md)
-- [Práctica.](Servicios/ServidorDHCP/PracticaDHCP.md)
-- [Escenario Vagrant.](Servicios/ServidorDHCP/Vagrantfile)
+## Services.
+#### DHCP Server.
+- [Docs.](Services/DHCPServer/DHCPDocs.md)
+- [Task.](Services/DHCPServer/DHCPTask.md)
+- [Vagrantfile.](Services/DHCPServer/Vagrantfile)
 
-#### Servidor Web Apache2.
-- [Documentación.](Servicios/ServidorWeb/Apache2/DocsApache2.md)
-- [Práctica.](Servicios/ServidorWeb/Apache2/PracticaApache2.md)
-- [Vagrantfile.](Servicios/ServidorWeb/Apache2/Vagrantfile)
+#### Apache2 Web Server.
+- [Docs.](Services/WebServer/Apache2/Apache2Docs.md)
+- [Task.](Services/WebServer/Apache2/Apache2Task.md)
 
-#### Servidor Web Nginx.
-- [Documentación.](Servicios/ServidorWeb/Nginx/DocsNginx.md)
-- [Práctica.](Servicios/ServidorWeb/Nginx/PracticaNginx.md)
-- [Vagrantfile](Servicios/ServidorWeb/Nginx/Vagrantfile)
+#### Nginx Web Server.
+- [Docs.](Services/WebServer/Nginx/NginxDocs.md)
+- [Task.](Services/WebServer/Nginx/NginxTask.md)
 
-## Sistemas.
-#### Compilación.
-- [Nano](ASO/Compilacion/nano.md)
+## OSA.
+#### Builds.
+- [Nano](OSA/Builds/nano.md)
 
 ## Misc.
-- [Ficheros y Directorios.](Misc/FicherosYDirectorios.md)
-- [Puertos.](Misc/Puertos.md)
+- [Files and Directories.](Misc/FilesAndDirectories.md)
+- [Ports.](Misc/Ports.md)
