@@ -121,7 +121,13 @@ jesus@jesus:~/Kernel/linux-source-4.19$ make nconfig
 - Security Options:
 	- NSA SELinux Support
 
-###### Segundo Kernel.
+##### Segundo Kernel.
+- Bus Options (PCI etc.):
+	- PCI Support.
+- Binary Emulation:
+	- IA32 Emulation.
+	- x32 ABI for 64-bit mode.
+
 
 ## Anotaciones.
 - Fichero `Makefile` - Variable `EXTRAVERSION`: Indica una nueva versión al paquete generado.
