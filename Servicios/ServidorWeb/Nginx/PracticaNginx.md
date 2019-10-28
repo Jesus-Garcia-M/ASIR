@@ -8,14 +8,14 @@ config.vm.define :servidor do |servidor|
 end
 ~~~
 
-### Creación de los scripts ngxensite y ngxdissite.
-- Creación del script `ngxensite` (`/bin/ngxensite`):
+### Creación de los scripts ngensite y ngdissite.
+- Creación del script `ngensite` (`/bin/ngensite`):
 ~~~
 ln -s /etc/nginx/sites-available/$1 /etc/nginx/sites-enabled/
 systemctl restart nginx
 ~~~
 
-- Creación del script `ngxdissite` (`/bin/ngxdissite`):
+- Creación del script `ngdissite` (`/bin/ngdissite`):
 ~~~
 unlink /etc/nginx/sites-enabled/$1
 systemctl restart nginx
@@ -57,8 +57,8 @@ server {
 
 - Activación de los sitios web:
 ~~~
-root@servidorNginx:/srv/www# ngxensite iesgn
-root@servidorNginx:/srv/www# ngxensite departamentos
+root@servidorNginx:/srv/www# ngensite iesgn
+root@servidorNginx:/srv/www# ngensite departamentos
 root@servidorNginx:/srv/www#
 ~~~
 

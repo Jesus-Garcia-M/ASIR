@@ -46,20 +46,34 @@ END ObtenerCorreo;
 
 
 
-CREATE OR REPLACE PROCEDURE EnviarCorreoDifusion (p_numeroincidencia Incidencias.Numero%type)
+CREATE OR REPLACE PROCEDURE EnviarCorreoDifusion (p_numeroincidencia Incidencias.Numero%type
+                                                  p_numeroserie Incidencias.NumeroSerieOrdenador%type,
+                                                  p_descripcion Incidencias.Descripcion%type,
+                                                  p_fechanotificacion Incidencias.FechaHoraNotificacion%type))
 AS
   conexion UTL_SMTP.connection;
 
-  
+  CURSOR c_usuarios IS
+    SELECT Nombre
+    FROM Usuarios;
 
 BEGIN
-  FOR elem IN c_datosincidencia LOOP
-      
-
+  conexion := UTL_SMTP.open_connection('smtp.gmail.com', 25);
+  
+  FOR elem IN c_usuarios LOOP
+    UTL_SMTP.helo(conexion, 'smtp.gmail.com');
+    UTL_SMTP.mail(conexion, 'incidencias@gmail.com');
+    UTL_SMTP.rcpt(conexion, ObtenerCorreo(elem.Nombre));
+    UTL_SMTP.data(conexion, p_numeroserie || UTL_TCP.crlf || UTL_TCP.crlf);
+    UTL_SMTP.data(conexion, p_descripcion || UTL_TCP.crlf || UTL_TCP.crlf);
+    UTL_SMTP.data(conexion, p_fechanotificacion || UTL_TCP.crlf || UTL_TCP.crlf);
   END LOOP;
+
+  UTL_SMTP.quit(conexion);  
 
 END EnviarCorreo;
 /
+
 
 
 
@@ -77,7 +91,9 @@ BEGIN
   UTL_SMTP.helo(conexion, 'smtp.gmail.com');
   UTL_SMTP.mail(conexion, 'incidencias@gmail.com');
   UTL_SMTP.rcpt(conexion, ObtenerCorreo(p_usuario));
+  UTL_SMTP.data(conexion, p_numeroserie || UTL_TCP.crlf || UTL_TCP.crlf);
   UTL_SMTP.data(conexion, p_descripcion || UTL_TCP.crlf || UTL_TCP.crlf);
+  UTL_SMTP.data(conexion, p_fechanotificacion || UTL_TCP.crlf || UTL_TCP.crlf);
   UTL_SMTP.quit(conexion);
 
 END EnviarCorreoUnico;
