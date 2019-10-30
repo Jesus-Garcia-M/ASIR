@@ -32,17 +32,21 @@
 - [Práctica.](Servicios/ServidorDHCP/PracticaDHCP.md)
 - [Escenario Vagrant.](Servicios/ServidorDHCP/Vagrantfile)
 
-#### Servidor Web Apache2.
+#### Servidores Web.
+##### Apache2.
 - [Documentación.](Servicios/ServidorWeb/Apache2/DocsApache2.md)
 - [Práctica.](Servicios/ServidorWeb/Apache2/PracticaApache2.md)
 - [Vagrantfile.](Servicios/ServidorWeb/Apache2/Vagrantfile)
 
-#### Servidor Web Nginx.
+##### Nginx.
 - [Documentación.](Servicios/ServidorWeb/Nginx/DocsNginx.md)
 - [Práctica.](Servicios/ServidorWeb/Nginx/PracticaNginx.md)
 - [Vagrantfile](Servicios/ServidorWeb/Nginx/Vagrantfile)
 
-#### Servidor DNS bind9.
+#### Servidores DNS.
+- [Documentación](Servicios/ServidorDNS/Docs.md)
+
+##### bind9.
 - [Práctica.](Servicios/ServidorDNS/bind9/Practica.md)
 
 ## Sistemas.

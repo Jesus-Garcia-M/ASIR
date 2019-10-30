@@ -31,3 +31,16 @@ location ~ \.php$ {
 }
 ...
 ~~~
+
+### Creación de scripts de admministración.
+- Activación de sitios (`/bin/ngensite`):
+~~~
+ln -s /etc/nginx/sites-available/$1 /etc/nginx/sites-enabled/
+systemctl restart nginx
+~~~
+
+- Desactivación de sitios (`/bin/ngdissite`):
+~~~
+unlink /etc/nginx/sites-enabled/$1
+systemctl restart nginx
+~~~
