@@ -140,18 +140,17 @@ END CalcularTiempo;
 /
 
 
-CREATE OR REPLACE PROCEDURE RellenarTiempoDesconexion (p_numeroserie Servidores.NumeroSerie%type)
+CREATE OR REPLACE PROCEDURE RellenarTiempoDesconexion
 AS
   CURSOR c_periodosapagado IS
-    SELECT sum(CalcularTiempo(FechaHoraInicio, FechaHoraFin)) AS tiempodesconexion
-    FROM Periodosdeapagado
-    WHERE NumeroSerieServidor = p_numeroserie;
+    SELECT NumeroSerieServidor, sum(CalcularTiempo(FechaHoraInicio, FechaHoraFin)) AS tiempodesconexion
+    FROM Periodosdeapagado;
 
 BEGIN
   FOR elem IN c_periodosapagado LOOP
     UPDATE Servidores
       SET TiempodeDesconexion = elem.tiempodesconexion
-      WHERE NumeroSerie = p_numeroserie;
+      WHERE NumeroSerie = elem.NumeroSerieServidor;
   END LOOP;
 
 END RellenarTiempoDesconexion;
