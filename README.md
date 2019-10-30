@@ -54,8 +54,8 @@ _Torneo Ajedrez._
 - [Ejercicios.](ABD/RepasoPLSQL/TorneoAjedrez/Ejercicios.sql)
 
 ## HLC.
-#### Uso de OpenStack mediante línea de comandos.
-- [Documentación.](HLC/DocsOpenStack.md)
+### qemu-kvm.
+- [Documentación.](HLC/qemu-kvm/Docs.md)
 
 ## Servicios.
 #### Servidor DHCP.
@@ -73,10 +73,20 @@ _Torneo Ajedrez._
 - [Práctica.](Servicios/ServidorWeb/Nginx/PracticaNginx.md)
 - [Vagrantfile](Servicios/ServidorWeb/Nginx/Vagrantfile)
 
+#### Servidor DNS bind9.
+- [Práctica.](Servicios/ServidorDNS/bind9/Practica.md)
+
 ## Sistemas.
+- [Script Listado Paquetes](ASO/ListarPaquetes.sh)
+
 #### Compilación.
 - [Nano](ASO/Compilacion/nano.md)
+- [Kernel](ASO/Compilacion/Kernel.md)
+
+## Tareas Servidores.
+- [Tarea 2.](Servidores/Tarea2.md)
 
 ## Misc.
 - [Ficheros y Directorios.](Misc/FicherosYDirectorios.md)
 - [Puertos.](Misc/Puertos.md)
+- [Comandos.](Misc/Comandos.md)

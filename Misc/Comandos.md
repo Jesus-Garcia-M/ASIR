@@ -2,7 +2,9 @@
 - `dpkg -i {paquete}`: Instala el paquete indicado.
 - `dpkg -r {paquete}`: Desinstala el paquete indicado.
 - `dpkg -s {paquete}`: Muestra el estado del paquete indicado.
+- `dpkg -S {fichero}`: Busca el fichero indicado en los paquetes instalados.
 - `dpkg -l {filtro}`: Muestra una lista de paquetes de acuerdo al filtro indicado.
+- `dpkg -L {paquete}`: Muestra los ficheros creados por el paquete indicado.
 - `dpkg --print-architecture`: Muestra la arquitectura del sistema de paquetes.
 - `dpkg --print-foreign-architecture`: Muestra las arquitecturas del sistema de paquetes añadidas manualmente.
 - `dpkg --add-architecture {arquitectura}`: Añade una arquitectura al sistema de paquetes.
