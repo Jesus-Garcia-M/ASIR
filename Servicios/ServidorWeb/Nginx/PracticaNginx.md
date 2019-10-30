@@ -8,19 +8,6 @@ config.vm.define :servidor do |servidor|
 end
 ~~~
 
-### Creación de los scripts ngensite y ngdissite.
-- Creación del script `ngensite` (`/bin/ngensite`):
-~~~
-ln -s /etc/nginx/sites-available/$1 /etc/nginx/sites-enabled/
-systemctl restart nginx
-~~~
-
-- Creación del script `ngdissite` (`/bin/ngdissite`):
-~~~
-unlink /etc/nginx/sites-enabled/$1
-systemctl restart nginx
-~~~
-
 ### Configuración de virtual hosting.
 - Creación de la estructura de directorios y asignación de permisos.
 ~~~
