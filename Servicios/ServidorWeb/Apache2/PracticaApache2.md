@@ -183,13 +183,61 @@ end
 
 - Creación de usuarios:
 ~~~
-root@servidorApache:~# htpasswd -c /etc/apache2/autentificacion/basica.txt jesus
+root@servidorApache:/etc/apache2/autentificacion# htpasswd -c basica.txt jesus
 New password:
 Re-type new password:
 Adding password for user jesus
-root@servidorApache:~# htpasswd /etc/apache2/autentificacion/basica.txt prueba
+root@servidorApache:/etc/apache2/autentificacion# htpasswd basica.txt prueba
 New password:
 Re-type new password:
 Adding password for user prueba
-root@servidorApache:~#
+root@servidorApache:/etc/apache2/autentificacion# cat basica.txt
+jesus:$apr1$.1oUZwv2$DRfFDBE7RUmvg9jLHJoPC1
+prueba:$apr1$tmaULcP9$BFoDAA0W0nKoawp.43f9d/
+root@servidorApache:/etc/apache2/autentificacion# 
 ~~~
+
+### Autentificación digest.
+- Activación del módulo:
+~~~
+root@servidorApache:~# a2enmod auth_digest
+Considering dependency authn_core for auth_digest:
+Module authn_core already enabled
+Enabling module auth_digest.
+To activate the new configuration, you need to run:
+  systemctl restart apache2
+root@servidorApache:~# 
+~~~
+
+- Modificación del sitio `departamentos.iesgn.org/secreto` (`/etc/apache2/sites-enabled/departamento.conf`):
+~~~
+# Autentificación Digest.
+  <Directory /srv/www/departamento/secreto>
+    AuthType Digest
+    AuthName "directivos"
+
+    AuthDigestDomain "/secreto/"
+
+    AuthDigestProvider file
+    AuthUserFile "/etc/apache2/autentificacion/digest.txt"
+    Require valid-user
+  </Directory>
+~~~
+
+- Creación de los usuario pertenecientes al grupo `directivos`:
+~~~
+root@servidorApache:/etc/apache2/autentificacion# htdigest -c digest.txt directivos jesus
+Adding password for jesus in realm directivos.
+New password: 
+Re-type new password: 
+root@servidorApache:/etc/apache2/autentificacion# htdigest digest.txt directivos usuario
+Adding user usuario in realm directivos
+New password: 
+Re-type new password: 
+root@servidorApache:/etc/apache2/autentificacion# cat digest.txt
+jesus:directivos:a95bf7786eb873d129179ad1ac11f2ca
+usuario:directivos:de645231fdc2d3676d96dc8ebc56d403
+root@servidorApache:/etc/apache2/autentificacion# 
+~~~
+
+### Combinación de restricción de acceso y autentificación digest.

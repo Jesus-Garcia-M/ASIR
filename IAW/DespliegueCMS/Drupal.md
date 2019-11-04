@@ -1,4 +1,3 @@
-# Drupal.
 ### Configuración Apache2.
 - Creación del virtual hosting en `/etc/apache2/sites-available/drupal.conf`:
 ~~~
@@ -102,4 +101,16 @@ $databases['default']['default'] = array (
   'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
   'driver' => 'mysql',
 );
+~~~
+
+### Configuración de correo.
+- Instalación del servidor de correo `postfix`:
+~~~
+vagrant@drupal:~$ sudo apt install postfix
+~~~
+
+- Modificación de la configuración de `postfix`:
+~~~
+myhostname = drupal.gonzalonazareno.org
+relayhost = babuino-smtp.gonzalonazareno.org
 ~~~

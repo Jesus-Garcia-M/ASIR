@@ -122,33 +122,23 @@ jesus@jesus:~/Kernel/linux-source-4.19$ make nconfig
 	- NSA SELinux Support
 
 ##### Segundo Kernel.
-- Bus Options (PCI etc.):
-	- PCI Support.
-- Binary Emulation:
-	- IA32 Emulation.
-	- x32 ABI for 64-bit mode.
-- General Settup:
-	- Support initial ramdisk/ramfs compressed using gzip.
- 	- Support initial ramdisk/ramfs compressed using bzip2.
- 	- Support initial ramdisk/ramfs compressed using LZMA.
- 	- Support initial ramdisk/ramfs compressed using XZ.
- 	- Support initial ramdisk/ramfs compressed using LZO.
- 	- Support initial ramdisk/ramfs compressed using LZ4.
-- Power Managment:
-	- Hibernation.
-	- Power Managment Debug Support.
-	- SFI.
-- Firmware Drivers:
-	- Add firmware-provided memory map to sysfs.
-- Memory Management options:
-	- Allow for memory hot-add
+- General Setup:
+	- CPU Isolation.
+	- Support initial ramdisk/ramfs compressed using gzip
+	- Support initial ramdisk/ramfs compressed using bzip2
+	- Support initial ramdisk/ramfs compressed using LZMA
+	- Support initial ramdisk/ramfs compressed using XZ
+	- Support initial ramdisk/ramfs compressed using LZO
+	- Support initial ramdisk/ramfs compressed using LZ4
+- Processor Type and Features:
+	- Intel Low Power Subsystem Support
+	- Power Management Timer Support
+	- Hibernation (aka 'suspend to disk')
+- Kernel Hacking (Completo).
 - Device Drivers:
-	- Mailbox Hardware Support.
-	- Multiple devices driver support (RAID and LVM).
-	- Sound Card Support.
-	- Generic Driver Options:
-		- Disable drivers features which enable custom firmware building.
-
+	- Network Device Support:
+		- Fibre Channel driver support
+		- Wireless LAN
 
 ## Anotaciones.
 - Fichero `Makefile` - Variable `EXTRAVERSION`: Indica una nueva versión al paquete generado.
