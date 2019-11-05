@@ -4,6 +4,8 @@ toda la información al usuario responsable de la misma. Si el ordenador es uno 
 enviará a todos los usuarios.
 */
 
+-- Parámetro: Número de serie de un ordenador.
+-- Descripción: Comprueba si el número de serie pertenece a un servidor o no, si es un servidor devuelve 1, si no, 0.
 CREATE OR REPLACE FUNCTION ComprobarSiServidor (p_numeroserie Servidores.NumeroSerie%type)
 RETURN NUMBER
 AS
@@ -27,10 +29,12 @@ END ComprobarSiServidor;
 
 
 
+-- Parámetro: Nombre de usuario. 
+-- Descripción: Devuelve la dirección de correo del usuario indicado.
 CREATE OR REPLACE FUNCTION ObtenerCorreo (p_usuario Usuarios.Nombre%type)
 RETURN VARCHAR2
 AS
-  v_correo VARCHAR2;
+  v_correo VARCHAR2(50);
 
 BEGIN
   SELECT CorreoElectronico INTO v_correo
@@ -46,10 +50,16 @@ END ObtenerCorreo;
 
 
 
-CREATE OR REPLACE PROCEDURE EnviarCorreoDifusion (p_numeroincidencia Incidencias.Numero%type
+-- Parámetros: 
+--    Numero de la incidencia.
+--    Número de serie del ordenador afectado.
+--    Descripción de la incidencia.
+--    Fecha de creación de la incidencia.
+-- Descripción: Envía la información de la incidencia a todos los usuarios.
+CREATE OR REPLACE PROCEDURE EnviarCorreoDifusion (p_numeroincidencia Incidencias.Numero%type,
                                                   p_numeroserie Incidencias.NumeroSerieOrdenador%type,
                                                   p_descripcion Incidencias.Descripcion%type,
-                                                  p_fechanotificacion Incidencias.FechaHoraNotificacion%type))
+                                                  p_fechanotificacion Incidencias.FechaHoraNotificacion%type)
 AS
   conexion UTL_SMTP.connection;
 
@@ -58,7 +68,7 @@ AS
     FROM Usuarios;
 
 BEGIN
-  conexion := UTL_SMTP.open_connection('smtp.gmail.com', 25);
+  conexion := UTL_SMTP.open_connection('smtp.gmail.com', 587);
   
   FOR elem IN c_usuarios LOOP
     UTL_SMTP.helo(conexion, 'smtp.gmail.com');
@@ -71,14 +81,21 @@ BEGIN
 
   UTL_SMTP.quit(conexion);  
 
-END EnviarCorreo;
+END EnviarCorreoDifusion;
 /
 
 
 
 
 
-CREATE OR REPLACE PROCEDURE EnviarCorreoUnico (p_numeroincidencia Incidencias.Numero%type
+-- Parámetros: 
+--    Numero de la incidencia.
+--    Usuario que crea la incidencia.
+--    Número de serie del ordenador afectado.
+--    Descripción de la incidencia.
+--    Fecha de creación de la incidencia.
+-- Descripción: Envía la información de la incidencia al usuario responsable de la misma.
+CREATE OR REPLACE PROCEDURE EnviarCorreoUnico (p_numeroincidencia Incidencias.Numero%type,
                                                p_usuario Incidencias.NombreUsuarioResponsable%type,
                                                p_numeroserie Incidencias.NumeroSerieOrdenador%type,
                                                p_descripcion Incidencias.Descripcion%type,
@@ -87,7 +104,7 @@ AS
   conexion UTL_SMTP.connection;
 
 BEGIN
-  conexion := UTL_SMTP.open_connection('smtp.gmail.com', 25);
+  conexion := UTL_SMTP.open_connection('smtp.gmail.com', 587);
   UTL_SMTP.helo(conexion, 'smtp.gmail.com');
   UTL_SMTP.mail(conexion, 'incidencias@gmail.com');
   UTL_SMTP.rcpt(conexion, ObtenerCorreo(p_usuario));
@@ -103,14 +120,23 @@ END EnviarCorreoUnico;
 
 
 
+-- Descripción: Tras insertar una nueva incidencia, comprueba si el ordenador afectado es un servidor,
+-- si lo és, llama a la función "EnviarCorreoDifusión", si no, llama a la función "EnviarCorreoUnico". 
 CREATE OR REPLACE TRIGGER CorreoIncidencia
 AFTER INSERT ON Incidencias
 FOR EACH ROW
 BEGIN
   IF ComprobarSiServidor(:new.NumeroSerieOrdenador) = 1 THEN
-	EnviarCorreoDifusion(:new.Numero);
+     EnviarCorreoDifusion(:new.Numero,
+	 	                  :new.NumeroSerieOrdenador,
+	 	                  :new.Descripcion,
+		                  :new.FechaHoraNotificacion);
   ELSE
-    EnviarCorreoUnico(:new.Numero);
+     EnviarCorreoUnico(:new.Numero,
+    	               :new.NombreUsuarioResponsable,
+    	               :new.NumeroSerieOrdenador,
+    	               :new.Descripcion,
+    	               :new.FechaHoraNotificacion);
   END IF;
 
 END;
@@ -124,10 +150,17 @@ END;
 los datos que aparecen en la tabla PeriodosdeApagado y realiza un trigger que mantenga la columna actualizada
 cada vez que termine un periodo de apagado.
 */
+
+-- Añadir la columna "TiempodeDesconexion" a la tabla "Servidores".
 ALTER TABLE Servidores ADD TiempodeDesconexion NUMBER(15);
 
-CREATE OR REPLACE FUNCTION CalcularTiempo (p_inicio DATE,
-                                           p_fin DATE)
+
+-- Parámetros:
+--    Fecha inicio.
+--    Fecha fin.
+-- Descripción: Devuelve el tiempo transcurrido en segundos entre las dos fechas.
+CREATE OR REPLACE FUNCTION CalcularDiferencia (p_inicio DATE,
+                                               p_fin DATE)
 RETURN NUMBER
 AS
   v_diferencia NUMBER := 0;
@@ -136,15 +169,20 @@ BEGIN
   v_diferencia := (p_fin - p_inicio) * 86400;
   RETURN v_diferencia;
 
-END CalcularTiempo;
+END CalcularDiferencia;
 /
 
 
+
+
+
+-- Descripción: Rellena la columna "TiempodeDesconexion" a través de los datos de la tabla "Periodosdeapagado".
 CREATE OR REPLACE PROCEDURE RellenarTiempoDesconexion
 AS
   CURSOR c_periodosapagado IS
-    SELECT NumeroSerieServidor, sum(CalcularTiempo(FechaHoraInicio, FechaHoraFin)) AS tiempodesconexion
-    FROM Periodosdeapagado;
+    SELECT NumeroSerieServidor, sum(CalcularDiferencia(FechaHoraInicio, FechaHoraFin)) AS tiempodesconexion
+    FROM Periodosdeapagado
+    GROUP BY NumeroSerieServidor;
 
 BEGIN
   FOR elem IN c_periodosapagado LOOP
@@ -155,6 +193,30 @@ BEGIN
 
 END RellenarTiempoDesconexion;
 /
+
+
+
+
+
+-- Descripción: Llama al procedimiento "RellenarTiempoDesconexion" cuando se inserta o actualiza el campo "FechaHoraFin".
+CREATE OR REPLACE TRIGGER ActualizarTablaServidores
+AFTER INSERT OR UPDATE OF FechaHoraFin ON Periodosdeapagado
+FOR EACH ROW
+BEGIN
+  IF INSERTING THEN
+    UPDATE Servidores
+      SET TiempodeDesconexion = TiempodeDesconexion + CalcularDiferencia(:new.FechaHoraInicio, :new.FechaHoraFin)
+      WHERE NumeroSerie = :new.NumeroSerieServidor;
+  ELSIF UPDATING THEN
+    UPDATE Servidores
+      SET TiempodeDesconexion = TiempodeDesconexion + CalcularDiferencia(:new.FechaHoraInicio, :new.FechaHoraFin)
+      WHERE NumeroSerie = :old.NumeroSerieServidor;
+  END IF;
+
+END;
+/
+
+
 
 
 

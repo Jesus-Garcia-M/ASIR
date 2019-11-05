@@ -124,7 +124,6 @@ jesus@jesus:~/Kernel/linux-source-4.19$ make nconfig
 ##### Segundo Kernel.
 - General Setup:
 	- CPU Isolation.
-	- Support initial ramdisk/ramfs compressed using gzip
 	- Support initial ramdisk/ramfs compressed using bzip2
 	- Support initial ramdisk/ramfs compressed using LZMA
 	- Support initial ramdisk/ramfs compressed using XZ
@@ -139,6 +138,40 @@ jesus@jesus:~/Kernel/linux-source-4.19$ make nconfig
 	- Network Device Support:
 		- Fibre Channel driver support
 		- Wireless LAN
+
+##### Tercer Kernel.
+- Enable loadable module support (Completo)
+- Processor type and features:
+	- Symmetric multi-processing support (Dudoso)
+	- Support x2apic
+	- Machine Check / overheating reporting
+	- Enable vsyscall emulation (Dudoso)
+	- CPU microcode loading support
+	- MTRR (Memory Type Range Register) support
+	- Randomize the address of the kernel image (KASLR)
+	- Randomize the kernel memory sections
+- Binary Emulations:
+	- IA32 Emulation
+	- x32 ABI for 64-bit mode
+- Networking Support:
+	- Wireless (Completo)
+	- RF switch subsystem support (Completo)
+	- Networking Options:
+		- IP: multicasting
+		- IP: advanced router
+		- TCP: advanced congestion control
+		- The IPv6 Protocol
+		- Data Center Bridging support
+		- L3 Master device support
+- Device Drivers:
+	- Graphics Support:
+		-  Intel 8xx/9xx/G3x/G4x/HD Graphics
+		-  Enable legacy drivers (DANGEROUS)
+		-  /dev/agpgart (AGP Support):
+			-  AMD Opteron/Athlon64 on-CPU GART support
+			-  Intel 440LX/BX/GX, I8xx and E7x05 chipset support
+	- Sound Card Support
+	- Accesibility Support
 
 ## Anotaciones.
 - Fichero `Makefile` - Variable `EXTRAVERSION`: Indica una nueva versión al paquete generado.
