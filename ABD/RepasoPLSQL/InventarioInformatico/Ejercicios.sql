@@ -224,3 +224,5 @@ END;
 7. Realiza los módulos de programación necesarios para garantizar que un servidor siempre proporciona al menos un
 servicio.
 */
+
+after update of numeroserie or delete on serviciosinstalados

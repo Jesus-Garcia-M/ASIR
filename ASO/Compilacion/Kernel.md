@@ -140,6 +140,8 @@ jesus@jesus:~/Kernel/linux-source-4.19$ make nconfig
 		- Wireless LAN
 
 ##### Tercer Kernel.
+- General setup:
+	- Configure standard kernel features (expert users)
 - Enable loadable module support (Completo)
 - Processor type and features:
 	- Symmetric multi-processing support (Dudoso)
@@ -164,6 +166,7 @@ jesus@jesus:~/Kernel/linux-source-4.19$ make nconfig
 		- Data Center Bridging support
 		- L3 Master device support
 - Device Drivers:
+	- Block Devices (Completo)
 	- Graphics Support:
 		-  Intel 8xx/9xx/G3x/G4x/HD Graphics
 		-  Enable legacy drivers (DANGEROUS)
