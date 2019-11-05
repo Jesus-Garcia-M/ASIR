@@ -151,7 +151,7 @@ end
 ~~~
 
 ### Restricciones de acceso.
-- Modificación del sitio `departamentos.iesgn.org/intranet` (`/etc/apache2/sites-enabled/departamento.conf`):
+- Configuración del sitio `departamentos.iesgn.org/intranet` (`/etc/apache2/sites-enabled/departamento.conf`):
 ~~~
 # Restricción de acceso
 <Directory /srv/www/departamento/intranet>
@@ -159,7 +159,7 @@ end
 </Directory>
 ~~~
 
-- Modificación del sitio `departamentos.iesgn.org/internet` (`/etc/apache2/sites-enabled/departamento.conf`):
+- Configuración del sitio `departamentos.iesgn.org/internet` (`/etc/apache2/sites-enabled/departamento.conf`):
 ~~~
 <Directory /srv/www/departamento/internet>
   <RequireAll>
@@ -170,7 +170,7 @@ end
 ~~~
 
 ### Autentificación básica.
-- Modificación del sitio `departamentos.iesgn.org/secreto` (`/etc/apache2/sites-enabled/departamento.conf`):
+- Configuración del sitio `departamentos.iesgn.org/secreto` (`/etc/apache2/sites-enabled/departamento.conf`):
 ~~~
 # Autentificación básica
 <Directory /srv/www/departamento/secreto>
@@ -209,7 +209,7 @@ To activate the new configuration, you need to run:
 root@servidorApache:~# 
 ~~~
 
-- Modificación del sitio `departamentos.iesgn.org/secreto` (`/etc/apache2/sites-enabled/departamento.conf`):
+- Configuración del sitio `departamentos.iesgn.org/secreto` (`/etc/apache2/sites-enabled/departamento.conf`):
 ~~~
 # Autentificación Digest.
   <Directory /srv/www/departamento/secreto>
@@ -241,3 +241,69 @@ root@servidorApache:/etc/apache2/autentificacion#
 ~~~
 
 ### Combinación de restricción de acceso y autentificación digest.
+- Configuración del sitio `departamentos.iesgn.org/secreto` (`/etc/apache2/sites-enabled/departamento.conf`):
+~~~
+# Digest + Control de Acceso.
+<Directory /srv/www/departamento/secreto>
+  <IF "! -R '192.168.1.0/24'">
+    AuthType Digest
+    AuthName "directivos"
+
+    AuthDigestDomain "/secreto/"
+
+    AuthDigestProvider file
+    AuthUserFile "/etc/apache2/autentificacion/digest.txt"
+    Require valid-user
+  </IF>
+</Directory>
+~~~
+
+### Módulo userdir.
+- Activación del módulo:
+~~~
+root@servidorApache:~# a2enmod userdir
+Enabling module userdir.
+To activate the new configuration, you need to run:
+  systemctl restart apache2
+root@servidorApache:~# 
+~~~
+
+- Creación del virtual host `tarea13.iesgn.org` (`/etc/apache2/sites-available/tarea13.conf`):
+~~~
+<VirtualHost *:80>
+  ServerName tarea13.iesgn.org
+  ServerAdmin webmaster@localhost
+  DocumentRoot /home/tarea13/public_html/
+
+  ErrorLog ${APACHE_LOG_DIR}/error.log
+  CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+~~~
+
+- Activación del sitio:
+~~~
+root@servidorApache:~# a2ensite tarea13
+Enabling site tarea13.
+To activate the new configuration, you need to run:
+  systemctl reload apache2
+root@servidorApache:~# 
+~~~
+
+- Configuración de `userdir` (`/etc/apache2/mods-enabled/userdir.conf`):
+~~~
+<IfModule mod_userdir.c>
+# Permitir acceso únicamente al usuario "tarea13"
+  UserDir disabled
+  UserDir enabled tarea13
+
+  UserDir public_html
+  UserDir disabled root
+
+  <Directory /home/*/public_html>
+    AllowOverride FileInfo AuthConfig Limit Indexes
+    Options Indexes SymLinksIfOwnerMatch
+    Require all granted
+  </Directory>
+</IfModule>
+~~~
+
