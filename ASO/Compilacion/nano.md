@@ -14,6 +14,9 @@
 
 ### Compilación.
 - Ejecución de `./autogen.sh`
-- Ejecución de `./configure --enable-utf8 --disable-nls --enable-color --enable-multibuffer --enable-nanorc --disable-speller`
+- Ejecución de `./configure --enable-utf8 --enable-multibuffer --disable-speller --disable-nls --disable-opratingdir`
 - Ejecución de `make`
 - Ejecución de `sudo make install`
+
+### Desinstalación.
+- Ejecución de `sudo make uninstall`

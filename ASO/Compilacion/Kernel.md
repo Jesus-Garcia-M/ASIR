@@ -143,6 +143,10 @@ jesus@jesus:~/Kernel/linux-source-4.19$ make nconfig
 - General setup:
 	- Configure standard kernel features (expert users)
 - Enable loadable module support (Completo)
+
+
+
+
 - Processor type and features:
 	- Symmetric multi-processing support (Dudoso)
 	- Support x2apic
@@ -152,6 +156,10 @@ jesus@jesus:~/Kernel/linux-source-4.19$ make nconfig
 	- MTRR (Memory Type Range Register) support
 	- Randomize the address of the kernel image (KASLR)
 	- Randomize the kernel memory sections
+
+
+
+
 - Binary Emulations:
 	- IA32 Emulation
 	- x32 ABI for 64-bit mode
