@@ -69,7 +69,7 @@ AS
 
 BEGIN
   conexion := UTL_SMTP.open_connection('smtp.gmail.com', 587);
-  
+
   FOR elem IN c_usuarios LOOP
     UTL_SMTP.helo(conexion, 'smtp.gmail.com');
     UTL_SMTP.mail(conexion, 'incidencias@gmail.com');
@@ -79,7 +79,7 @@ BEGIN
     UTL_SMTP.data(conexion, p_fechanotificacion || UTL_TCP.crlf || UTL_TCP.crlf);
   END LOOP;
 
-  UTL_SMTP.quit(conexion);  
+  UTL_SMTP.quit(conexion);
 
 END EnviarCorreoDifusion;
 /
@@ -215,6 +215,94 @@ BEGIN
 
 END;
 /
+
+
+
+
+
+-- POSTGRESQL
+-- Añadir la columna "TiempodeDesconexion" a la tabla "Servidores".
+ALTER TABLE Servidores ADD TiempodeDesconexion NUMERIC(15);
+
+
+-- Parámetros:
+--    Fecha inicio.
+--    Fecha fin.
+-- Descripción: Devuelve el tiempo transcurrido en segundos entre las dos fechas.
+CREATE OR REPLACE FUNCTION CalcularDiferencia (p_inicio TIMESTAMP,
+                                               p_fin TIMESTAMP)
+RETURNS NUMERIC
+AS $CalcularDiferencia$
+DECLARE
+  v_diferencia NUMERIC := 0;
+
+BEGIN
+  v_diferencia := EXTRACT(EPOCH FROM (p_fin - p_inicio));
+  RETURN v_diferencia;
+
+END;
+$CalcularDiferencia$ LANGUAGE plpgsql;
+
+
+
+
+
+-- Descripción: Rellena la columna "TiempodeDesconexion" a través de los datos de la tabla "Periodosdeapagado".
+CREATE OR REPLACE FUNCTION RellenarTiempoDesconexion()
+RETURNS VOID
+AS $RellenarTiempoDesconexion$
+DECLARE
+  c_periodosapagado CURSOR FOR
+    SELECT NumeroSerieServidor, sum(CalcularDiferencia(FechaHoraInicio, FechaHoraFin)) AS tiempodesconexion
+    FROM Periodosdeapagado
+    GROUP BY NumeroSerieServidor;
+
+  elem RECORD;
+
+BEGIN
+  FOR elem IN c_periodosapagado LOOP
+    UPDATE Servidores
+      SET TiempodeDesconexion = elem.tiempodesconexion
+      WHERE NumeroSerie = elem.NumeroSerieServidor;
+  END LOOP;
+
+END;
+$RellenarTiempoDesconexion$ LANGUAGE plpgsql;
+
+
+
+
+
+-- Descripción: Actualiza la columna "TiempodeDesconexion" de la tabla "Servidores".
+CREATE OR REPLACE FUNCTION ActualizarTablaServidores()
+RETURNS trigger AS $TriggerActualizarServidores$
+
+BEGIN
+  IF (TG_OP = 'INSERT') THEN
+    UPDATE Servidores
+      SET TiempodeDesconexion = TiempodeDesconexion + CalcularDiferencia(NEW.FechaHoraInicio, NEW.FechaHoraFin)
+      WHERE NumeroSerie = NEW.NumeroSerieServidor;
+  ELSIF (TG_OP = 'UPDATE') THEN
+    UPDATE Servidores
+      SET TiempodeDesconexion = TiempodeDesconexion + CalcularDiferencia(NEW.FechaHoraInicio, NEW.FechaHoraFin)
+      WHERE NumeroSerie = OLD.NumeroSerieServidor;
+  END IF;
+
+  RETURN NULL;
+
+END;
+
+$TriggerActualizarServidores$ LANGUAGE plpgsql;
+
+
+
+
+
+-- Descripción: Llama a la función "ActualizarTablaServidores" cada vez que se inserta o actualiza la columna "FechaHoraFin" de la tabla "Periodosdeapagado"
+CREATE TRIGGER TriggerActualizarServidores
+AFTER INSERT OR UPDATE OF FechaHoraFin ON Periodosdeapagado
+FOR EACH ROW
+EXECUTE PROCEDURE ActualizarTablaServidores();
 
 
 

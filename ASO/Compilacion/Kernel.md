@@ -143,23 +143,6 @@ jesus@jesus:~/Kernel/linux-source-4.19$ make nconfig
 - General setup:
 	- Configure standard kernel features (expert users)
 - Enable loadable module support (Completo)
-
-
-
-
-- Processor type and features:
-	- Symmetric multi-processing support (Dudoso)
-	- Support x2apic
-	- Machine Check / overheating reporting
-	- Enable vsyscall emulation (Dudoso)
-	- CPU microcode loading support
-	- MTRR (Memory Type Range Register) support
-	- Randomize the address of the kernel image (KASLR)
-	- Randomize the kernel memory sections
-
-
-
-
 - Binary Emulations:
 	- IA32 Emulation
 	- x32 ABI for 64-bit mode
@@ -183,6 +166,19 @@ jesus@jesus:~/Kernel/linux-source-4.19$ make nconfig
 			-  Intel 440LX/BX/GX, I8xx and E7x05 chipset support
 	- Sound Card Support
 	- Accesibility Support
+
+##### Cuarto Kernel.
+- Processor type and features:
+	- Symmetric multi-processing support (Dudoso)
+	- CPU microcode loading support
+	- Machine Check / overheating reporting
+	- Support x2apic
+	- Randomize the address of the kernel image (KASLR)
+
+
+- General Setup:
+	- Support for paging of anonymous memory (swap)
+	
 
 ## Anotaciones.
 - Fichero `Makefile` - Variable `EXTRAVERSION`: Indica una nueva versión al paquete generado.

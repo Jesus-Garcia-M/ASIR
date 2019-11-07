@@ -16,3 +16,6 @@
 
 ### Misc.
 - `file {fichero}`: Muestra las cabeceras del fichero indicado.
+
+- `newgrp {grupo}`: Cambia el grupo principal para esta sesión.
+- `adduser {usuario}`: 
