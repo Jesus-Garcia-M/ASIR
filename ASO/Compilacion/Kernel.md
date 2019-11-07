@@ -174,12 +174,29 @@ jesus@jesus:~/Kernel/linux-source-4.19$ make nconfig
 	- Machine Check / overheating reporting
 	- Support x2apic
 	- Randomize the address of the kernel image (KASLR)
-
-
 - General Setup:
-	- Support for paging of anonymous memory (swap)
-	
+	- Kernel .config support
+	- Checkpoint/restore support
+- Power Management:
+	- ACPI (Advanced Configuration and Power Interface) Support
+- Security Options:
+	- Restrict unprivileged access to the kernel syslog
+	- Restrict unprivileged use of performance events
+	- Enable different security models
+- Cryptographic API:
+	- FIPS 200 compliance
+	- ECDH algorithm
+	- CMAC support
+	- AES cipher algorithms (x86_64)
+	- AES cipher algorithms (AES-NI)
+	- ARC4 cipher algorithm
+	- Pseudo Random Number Generation for Cryptographic modules
+	- Hardware crypto devices
+	- GHASH digest algorithm (CLMUL-NI accelerated)
+
+##### Posible Quinto Kernel.
 
 ## Anotaciones.
 - Fichero `Makefile` - Variable `EXTRAVERSION`: Indica una nueva versión al paquete generado.
 - Comando `make` - Parámetro `-j`: Indica el número de cores a utilizar en la compilación.
+- Parámetro `INSTALL_MOD_STRIP=1`: Omite mensajes de debug, haciendo una compilación más rápida.

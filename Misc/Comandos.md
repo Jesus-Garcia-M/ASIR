@@ -1,21 +1,40 @@
+# Debian.
 ### Paquetería y arquitecturas.
-- `dpkg -i {paquete}`: Instala el paquete indicado.
-- `dpkg -r {paquete}`: Desinstala el paquete indicado.
-- `dpkg -s {paquete}`: Muestra el estado del paquete indicado.
-- `dpkg -S {fichero}`: Busca el fichero indicado en los paquetes instalados.
-- `dpkg -l {filtro}`: Muestra una lista de paquetes de acuerdo al filtro indicado.
-- `dpkg -L {paquete}`: Muestra los ficheros creados por el paquete indicado.
-- `dpkg --print-architecture`: Muestra la arquitectura del sistema de paquetes.
-- `dpkg --print-foreign-architecture`: Muestra las arquitecturas del sistema de paquetes añadidas manualmente.
-- `dpkg --add-architecture {arquitectura}`: Añade una arquitectura al sistema de paquetes.
-- `dpkg --remove-architecture {arquitectura}`: Elimina una arquitectura del sistema de paquetes.
+- `dpkg`: Manejo de paquetes `.deb`.
+	- `-i {paquete}`: Instala el paquete indicado.
+	- `-r {paquete}`: Desinstala el paquete indicado.
+	- `-s {paquete}`: Muestra el estado del paquete indicado.
+	- `-S {fichero}`: Busca el fichero indicado en los paquetes instalados.
+	- `-l {filtro}`: Muestra una lista de paquetes de acuerdo al filtro indicado.
+	- `-L {paquete}`: Muestra los ficheros creados por el paquete indicado.
+	- `--print-architecture`: Muestra la arquitectura del sistema de paquetes.
+	- `--print-foreign-architecture`: Muestra las arquitecturas del sistema de paquetes añadidas manualmente.
+	- `--add-architecture {arquitectura}`: Añade una arquitectura al sistema de paquetes.
+	- `--remove-architecture {arquitectura}`: Elimina una arquitectura del sistema de paquetes.
+
+- `tar`: Manejo de archivos.
+	- `-x`: Descomprimir.
+	- `-f`: Indica el archivo.
+	- `-t`: Simula la descompresión.
+	- `-v`: Muestra la salida.
+
+- `apt`: Manejo del sistema de paquetes del sistema.
+	- `install`: Instala los paquetes indicados.
+	- `purge`: Desinstala los paquetes indicados junto a los ficheros de configuración.
+	- `remove`: Desinstala los paquetes indicados.
+	- `autoremove`: Desinstala los paquetes que ya no son necesarios en el sistema.
+	- `update`: Actualiza la lista de paquetes del sistema.
+	- `upgrade`: Actualiza todos los paquetes del sistema.
 
 ### Kernel.
 - `lspci -knn`: Muestra los módulos que utilizan las distintas interfaces del sistema.
 
-
 ### Misc.
 - `file {fichero}`: Muestra las cabeceras del fichero indicado.
 
+
+### Gestión de usuarios y grupos.
 - `newgrp {grupo}`: Cambia el grupo principal para esta sesión.
-- `adduser {usuario}`: 
+- `adduser {usuario}`: Crea un nuevo usuario.
+
+# CentOS.
