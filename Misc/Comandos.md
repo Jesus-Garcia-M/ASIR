@@ -40,5 +40,7 @@
 # CentOS.
 ### Paquetería.
 - `yum`: Manejo del sistema de paquetes.
+	- `install {paquete}`: Instala el paquete indicado.
 	- `update`: Actualiza todos los paquetes del sistema.
 	- `repolist`: Muestra la lista de repositorios.
+	- `provides {fichero/comando}`: Muestra los paquetes que contienen el fichero o comando indicado.
