@@ -18,7 +18,7 @@
 	- `-t`: Simula la descompresión.
 	- `-v`: Muestra la salida.
 
-- `apt`: Manejo del sistema de paquetes del sistema.
+- `apt`: Manejo del sistema de paquetes.
 	- `install`: Instala los paquetes indicados.
 	- `purge`: Desinstala los paquetes indicados junto a los ficheros de configuración.
 	- `remove`: Desinstala los paquetes indicados.
@@ -38,3 +38,7 @@
 - `adduser {usuario}`: Crea un nuevo usuario.
 
 # CentOS.
+### Paquetería.
+- `yum`: Manejo del sistema de paquetes.
+	- `update`: Actualiza todos los paquetes del sistema.
+	- `repolist`: Muestra la lista de repositorios.

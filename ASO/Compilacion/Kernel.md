@@ -177,8 +177,6 @@ jesus@jesus:~/Kernel/linux-source-4.19$ make nconfig
 - General Setup:
 	- Kernel .config support
 	- Checkpoint/restore support
-- Power Management:
-	- ACPI (Advanced Configuration and Power Interface) Support
 - Security Options:
 	- Restrict unprivileged access to the kernel syslog
 	- Restrict unprivileged use of performance events
@@ -193,8 +191,6 @@ jesus@jesus:~/Kernel/linux-source-4.19$ make nconfig
 	- Pseudo Random Number Generation for Cryptographic modules
 	- Hardware crypto devices
 	- GHASH digest algorithm (CLMUL-NI accelerated)
-
-##### Posible Quinto Kernel.
 
 ## Anotaciones.
 - Fichero `Makefile` - Variable `EXTRAVERSION`: Indica una nueva versión al paquete generado.
