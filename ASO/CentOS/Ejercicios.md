@@ -271,3 +271,32 @@ kernel-ml-tools-libs.x86_64                                               5.3.9-
 kernel-ml-tools-libs-devel.x86_64                                         5.3.9-1.el7.elrepo                                            elrepo-kernel 
 [centos@ejercicioscentos ~]$ 
 ~~~
+
+### Mostrar información sobre la última versión de kernel.
+~~~
+[centos@ejercicioscentos ~]$ yum info kernel-ml
+Complementos cargados:fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: ftp.csuc.cat
+ * centosplus: ftp.csuc.cat
+ * elrepo: mirror.pit.teraswitch.com
+ * epel: mirror.kinamo.be
+ * extras: ftp.csuc.cat
+ * updates: ftp.cixug.es
+Paquetes instalados
+Nombre        : kernel-ml
+Arquitectura        : x86_64
+Versión     : 5.3.9
+Lanzamiento     : 1.el7.elrepo
+Tamaño        : 216 M
+Repositorio        : installed
+Desde el repositorio   : elrepo-kernel
+Resumen     : The Linux kernel. (The core of any Linux-based operating system.)
+URL         : https://www.kernel.org/
+Licencia     : GPLv2
+Descripción :This package provides the Linux kernel (vmlinuz), the core of any
+           : Linux-based operating system. The kernel handles the basic functions
+           : of the OS: memory allocation, process allocation, device I/O, etc.
+
+[centos@ejercicioscentos ~]$ 
+~~~
