@@ -242,3 +242,32 @@ Instalado:
 ¡Listo!
 [centos@ejercicioscentos ~]$ 
 ~~~
+
+### Busqueda de las distintas versiones de kernel disponibles.
+~~~
+[centos@ejercicioscentos ~]$ sudo yum --disablerepo='*' --enablerepo=elrepo-kernel list kernel*
+Complementos cargados:fastestmirror
+Loading mirror speeds from cached hostfile
+ * elrepo-kernel: mirror.pit.teraswitch.com
+Paquetes instalados
+kernel.x86_64                                                             3.10.0-693.el7                                                installed     
+kernel.x86_64                                                             3.10.0-1062.4.1.el7                                           @updates      
+kernel-ml.x86_64                                                          5.3.9-1.el7.elrepo                                            @elrepo-kernel
+kernel-tools.x86_64                                                       3.10.0-1062.4.1.el7                                           @updates      
+kernel-tools-libs.x86_64                                                  3.10.0-1062.4.1.el7                                           @updates      
+Paquetes disponibles
+kernel-lt.x86_64                                                          4.4.199-1.el7.elrepo                                          elrepo-kernel 
+kernel-lt-devel.x86_64                                                    4.4.199-1.el7.elrepo                                          elrepo-kernel 
+kernel-lt-doc.noarch                                                      4.4.199-1.el7.elrepo                                          elrepo-kernel 
+kernel-lt-headers.x86_64                                                  4.4.199-1.el7.elrepo                                          elrepo-kernel 
+kernel-lt-tools.x86_64                                                    4.4.199-1.el7.elrepo                                          elrepo-kernel 
+kernel-lt-tools-libs.x86_64                                               4.4.199-1.el7.elrepo                                          elrepo-kernel 
+kernel-lt-tools-libs-devel.x86_64                                         4.4.199-1.el7.elrepo                                          elrepo-kernel 
+kernel-ml-devel.x86_64                                                    5.3.9-1.el7.elrepo                                            elrepo-kernel 
+kernel-ml-doc.noarch                                                      5.3.9-1.el7.elrepo                                            elrepo-kernel 
+kernel-ml-headers.x86_64                                                  5.3.9-1.el7.elrepo                                            elrepo-kernel 
+kernel-ml-tools.x86_64                                                    5.3.9-1.el7.elrepo                                            elrepo-kernel 
+kernel-ml-tools-libs.x86_64                                               5.3.9-1.el7.elrepo                                            elrepo-kernel 
+kernel-ml-tools-libs-devel.x86_64                                         5.3.9-1.el7.elrepo                                            elrepo-kernel 
+[centos@ejercicioscentos ~]$ 
+~~~
