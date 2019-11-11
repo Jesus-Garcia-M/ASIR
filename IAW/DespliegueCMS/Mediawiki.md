@@ -86,59 +86,12 @@ Enter password:
 root@mediawiki:~# ls
 dbmediawiki-backup-2019-11-08.sql
 root@mediawiki:~#
-
-
-root@drupal:~# mysqldump -u usuariodrupal -p dbdrupal --single-transaction --quick --lock-tables=false > dbdrupal-backup-$(date +%F).sql
-Enter password: 
-root@drupal:~# ls -l
-total 5756
--rw-r--r-- 1 root root 5892441 Oct 16 09:12 dbdrupal-backup-2019-10-16.sql
-root@drupal:~# 
 ~~~
 
 
 ### Migración de la instalación.
 - Compresión del contenido:
 ~~~
-root@mediawiki:~# zip mediawiki.zip /var/www/mediawiki/*
-  adding: var/www/mediawiki/api.php (deflated 52%)
-  adding: var/www/mediawiki/autoload.php (deflated 86%)
-  adding: var/www/mediawiki/cache/ (stored 0%)
-  adding: var/www/mediawiki/CODE_OF_CONDUCT.md (deflated 13%)
-  adding: var/www/mediawiki/composer.json (deflated 61%)
-  adding: var/www/mediawiki/composer.local.json-sample (deflated 15%)
-  adding: var/www/mediawiki/COPYING (deflated 62%)
-  adding: var/www/mediawiki/CREDITS (deflated 48%)
-  adding: var/www/mediawiki/docs/ (stored 0%)
-  adding: var/www/mediawiki/extensions/ (stored 0%)
-  adding: var/www/mediawiki/FAQ (deflated 6%)
-  adding: var/www/mediawiki/Gruntfile.js (deflated 60%)
-  adding: var/www/mediawiki/HISTORY (deflated 66%)
-  adding: var/www/mediawiki/images/ (stored 0%)
-  adding: var/www/mediawiki/img_auth.php (deflated 58%)
-  adding: var/www/mediawiki/includes/ (stored 0%)
-  adding: var/www/mediawiki/index.php (deflated 44%)
-  adding: var/www/mediawiki/INSTALL (deflated 53%)
-  adding: var/www/mediawiki/jsduck.json (deflated 65%)
-  adding: var/www/mediawiki/languages/ (stored 0%)
-  adding: var/www/mediawiki/load.php (deflated 47%)
-  adding: var/www/mediawiki/LocalSettings-backup.php (deflated 52%)
-  adding: var/www/mediawiki/LocalSettings.php (deflated 51%)
-  adding: var/www/mediawiki/maintenance/ (stored 0%)
-  adding: var/www/mediawiki/mw-config/ (stored 0%)
-  adding: var/www/mediawiki/opensearch_desc.php (deflated 50%)
-  adding: var/www/mediawiki/profileinfo.php (deflated 67%)
-  adding: var/www/mediawiki/README (deflated 49%)
-  adding: var/www/mediawiki/RELEASE-NOTES-1.33 (deflated 63%)
-  adding: var/www/mediawiki/resources/ (stored 0%)
-  adding: var/www/mediawiki/SECURITY (deflated 26%)
-  adding: var/www/mediawiki/skins/ (stored 0%)
-  adding: var/www/mediawiki/tests/ (stored 0%)
-  adding: var/www/mediawiki/thumb_handler.php (deflated 41%)
-  adding: var/www/mediawiki/thumb.php (deflated 66%)
-  adding: var/www/mediawiki/UPGRADE (deflated 60%)
-  adding: var/www/mediawiki/vendor/ (stored 0%)
-root@mediawiki:~# ls
-dbmediawiki-backup-2019-11-08.sql  mediawiki.zip
-root@mediawiki:~#
+root@mediawiki:/var/www/mediawiki# zip mediawiki.zip *
+root@mediawiki:/var/www/mediawiki#
 ~~~
