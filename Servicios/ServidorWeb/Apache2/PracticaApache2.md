@@ -268,27 +268,6 @@ To activate the new configuration, you need to run:
 root@servidorApache:~# 
 ~~~
 
-- Creación del virtual host `tarea13.iesgn.org` (`/etc/apache2/sites-available/tarea13.conf`):
-~~~
-<VirtualHost *:80>
-  ServerName tarea13.iesgn.org
-  ServerAdmin webmaster@localhost
-  DocumentRoot /home/tarea13/public_html/
-
-  ErrorLog ${APACHE_LOG_DIR}/error.log
-  CustomLog ${APACHE_LOG_DIR}/access.log combined
-</VirtualHost>
-~~~
-
-- Activación del sitio:
-~~~
-root@servidorApache:~# a2ensite tarea13
-Enabling site tarea13.
-To activate the new configuration, you need to run:
-  systemctl reload apache2
-root@servidorApache:~# 
-~~~
-
 - Configuración de `userdir` (`/etc/apache2/mods-enabled/userdir.conf`):
 ~~~
 <IfModule mod_userdir.c>
@@ -307,3 +286,37 @@ root@servidorApache:~#
 </IfModule>
 ~~~
 
+### Módulo rewrite.
+- Creación del virtual host `php.iesgn.org` (`/etc/apache2/sites-available/php.conf`):
+~~~
+<VirtualHost *:80>
+
+  ServerName php.iesgn.org
+  ServerAdmin webmaster@localhost
+  DocumentRoot /srv/www/php
+
+</VirtualHost>
+~~~
+
+- Activación del sitio:
+~~~
+root@servidorApache:~# a2ensite php.conf
+Enabling site php.
+To activate the new configuration, you need to run:
+  systemctl reload apache2
+root@servidorApache:~# 
+~~~
+
+- Activación del módulo:
+~~~
+root@servidorApache:~# a2enmod rewrite
+Enabling module rewrite.
+To activate the new configuration, you need to run:
+  systemctl restart apache2
+root@servidorApache:~# 
+~~~
+
+- Configuración del módulo (`/srv/wwww/php/.htaccess`):
+~~~
+
+~~~
