@@ -300,3 +300,86 @@ Descripción :This package provides the Linux kernel (vmlinuz), the core of any
 
 [centos@ejercicioscentos ~]$ 
 ~~~
+
+### Actualización de CentOS7 a CentOS8.
+- Instalación del repositorio `epel`:
+~~~
+[centos@ejercicioscentos ~]$ sudo yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+~~~
+
+- Instalación de `yum-utils`:
+~~~
+[centos@ejercicioscentos ~]$ sudo yum install rpmconf yum-utils
+~~~
+
+- Ejecución de `rpmconf -a`:
+~~~
+[centos@ejercicioscentos ~]$ sudo rpmconf -a
+Configuration file `/etc/nsswitch.conf'
+-rw-r--r--. 1 root root 1746 sep 12  2017 /etc/nsswitch.conf
+-rw-r--r--. 1 root root 1938 ago  6 23:00 /etc/nsswitch.conf.rpmnew
+ ==> Package distributor has shipped an updated version.
+   What would you like to do about it ?  Your options are:
+    Y or I  : install the package maintainer's version
+    N or O  : keep your currently-installed version
+      D     : show the differences between the versions
+      M	    : merge configuration files
+      Z     : background this process to examine the situation
+      S     : skip this file
+ The default action is to keep your current version.
+*** aliases (Y/I/N/O/D/Z/S) [default=N] ? 
+Your choice: N
+[centos@ejercicioscentos ~]$
+~~~
+
+- Limpieza de los paquetes que ya no son necesarios:
+~~~
+[centos@ejercicioscentos ~]$ package-cleanup --leaves
+[centos@ejercicioscentos ~]$ package-cleanup --orphans
+~~~
+
+- Instalación del gestor de paquetes `dnf`:
+~~~
+[centos@ejercicioscentos ~]$ sudo yum install dnf
+~~~
+
+- Eliminar el gestor de paquetes `yum`:
+~~~
+[centos@ejercicioscentos ~]$ sudo dnf remove yum yum-metadata-parser
+[centos@ejercicioscentos ~]$ sudo rm -rf /etc/yum
+~~~
+
+- Actualizar el sistema con `dnf`:
+~~~
+[centos@ejercicioscentos ~]$ sudo dnf upgrade
+~~~
+
+- Instalar la nueva versión:
+~~~
+[centos@ejercicioscentos ~]$ sudo dnf upgrade http://mirror.bytemark.co.uk/centos/8/BaseOS/x86_64/os/Packages/centos-release-8.0-0.1905.0.9.el8.x86_64.rpm
+~~~
+
+- Actualizar el repositorio `epel`:
+~~~
+[centos@ejercicioscentos ~]$ sudo dnf upgrade https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+~~~
+
+- Limpieza de los fiheros temporales:
+~~~
+[centos@ejercicioscentos ~]$ sudo dnf clean all
+~~~
+
+- Eliminar los kernels existentes:
+~~~
+[centos@ejercicioscentos ~]$ sudo rpm -e `rpm -q kernel`
+~~~
+
+- Eliminar los conflictos:
+~~~
+[centos@ejercicioscentos ~]$ sudo rpm -e --nodeps sysvinit-tools
+~~~
+
+- Actualización del sistema:
+~~~
+
+~~~
