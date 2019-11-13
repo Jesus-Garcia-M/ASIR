@@ -12,6 +12,10 @@
 #### Instalación de Subrion.
 - [Práctica.](IAW/DespliegueCMS/Subrion.md)
 
+#### Instalación de Mediawiki.
+- [Práctica](IAW/DespliegueCMS/Mediawiki.md)
+
+
 ## Base de Datos.
 #### Instalación de Servidores y Clientes.
 - [Documentación MariaDB.](ABD/InstalacionClientes-Servidores/DocsMariaDB.md)
@@ -22,9 +26,11 @@
 #### Repaso PL/SQL.
 - [Enunciado y Ejercicios](ABD/RepasoPLSQL)
 
+
 ## HLC.
 #### qemu-kvm.
 - [Documentación.](HLC/qemu-kvm/Docs.md)
+
 
 ## Servicios.
 #### Servidores DHCP.
@@ -50,6 +56,10 @@
 ##### bind9.
 - [Práctica.](Servicios/ServidorDNS/bind9/Practica.md)
 
+##### DNSmasq.
+- [Práctica.](Servicios/ServidorDNS/DNSmasq/Practica.md)
+
+
 ## Sistemas.
 - [Script Listado Paquetes](ASO/ListarPaquetes.sh)
 
@@ -57,8 +67,10 @@
 - [Nano](ASO/Compilacion/nano.md)
 - [Kernel](ASO/Compilacion/Kernel.md)
 
+
 ## Tareas Servidores.
 - [Tarea 2.](Servidores/Tarea2.md)
+
 
 ## Misc.
 - [Ficheros y Directorios.](Misc/FicherosYDirectorios.md)
