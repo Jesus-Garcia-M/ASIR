@@ -3,17 +3,22 @@
 #### Instalación y Despliegue de una Aplicación Web Estática.
 - [Práctica.](IAW/DespliegueWebEstatica/DocAppWebEstatica.md)
 
-#### Instalación de stack LAMP.
+#### Despliegue de aplicaciones PhP
+##### Instalación de stack LAMP.
 - [Documentación.](IAW/StackLAMP.md)
 
-#### Instalación de Drupal.
+##### Instalación de Drupal.
 - [Práctica.](IAW/DespliegueCMS/Drupal.md)
 
-#### Instalación de Subrion.
+##### Instalación de Subrion.
 - [Práctica.](IAW/DespliegueCMS/Subrion.md)
 
-#### Instalación de Mediawiki.
+##### Instalación de Mediawiki.
 - [Práctica](IAW/DespliegueCMS/Mediawiki.md)
+
+#### Despliegue de aplicaciones Python
+##### Aplicación Django.
+- [Práctica](IAW/Django/Practica.md)
 
 
 ## Base de Datos.
