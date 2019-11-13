@@ -51,8 +51,6 @@
 - [Vagrantfile](Servicios/ServidorWeb/Nginx/Vagrantfile)
 
 #### Servidores DNS.
-- [Documentación](Servicios/ServidorDNS/Docs.md)
-
 ##### bind9.
 - [Práctica.](Servicios/ServidorDNS/bind9/Practica.md)
 
