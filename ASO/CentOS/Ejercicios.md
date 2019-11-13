@@ -381,5 +381,5 @@ Your choice: N
 
 - Actualización del sistema:
 ~~~
-
+[centos@actualizarcentos ~]$ sudo dnf -y --releasever=8 --allowerasing --setopt=deltarpm=false distro-sync
 ~~~
