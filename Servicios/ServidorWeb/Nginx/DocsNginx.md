@@ -22,7 +22,7 @@ listen.group = www-data
 ...
 ~~~
 
-- Modificación de la configuración de `Nginx` (`/etc/nginx/sites-available/defualt`):
+- Modificación de la configuración de `Nginx` (`/etc/nginx/sites-available/default`):
 ~~~
 ...
 location ~ \.php$ {
