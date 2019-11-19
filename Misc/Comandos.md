@@ -26,6 +26,10 @@
 	- `update`: Actualiza la lista de paquetes del sistema.
 	- `upgrade`: Actualiza todos los paquetes del sistema.
 
+### SSH.
+- `ssh-copy-id -i {ruta clave privada} {destino}`: Copia en el destino la clave pública correspondiente a la clave privada indicada.
+- `ssh-add {ruta clave privada}`: Añade la clave privada a la sesión.
+
 ### Kernel.
 - `lspci -knn`: Muestra los módulos que utilizan las distintas interfaces del sistema.
 
