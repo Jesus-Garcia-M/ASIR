@@ -98,27 +98,43 @@ vagrant@django:~$ sudo apt install libapache2-mod-wsgi-py3
 vagrant@django:~$ sudo apt install python3-pip
 ~~~
 
-- Instalación de `mod_wsgi`:
+- Instalación de `django`:
 ~~~
-vagrant@django:~$ sudo pip3 install mod_wsgi
+vagrant@django:~$ sudo pip3 install django
 ~~~
 
 - Configuración de `apache2` (`/etc/apache2/sites-available/django.conf`):
 ~~~
-# Configuración WSGI
-  WSGIDaemonProcess django-jesus.iesgn.org python-path=/var/www/django
-  WSGIScriptAlias / /var/www/django/django-tutorial/wsgi.py
+<VirtualHost *:80>
+  ServerName django.jesus.org
+  ServerAdmin webmaster@localhost
+  DocumentRoot /var/www/django
 
-  <Directory /var/www/django/django-tutorial>
-    <Files wsgi.py>
-      Require all granted
-    </Files>
+# Configuración WSGI
+  WSGIDaemonProcess django user=www-data group=www-data processes=1 threads=5 python-path=/var/www/django
+  WSGIScriptAlias / /var/www/django/django_tutorial/wsgi.py
+
+  <Directory /var/www/django>
+    WSGIProcessGroup django
+    WSGIApplicationGroup %{GLOBAL}
+    Require all granted
   </Directory>
+
+</VirtualHost>
+~~~
+
+- Activación del sitio:
+~~~
+root@django:/var/www# a2ensite django.conf
+Enabling site django.
+To activate the new configuration, you need to run:
+  systemctl reload apache2
+root@django:/var/www# 
 ~~~
 
 - Creación de la base de datos:
 ~~~
-root@desplieguedjango:/var/www/django# python3 manage.py migrate
+root@django:/var/www/django# python3 manage.py migrate
 Operations to perform:
   Apply all migrations: admin, auth, contenttypes, polls, sessions
 Running migrations:
@@ -140,27 +156,42 @@ Running migrations:
   Applying auth.0011_update_proxy_permissions... OK
   Applying polls.0001_initial... OK
   Applying sessions.0001_initial... OK
-root@desplieguedjango:/var/www/django#
+root@django:/var/www/django# 
 ~~~
 
-- Creación del usuario administrador:
+- Creación del usuario `admin`:
 ~~~
-root@desplieguedjango:/var/www/django# python3 manage.py createsuperuser
-Nombre de usuario (leave blank to use 'root'): jesus
-Dirección de correo electrónico: 
+root@django:/var/www/django# python3 manage.py createsuperuser
+Nombre de usuario (leave blank to use 'root'): admin
+Dirección de correo electrónico:  
 Password: 
 Password (again): 
-La contraseña es demasiado similar a la de nombre de usuario.
-Esta contraseña es demasiado corta. Debe contener al menos 8 caracteres.
-Esta contraseña es demasiado común.
-Bypass password validation and create user anyway? [y/N]: y
 Superuser created successfully.
-root@desplieguedjango:/var/www/django# 
+root@django:/var/www/django# 
 ~~~
 
-- Configuración de `Django` (`/var/www/django/django-tutorial/settings.py`):
+- Modificación de la configuración de `Django` (`/var/www/django/django_tutorial/settings.py`):
 ~~~
-ALLOWED_HOSTS = ["server_domain_or_IP", "django.jesus.org"]
 DEBUG = False
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+ALLOWED_HOSTS = ['django.jesus.org']
+~~~
+
+- Modificación para mostrar el contenido estático:
+~~~
+#----- Configuración en settings.py -----#
+STATIC_ROOT = '/var/www/django/static'
+
+#----- Creación del contenido -----#
+root@django:/var/www/django# python3 manage.py collectstatic
+
+121 static files copied to '/var/www/django/static'.
+root@django:/var/www/django#
+
+#----- Modificación del virtual host -----#
+# Contenido estático
+  Alias /static /var/www/django/static
+
+  <Directory /var/www/django/static>
+    Require all granted
+  </Directory>
 ~~~

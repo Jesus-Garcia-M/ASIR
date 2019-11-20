@@ -95,7 +95,7 @@ Query OK, 1 row affected (0.00 sec)
 MariaDB [(none)]> grant all on prueba_remoto.* to cliente_remoto@10.0.0.6 identified by "croqueta";
 Query OK, 0 rows affected (0.00 sec)
 
-MariaDB [(none)]> grant all on prueba_remoto.* to cliente_remoto@172.22.200.82 identified by "salmorejo";
+MariaDB [(none)]> grant all on prueba_remoto.* to cliente_remoto@10.0.0.4 identified by "salmorejo";
 Query OK, 0 rows affected (0.00 sec)
 
 MariaDB [(none)]> 

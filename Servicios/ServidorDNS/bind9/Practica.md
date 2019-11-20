@@ -43,7 +43,7 @@ $TTL	86400
 
 $ORIGIN iesgn.org.
 ; Máquinas IPv4:
-jesus          IN    A    10.0.0.3
+jesus          IN    A    10.0.0.100
 clientebind9   IN    A    10.0.0.4
 cliente2bind9  IN    A    10.0.0.5
 correo         IN    A    10.0.0.200
@@ -75,7 +75,7 @@ $TTL	86400
 
 
 $ORIGIN 0.0.10.in-addr.arpa.
-3    IN    PTR    jesus.iesgn.org.
+100  IN    PTR    jesus.iesgn.org.
 4    IN    PTR    clientebind9.iesgn.org.
 5    IN    PTR    cliente2bind9.iesgn.org.
 200  IN    PTR    correo.iesgn.org.
@@ -122,7 +122,7 @@ vagrant@clientebind9:~$ dig A jesus.iesgn.org
 ;jesus.iesgn.org.		IN	A
 
 ;; ANSWER SECTION:
-jesus.iesgn.org.	86400	IN	A	10.0.0.3
+jesus.iesgn.org.	86400	IN	A	10.0.0.100
 
 ;; AUTHORITY SECTION:
 iesgn.org.		86400	IN	NS	jesus.iesgn.org.
@@ -131,7 +131,7 @@ iesgn.org.		86400	IN	NS	jesus.iesgn.org.
 jesus.iesgn.org.	86400	IN	AAAA	fe80::a00:27ff:fe98:e04c
 
 ;; Query time: 0 msec
-;; SERVER: 10.0.0.3#53(10.0.0.3)
+;; SERVER: 10.0.0.100#53(10.0.0.100)
 ;; WHEN: Wed Nov 13 08:17:51 GMT 2019
 ;; MSG SIZE  rcvd: 130
 
@@ -160,10 +160,10 @@ jesus.iesgn.org.	86400	IN	AAAA	fe80::a00:27ff:fe98:e04c
 iesgn.org.		86400	IN	NS	jesus.iesgn.org.
 
 ;; ADDITIONAL SECTION:
-jesus.iesgn.org.	86400	IN	A	10.0.0.3
+jesus.iesgn.org.	86400	IN	A	10.0.0.100
 
 ;; Query time: 1 msec
-;; SERVER: 10.0.0.3#53(10.0.0.3)
+;; SERVER: 10.0.0.100#53(10.0.0.100)
 ;; WHEN: Wed Nov 13 08:22:04 GMT 2019
 ;; MSG SIZE  rcvd: 130
 
@@ -193,11 +193,11 @@ web.iesgn.org.		86400	IN	A	10.0.0.202
 iesgn.org.		86400	IN	NS	jesus.iesgn.org.
 
 ;; ADDITIONAL SECTION:
-jesus.iesgn.org.	86400	IN	A	10.0.0.3
+jesus.iesgn.org.	86400	IN	A	10.0.0.100
 jesus.iesgn.org.	86400	IN	AAAA	fe80::a00:27ff:fe98:e04c
 
 ;; Query time: 0 msec
-;; SERVER: 10.0.0.3#53(10.0.0.3)
+;; SERVER: 10.0.0.100#53(10.0.0.100)
 ;; WHEN: Wed Nov 13 08:22:29 GMT 2019
 ;; MSG SIZE  rcvd: 168
 
@@ -226,11 +226,11 @@ ftp.iesgn.org.		86400	IN	A	10.0.0.201
 iesgn.org.		86400	IN	NS	jesus.iesgn.org.
 
 ;; ADDITIONAL SECTION:
-jesus.iesgn.org.	86400	IN	A	10.0.0.3
+jesus.iesgn.org.	86400	IN	A	10.0.0.100
 jesus.iesgn.org.	86400	IN	AAAA	fe80::a00:27ff:fe98:e04c
 
 ;; Query time: 1 msec
-;; SERVER: 10.0.0.3#53(10.0.0.3)
+;; SERVER: 10.0.0.100#53(10.0.0.100)
 ;; WHEN: Wed Nov 13 08:23:18 GMT 2019
 ;; MSG SIZE  rcvd: 150
 
@@ -256,11 +256,11 @@ vagrant@clientebind9:~$ dig ns iesgn.org
 iesgn.org.		86400	IN	NS	jesus.iesgn.org.
 
 ;; ADDITIONAL SECTION:
-jesus.iesgn.org.	86400	IN	A	10.0.0.3
+jesus.iesgn.org.	86400	IN	A	10.0.0.100
 jesus.iesgn.org.	86400	IN	AAAA	fe80::a00:27ff:fe98:e04c
 
 ;; Query time: 1 msec
-;; SERVER: 10.0.0.3#53(10.0.0.3)
+;; SERVER: 10.0.0.100#53(10.0.0.100)
 ;; WHEN: Wed Nov 13 08:24:26 GMT 2019
 ;; MSG SIZE  rcvd: 130
 
@@ -290,12 +290,12 @@ iesgn.org.		86400	IN	NS	jesus.iesgn.org.
 
 ;; ADDITIONAL SECTION:
 correo.iesgn.org.	86400	IN	A	10.0.0.200
-jesus.iesgn.org.	86400	IN	A	10.0.0.3
+jesus.iesgn.org.	86400	IN	A	10.0.0.100
 correo.iesgn.org.	86400	IN	AAAA	fe80::a00:27ff:fee2:ae2e
 jesus.iesgn.org.	86400	IN	AAAA	fe80::a00:27ff:fe98:e04c
 
 ;; Query time: 0 msec
-;; SERVER: 10.0.0.3#53(10.0.0.3)
+;; SERVER: 10.0.0.100#53(10.0.0.100)
 ;; WHEN: Wed Nov 13 08:24:41 GMT 2019
 ;; MSG SIZE  rcvd: 197
 
@@ -336,7 +336,7 @@ ns4.cdmondns-01.org.	85860	IN	A	52.58.66.183
 ns5.cdmondns-01.com.	172261	IN	A	52.59.146.62
 
 ;; Query time: 0 msec
-;; SERVER: 10.0.0.3#53(10.0.0.3)
+;; SERVER: 10.0.0.100#53(10.0.0.100)
 ;; WHEN: Wed Nov 13 08:24:56 GMT 2019
 ;; MSG SIZE  rcvd: 322
 
@@ -365,11 +365,11 @@ vagrant@clientebind9:~$ dig -x 10.0.0.201
 0.0.10.in-addr.arpa.	86400	IN	NS	jesus.iesgn.org.
 
 ;; ADDITIONAL SECTION:
-jesus.iesgn.org.	86400	IN	A	10.0.0.3
+jesus.iesgn.org.	86400	IN	A	10.0.0.100
 jesus.iesgn.org.	86400	IN	AAAA	fe80::a00:27ff:fe98:e04c
 
 ;; Query time: 1 msec
-;; SERVER: 10.0.0.3#53(10.0.0.3)
+;; SERVER: 10.0.0.100#53(10.0.0.100)
 ;; WHEN: Wed Nov 13 08:25:36 GMT 2019
 ;; MSG SIZE  rcvd: 171
 
@@ -547,7 +547,7 @@ iesgn.org.		86400	IN	SOA	jesus.iesgn.org. root.iesgn.org. 1 604800 86400 2419200
 iesgn.org.		86400	IN	NS	jesus.iesgn.org.
 
 ;; ADDITIONAL SECTION:
-jesus.iesgn.org.	86400	IN	A	10.0.0.3
+jesus.iesgn.org.	86400	IN	A	10.0.0.100
 jesus.iesgn.org.	86400	IN	AAAA	fe80::a00:27ff:fe98:e04c
 
 ;; Query time: 1 msec
@@ -606,7 +606,7 @@ vagrant@jesus-slave:~$
 
 - Prueba de funcionamiento de la configuración `master/slave`:
 ~~~
-#----- Petición con ambos servidores operativos -----#
+#----- Resolución con ambos servidores operativos -----#
 vagrant@clientebind9:~$ dig ftp.iesgn.org
 
 ; <<>> DiG 9.11.5-P4-5.1-Debian <<>> ftp.iesgn.org
@@ -645,7 +645,7 @@ vagrant@clientebind9:~$
 root@jesus:~# systemctl stop bind9
 root@jesus:~#
 
-#----- Petición con únicamente el servidor slave operativo -----#
+#----- Resolución con únicamente el servidor slave operativo -----#
 vagrant@clientebind9:~$ dig correo.iesgn.org
 
 ; <<>> DiG 9.11.5-P4-5.1-Debian <<>> correo.iesgn.org
@@ -667,7 +667,7 @@ correo.iesgn.org.	86400	IN	A	10.0.0.200
 iesgn.org.		86400	IN	NS	jesus.iesgn.org.
 
 ;; ADDITIONAL SECTION:
-jesus.iesgn.org.	86400	IN	A	10.0.0.3
+jesus.iesgn.org.	86400	IN	A	10.0.0.100
 jesus.iesgn.org.	86400	IN	AAAA	fe80::a00:27ff:fe98:e04c
 
 ;; Query time: 1 msec
@@ -676,4 +676,248 @@ jesus.iesgn.org.	86400	IN	AAAA	fe80::a00:27ff:fe98:e04c
 ;; MSG SIZE  rcvd: 153
 
 vagrant@clientebind9:~$ 
+~~~
+
+### Delegación de dominio.
+- Creación del subdominio `informatica.iesgn.org` en la zona `iesgn.org` (`/var/cache/bind/db.iesgn.org`):
+~~~
+; Subdominio informatica.iesgn.org
+$ORIGIN informatica.iesgn.org.
+@              IN    NS    jesus-subd
+jesus-subd    IN    A     10.0.0.102
+~~~
+
+- Configuración de la zona `informatica.iesgn.org` en el NS del subdominio (`/etc/bind/named.conf.local`):
+~~~
+// Zona informatica.iesgn.org
+zone "informatica.iesgn.org" {
+type master;
+file "db.informatica.iesgn.org";
+};
+~~~
+
+- Creación de la zona `informatica.iesgn.org` (`/var/cache/bind/db.informatica.iesgn.org`):
+~~~
+$TTL    86400
+@       IN      SOA     jesus-subd.informatica.iesgn.org. root.informatica.iesgn.org. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                          86400 )       ; Negative Cache TTL
+;
+@       IN      NS              jesus-subd.informatica.iesgn.org.
+@       IN      MX      10      correo.informatica.iesgn.org.
+
+$ORIGIN informatica.iesgn.org.
+; Máquinas:
+jesus-subd    IN    A         10.0.0.102
+web            IN    A        10.0.0.200
+ftp            IN    A        10.0.0.201
+correo         IN    A        10.0.0.202
+; Alias:
+www            IN    CNAME    web
+~~~
+
+- Prueba de funcionamiento:
+~~~
+#----- Resolución de los nombres www y ftp -----#
+vagrant@clientebind9:~$ dig www.informatica.iesgn.org
+
+; <<>> DiG 9.11.5-P4-5.1-Debian <<>> www.informatica.iesgn.org
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 30699
+;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 1, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+; COOKIE: 81e1dc6f1c03cff9f1afa9c85dd4f712696d2ef8e03d4bb4 (good)
+;; QUESTION SECTION:
+;www.informatica.iesgn.org.	IN	A
+
+;; ANSWER SECTION:
+www.informatica.iesgn.org. 86400 IN	CNAME	web.informatica.iesgn.org.
+web.informatica.iesgn.org. 86400 IN	A	10.0.0.200
+
+;; AUTHORITY SECTION:
+informatica.iesgn.org.	86400	IN	NS	jesus-subd.informatica.iesgn.org.
+
+;; Query time: 68 msec
+;; SERVER: 10.0.0.100#53(10.0.0.100)
+;; WHEN: Wed Nov 20 08:19:30 GMT 2019
+;; MSG SIZE  rcvd: 142
+
+vagrant@clientebind9:~$ dig ftp.informatica.iesgn.org
+
+; <<>> DiG 9.11.5-P4-5.1-Debian <<>> ftp.informatica.iesgn.org
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 46557
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 1, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+; COOKIE: 6ee6337f3b4fb7a94acdd2b75dd4f72c326ea9d6a58c9196 (good)
+;; QUESTION SECTION:
+;ftp.informatica.iesgn.org.	IN	A
+
+;; ANSWER SECTION:
+ftp.informatica.iesgn.org. 86400 IN	A	10.0.0.201
+
+;; AUTHORITY SECTION:
+informatica.iesgn.org.	86400	IN	NS	jesus-subd.informatica.iesgn.org.
+
+;; Query time: 4 msec
+;; SERVER: 10.0.0.100#53(10.0.0.100)
+;; WHEN: Wed Nov 20 08:19:56 GMT 2019
+;; MSG SIZE  rcvd: 124
+
+vagrant@clientebind9:~$
+
+#----- Resolución del servidor NS de la zona -----#
+vagrant@clientebind9:~$ dig ns informatica.iesgn.org
+
+; <<>> DiG 9.11.5-P4-5.1-Debian <<>> ns informatica.iesgn.org
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 33881
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+; COOKIE: 237eba9bc2e5891436ce63da5dd4f74c0a98c0e43e9e6278 (good)
+;; QUESTION SECTION:
+;informatica.iesgn.org.		IN	NS
+
+;; ANSWER SECTION:
+informatica.iesgn.org.	86400	IN	NS	jesus-subd.informatica.iesgn.org.
+
+;; Query time: 4 msec
+;; SERVER: 10.0.0.100#53(10.0.0.100)
+;; WHEN: Wed Nov 20 08:20:28 GMT 2019
+;; MSG SIZE  rcvd: 104
+
+vagrant@clientebind9:~$
+
+#----- Resolución del servidor MX de la zona -----#
+vagrant@clientebind9:~$ dig mx informatica.iesgn.org
+
+; <<>> DiG 9.11.5-P4-5.1-Debian <<>> mx informatica.iesgn.org
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 52257
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 1, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+; COOKIE: d08eebd4eff78f202c2e060d5dd4f75f58291af7c333cfe4 (good)
+;; QUESTION SECTION:
+;informatica.iesgn.org.		IN	MX
+
+;; ANSWER SECTION:
+informatica.iesgn.org.	86400	IN	MX	10 correo.informatica.iesgn.org.
+
+;; AUTHORITY SECTION:
+informatica.iesgn.org.	86381	IN	NS	jesus-subd.informatica.iesgn.org.
+
+;; Query time: 4 msec
+;; SERVER: 10.0.0.100#53(10.0.0.100)
+;; WHEN: Wed Nov 20 08:20:47 GMT 2019
+;; MSG SIZE  rcvd: 127
+
+vagrant@clientebind9:~$ 
+~~~
+
+### DDNS.
+- Modificación para poder utilizar la clave `rndc.key` (`/etc/bind/named.conf.options`):
+~~~
+// Configuración DDNS
+   include "/etc/bind/rndc.key";
+   controls {
+      inet 127.0.0.1 port 953
+      allow { 127.0.0.1; } keys { "rndc-key"; };
+   };
+~~~
+
+- Modificación de las zonas activas (`/etc/bind/named.conf.local`):
+~~~
+// Zona iesgn.org
+zone "iesgn.org" {
+  type master;
+  file "db.iesgn.org";
+  allow-update { key "rndc-key"; };
+};
+
+// Zona inversa IPv4 iesgn.org
+zone "0.0.10.in-addr.arpa" {
+  type master;
+  file "db.0.0.10";
+  allow-update { key "rndc-key"; };
+};
+~~~
+
+- Configuración de la zona directa (`/var/cache/bind/db.iesgn.org`):
+~~~
+$TTL    86400
+@       IN      SOA     jesus.iesgn.org. root.iesgn.org. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                          86400 )       ; Negative Cache TTL
+;
+@       IN      NS              jesus.iesgn.org.
+@       IN      MX      10      correo.iesgn.org.
+
+$ORIGIN iesgn.org.
+; Máquinas IPv4:
+jesus          IN    A    10.0.0.100
+~~~
+
+- Configuración de la zona inversa (`/var/cache/bind/db.0.0.10`):
+~~~
+$TTL    86400
+@       IN      SOA     jesus.iesgn.org. root.iesgn.org. (
+                              1         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                          86400 )       ; Negative Cache TTL
+;
+@       IN      NS      jesus.iesgn.org.
+
+$ORIGIN 0.0.10.in-addr.arpa.
+; Máquinas:
+100  IN    PTR    jesus.iesgn.org.
+~~~
+
+- Modificación de la interfaz por la que trabaja el servidor DHCP (`/etc/default/isc-dhcp-server`):
+~~~
+INTERFACESv4="eth2"
+~~~
+
+- Configuración del servidor DHCP (`/etc/dhcp/dhcpd.conf`):
+~~~
+# Configuración DDNS
+include "/etc/bind/rndc.key";
+
+server-identifier jesus;
+ddns-updates on;
+ddns-update-style interim;
+ddns-domainname "iesgn.org.";
+ddns-rev-domainname "0.0.10.in-addr.arpa.";
+deny client-updates;
+
+### Definición de zonas
+##### Zona directa
+zone iesgn.org. {
+  primary 127.0.0.1;
+  key rndc-key;
+}
+
+zone 0.0.10.in-addr.arpa. {
+  primary 127.0.0.1;
+  key rndc-key;
+}
 ~~~
