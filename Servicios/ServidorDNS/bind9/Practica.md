@@ -830,14 +830,78 @@ vagrant@clientebind9:~$
 ~~~
 
 ### DDNS.
-- Modificación para poder utilizar la clave `rndc.key` (`/etc/bind/named.conf.options`):
+- Creación del fichero `/etc/bind/rndc.conf`:
+~~~
+#----- Generación del contenido -----#
+root@jesus:~# rndc-confgen
+# Start of rndc.conf
+key "rndc-key" {
+	algorithm hmac-md5;
+	secret "PM4e5pr/3TKrdfQX+wkmig==";
+};
+
+options {
+	default-key "rndc-key";
+	default-server 127.0.0.1;
+	default-port 953;
+};
+# End of rndc.conf
+
+# Use with the following in named.conf, adjusting the allow list as needed:
+# key "rndc-key" {
+# 	algorithm hmac-md5;
+# 	secret "PM4e5pr/3TKrdfQX+wkmig==";
+# };
+# 
+# controls {
+# 	inet 127.0.0.1 port 953
+# 		allow { 127.0.0.1; } keys { "rndc-key"; };
+# };
+# End of named.conf
+root@jesus:~#
+
+#----- Contenido del fichero -----#
+key "rndc-key" {
+        algorithm hmac-md5;
+        secret "PM4e5pr/3TKrdfQX+wkmig==";
+};
+
+#---- Asignación de permisos -----#
+root@jesus:~# chmod 660 /etc/bind/rndc.conf
+root@jesus:~# chown root:bind /etc/bind/rndc.conf
+
+#---- Creación de enlace simbolico para pertimier el acceso al servidor DHCP -----#
+root@jesus:/etc/dhcp# ln -s /etc/bind/rndc.conf
+~~~
+
+- Modificación del fichero `/etc/bind/named.conf`:
+~~~
+include "/etc/bind/named.conf.options";
+controls {
+  inet 127.0.0.1 port 953 allow { 127.0.0.1; };
+};
+
+include "/etc/bind/named.conf.local";
+include "/etc/bind/named.conf.default-zones";
+~~~
+
+- Modificación del fichero `/etc/bind/named.conf.options`:
 ~~~
 // Configuración DDNS
-   include "/etc/bind/rndc.key";
-   controls {
-      inet 127.0.0.1 port 953
-      allow { 127.0.0.1; } keys { "rndc-key"; };
-   };
+  dnssec-validation auto;
+  auth-nxdomain no;
+  listen-on { 127.0.0.1; 10.0.0.100; };
+~~~
+
+- Modificación para poder utilizar la clave `rndc.key` (`/etc/bind/named.conf.local`):
+~~~
+// Configuración DDNS
+include "/etc/bind/rndc.key";
+controls {
+  inet 127.0.0.1 port 953
+  allow { 127.0.0.1; } 
+  keys { "rndc-key"; };
+};
 ~~~
 
 - Modificación de las zonas activas (`/etc/bind/named.conf.local`):
@@ -900,7 +964,7 @@ INTERFACESv4="eth2"
 - Configuración del servidor DHCP (`/etc/dhcp/dhcpd.conf`):
 ~~~
 # Configuración DDNS
-include "/etc/bind/rndc.key";
+include "/etc/bind/rndc.conf";
 
 server-identifier jesus;
 ddns-updates on;
@@ -909,15 +973,36 @@ ddns-domainname "iesgn.org.";
 ddns-rev-domainname "0.0.10.in-addr.arpa.";
 deny client-updates;
 
-### Definición de zonas
-##### Zona directa
+## Definición de zonas
+### Zona directa
 zone iesgn.org. {
   primary 127.0.0.1;
   key rndc-key;
 }
 
+### Zona inversa
 zone 0.0.10.in-addr.arpa. {
   primary 127.0.0.1;
   key rndc-key;
 }
+
+# Configuración DHCP
+subnet 10.0.0.0 netmask 255.255.255.0 {
+  range 10.0.0.20 10.0.0.30;
+  max-lease-time 86400;
+  default-lease-time 43200;
+  option routers 10.0.2.2;
+  option domain-name-servers 10.0.0.100;
+}
+
+## Reserva servidor DNS
+host ServidorDNS {
+  hardware ethernet 08:00:27:98:e0:4c;
+  fixed-address 10.0.0.100;
+}
+~~~
+
+Configuración del cliente DHCP (`/etc/dhcp/dhclient.conf`):
+~~~
+send host-name = {nombre cliente};
 ~~~

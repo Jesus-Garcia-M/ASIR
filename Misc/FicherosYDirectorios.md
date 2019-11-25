@@ -11,6 +11,7 @@
 - `/home/{usuario}/.bash_profile`: Modificación del perfil de la terminal bash.
 - `/proc/sys/net/ipv6/conf/{interfaz}`: Parámetros configurables de las distintas interfaces ipv6.
 - `/var/cache/apt/archives`: Lista de los paquetes instalados.
+- `/var/lib/{programa}`: Directorio donde trabajan las aplicaciones.
 - `/boot`: Directorio contenedor de todo lo necesario en el arranque.
 
 # CentOS.

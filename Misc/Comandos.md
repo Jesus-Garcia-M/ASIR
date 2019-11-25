@@ -11,6 +11,7 @@
 	- `--print-foreign-architecture`: Muestra las arquitecturas del sistema de paquetes añadidas manualmente.
 	- `--add-architecture {arquitectura}`: Añade una arquitectura al sistema de paquetes.
 	- `--remove-architecture {arquitectura}`: Elimina una arquitectura del sistema de paquetes.
+	- `dpkg-reconfigure {paquete}`: Configura el paquete indicado.
 
 - `tar`: Manejo de archivos.
 	- `-x`: Descomprimir.

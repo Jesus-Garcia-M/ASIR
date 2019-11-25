@@ -272,7 +272,7 @@ Saving to: ‘nextcloud-17.0.1.zip’
 [root@salmorejo nextcloud]# mv nextcloud/* ./
 ~~~
 
-- Configuración de `php-fpm` (`/etc/php-fpm.d/www`);
+- Configuración de `php-fpm` (`/etc/php-fpm.d/www.conf`);
 ~~~
 user = nginx
 group = nginx
