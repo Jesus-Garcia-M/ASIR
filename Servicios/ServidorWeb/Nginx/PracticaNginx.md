@@ -175,7 +175,56 @@ end
 ~~~
 
 ### Restricciones de acceso.
-- Creación del fichero de configuración de control de acceso (`/etc/nginx/acceso.conf`):
+- Configuración de control de acceso en el sitio `departamentos.iesgn.org` (`/etc/nginx/sites-available/departamentos`):
+~~~
+# Restricción de acceso.
+location = /intranet {
+  root /srv/www/departamentos;
+  allow 192.168.1.0/24;
+  deny all;
+}
+
+location = /internet {
+  root /srv/www/departamentos;
+  deny 192.168.1.0/24;
+  allow all;
+}
+~~~
+
+### Autenticación básica.
+- Instalación de `apache2-utils`:
+~~~
+root@servidorNginx:~# apt install apache2-utils
+~~~
+
+- Creación de usuarios (`/etc/nginx/usuarios`):
+~~~
+root@servidorNginx:~# htpasswd -c /etc/nginx/usuarios jesus
+New password: 
+Re-type new password: 
+Adding password for user jesus
+root@servidorNginx:~# htpasswd /etc/nginx/usuarios prueba
+New password: 
+Re-type new password: 
+Adding password for user prueba
+root@servidorNginx:~# cat /etc/nginx/usuarios
+jesus:$apr1$F2e3e6hg$mRgCr.jf2zTpak3xl1gVc.
+prueba:$apr1$sQGrnzxu$7cXZm1pvWo69qtawOlku7/
+root@servidorNginx:~#
+~~~
+
+- Configuración del sitio `departamentos.iesgn.org/secreto` (`/etc/nginx/sites-available/departamentos`):
+~~~
+# Autenticación básica.
+location = /secreto {
+  root /srv/www/departamentos;
+  auth_basic "Área Restringida:";
+  auth_basic_user_file /etc/nginx/usuarios;
+}
+~~~
+
+### Autenticación básica + Restricción de acceso.
+- Configuración del sitio `departamentos.iesgn.org/secreto` (`/etc/nginx/sites-available/departamentos`):
 ~~~
 
 ~~~

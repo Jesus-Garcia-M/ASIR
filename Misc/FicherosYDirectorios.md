@@ -16,3 +16,4 @@
 
 # CentOS.
 - `/etc/sysconfig/network-scripts`: Directorio contenedor de ficheros de configuración de las distintas interfaces de red.
+- `/etc/sysconfig/{servicio}`: Directorio contenedor de los ficheros de configuración de los demonios de los distintos servicios.

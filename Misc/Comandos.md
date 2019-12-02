@@ -36,6 +36,7 @@
 
 ### Misc.
 - `file {fichero}`: Muestra las cabeceras del fichero indicado.
+- `zless {fichero}`: Igual que `less` pero para ficheros comprimidos.
 
 
 ### Gestión de usuarios y grupos.
