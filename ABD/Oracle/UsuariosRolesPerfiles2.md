@@ -68,9 +68,9 @@ SQL> CREATE USER usrpractica1 IDENTIFIED BY "usrpractica1" DEFAULT TABLESPACE us
 
 - Comprobación de cuota:
 ~~
-# Por defecto no se le asigna ninguna cuota al usuario, puede crear la tabla ya que esta se crea en el tablespace 'SYSTEM', pero,
-# al insertar un registro debe acceder al tablespace 'USERS' y no puede realizar dicha acción, adicionalmente, como se muestra,
-# la vista 'USER_TABLESPACES' está vacía.
+# Por defecto no se le asigna ninguna cuota al usuario, puede crear la tabla ya que para ello se usa el tablespace 'SYSTEM', pero,
+# al insertar un registro se hace uso del tablespace 'USERS', por lo que no puede realizar dicha acción, adicionalmente, como se muestra,
+# la vista 'USER_TABLESPACES' está vacía, indicando así, que el usuario no dispone de ninguna cuota.
 SQL> SELECT user FROM dual;
 
 USER
@@ -120,14 +120,16 @@ SQL>
 #### Modifica el usuario usrpractica1 para que tenga cuota 0 en el tablespace SYSTEM.
 - Modificación de la cuota en el tablespace `SYSTEM`:
 ~~
-#----- Modificación de la cuota -----#
 SQL> ALTER USER usrpractica1 QUOTA 0 ON system;
 
 Usuario modificado.
 
 SQL>
+~~
 
-#----- Comprobación -----#
+- Comprobación:
+~~
+# Al no tener cuota en el tablespace 'SYSTEM', no existe ninguna fila en la tabla.
 SELECT concat(concat(tablespace_name, ' / '), username) AS "TS / User", max_bytes
 FROM dba_ts_quotas
 WHERE username = 'USRPRACTICA1'
@@ -147,8 +149,10 @@ SQL> GRANT rolpractica1 TO usrpractica1;
 Concesión terminada correctamente.
 
 SQL>
+~~
 
-#----- Comprobación -----#
+- Comprobación:
+~~
 SQL> SELECT grantee FROM dba_role_privs WHERE granted_role = 'ROLPRACTICA1';
 
 GRANTEE
@@ -178,7 +182,7 @@ Concesión terminada correctamente.
 SQL>
 ~~
 
-- Comprobación:
+- Prueba de funcionamiento:
 ~~
 SQL> SELECT user FROM dual;
 
@@ -235,26 +239,24 @@ SQL>
 
 - Comprobación:
 ~~
-#----- Comprobación -----#
-SQL> SELECT concat(concat(owner, ' / '), table_name) AS "Propietario / Tabla", concat(concat(privilege, ' / '), grantable) AS "Privilegio / Delegable" FROM dba_tab_privs WHERE grantee = 'USRPRACTICA1';
+SQL> SELECT owner, table_name, privilege, grantable FROM dba_tab_privs WHERE grantee = 'USRPRACTICA1';
 
-Propietario / Tabla
-________________________________________
-Privilegio / Delegable
-________________________________________
-SCOTT / DEPT
-SELECT / YES
-
+OWNER                | TABLE_NAME           | PRIVILEGE            | GRA
+____________________ | ____________________ | ____________________ | ___
+SCOTT                | DEPT                 | SELECT               | YES
 
 SQL>
+~~
 
-#----- Prueba de funcionamiento -----#
+- Prueba de funcionamiento:
+~~ 
 SQL> SELECT user FROM dual;
 
 USER
 ------------------------------
 USRPRACTICA1
 
+#----- Comprobación de efectividad del privilegio -----#
 SQL> SELECT * FROM scott.dept;
 
     DEPTNO | DNAME          | LOC
@@ -264,6 +266,7 @@ __________ | ______________ | _____________
         30 | SALES          | CHICAGO
         40 | OPERATIONS     | BOSTON
 
+#----- Comprobación de concesión del privilegio -----#
 SQL> GRANT SELECT ON scott.dept TO user_privs;
 
 Concesión terminada correctamente.
@@ -272,7 +275,7 @@ SQL>
 ~~
 
 #### Comprueba que usrpractica1 puede realizar todas las operaciones previstas en el rol.
-- Prueba de funcionamiento:
+- Pruebas de funcionamiento:
 ~~
 #----- Iniciar sesión en la base de datos -----#
 oracle@OracleJessie:~$ rlwrap sqlplus usrpractica1/usrpractica1
@@ -406,24 +409,24 @@ SQL>
 ~~
 SQL> SELECT resource_name, limit FROM dba_profiles WHERE profile = 'PASSWORDSEGURA';
 
-RESOURCE_NAME          | LIMIT
+RESOURCE_NAME                  | LIMIT
 ______________________________ | _______________
-COMPOSITE_LIMIT          | DEFAULT
-SESSIONS_PER_USER        | DEFAULT
-CPU_PER_SESSION          | DEFAULT
-CPU_PER_CALL           | DEFAULT
+COMPOSITE_LIMIT                | DEFAULT
+SESSIONS_PER_USER              | DEFAULT
+CPU_PER_SESSION                | DEFAULT
+CPU_PER_CALL                   | DEFAULT
 LOGICAL_READS_PER_SESSION      | DEFAULT
 LOGICAL_READS_PER_CALL         | DEFAULT
-IDLE_TIME          | DEFAULT
-CONNECT_TIME           | DEFAULT
-PRIVATE_SGA          | DEFAULT
-FAILED_LOGIN_ATTEMPTS        | 3
-PASSWORD_LIFE_TIME         | 30
-PASSWORD_REUSE_TIME        | DEFAULT
-PASSWORD_REUSE_MAX         | DEFAULT
+IDLE_TIME                      | DEFAULT
+CONNECT_TIME                   | DEFAULT
+PRIVATE_SGA                    | DEFAULT
+FAILED_LOGIN_ATTEMPTS          | 3
+PASSWORD_LIFE_TIME             | 30
+PASSWORD_REUSE_TIME            | DEFAULT
+PASSWORD_REUSE_MAX             | DEFAULT
 PASSWORD_VERIFY_FUNCTION       | DEFAULT
-PASSWORD_LOCK_TIME         | UNLIMITED
-PASSWORD_GRACE_TIME        | DEFAULT
+PASSWORD_LOCK_TIME             | UNLIMITED
+PASSWORD_GRACE_TIME            | DEFAULT
 
 16 filas seleccionadas.
 
@@ -547,6 +550,7 @@ SQL>
 #### Elige un usuario concreto y consulta qué cuota tiene sobre cada uno de los tablespaces.
 - Consulta:
 ~~
+#----- Cuota de los distintos tablespaces a los que tiene acceso el usuario 'USRPRACTICA1' -----#
 SQL> SELECT tablespace_name, max_bytes FROM dba_ts_quotas WHERE username = 'USRPRACTICA1';
 
 TABLESPACE_NAME           |  MAX_BYTES
@@ -559,6 +563,7 @@ SQL>
 #### Elige un usuario concreto y muestra qué privilegios de sistema tiene asignados.
 - Consulta:
 ~~
+#----- Privilegios del sistema asignados al usuario 'SYSTEM' -----#
 SQL> SELECT privilege, admin_option FROM dba_sys_privs WHERE grantee = 'SYSTEM';
 
 PRIVILEGE                                | ADM
@@ -580,6 +585,7 @@ SQL>
 #### Elige un usuario concreto y muestra qué privilegios sobre objetos tiene asignados.
 - Consulta:
 ~~
+#----- Privilegios sobre objeto asignados al usuario 'BECARIO' -----#
 SQL> SELECT owner, table_name, privilege, type, grantable FROM dba_tab_privs WHERE grantee = 'BECARIO';
 
 OWNER      | TABLE_NAME | PRIVILEGE  | TYPE       | GRA
@@ -693,6 +699,7 @@ SQL>
 #### Elige un rol concreto y consulta qué usuarios lo tienen asignado.
 - Consulta:
 ~~
+#----- Usuarios que tienen asginado el rol 'CONNECT' -----#
 SQL> SELECT grantee FROM dba_role_privs WHERE granted_role = 'CONNECT';
 
 GRANTEE
@@ -724,6 +731,7 @@ SQL>
 #### Elige un rol concreto y averigua si está compuesto por otros roles o no.
 - Consulta:
 ~~
+#----- Roles que componen al rol 'DBA' -----#
 SQL> SELECT granted_role FROM role_role_privs WHERE role = 'DBA';
 
 GRANTED_ROLE
@@ -770,6 +778,7 @@ SQL>
 #### Elige un perfil y consulta qué límites se establecen en el mismo.
 - Consulta:
 ~~
+#----- Límites de recursos del perfil 'DEFAULT' -----#
 SQL> SELECT resource_name, limit FROM dba_profiles WHERE profile = 'DEFAULT';
 
 RESOURCE_NAME                       | LIMIT
@@ -799,7 +808,10 @@ SQL>
 #### Muestra los nombres de los usuarios que tienen limitado el número de sesiones concurrentes.
 - Consulta:
 ~~
-SQL> SELECT username                                                                                                                                                         FROM dba_users                                                                                                                                                          WHERE profile IN (SELECT profile                                                                                                                                                         FROM dba_profiles                                                                                                                                                       WHERE resource_name = 'SESSIONS_PER_USER');
+SELECT username
+FROM dba_users
+WHERE profile IN (SELECT profile
+                  FROM dba_profiles                                                                                                                                                       WHERE resource_name = 'SESSIONS_PER_USER');
 
 USERNAME
 _________________________
@@ -866,6 +878,7 @@ AS
   v_sesionesactivas NUMBER(3);
 
 BEGIN
+  -- Obtiene el número máximo de sesiones activas que puede tener el usuario indicado.
   SELECT limit INTO v_maxesiones
   FROM dba_profiles
   WHERE profile = (SELECT profile
@@ -873,11 +886,11 @@ BEGIN
              WHERE username = UPPER(p_usuario))
   AND resource_name = 'SESSIONS_PER_USER';
 
+  -- Obtiene el número de sesiones activas que tiene el usuario indicado actualmente.
   SELECT count(username) INTO v_sesionesactivas
   FROM v$session
   WHERE username = UPPER(p_usuario)
   GROUP BY username;
-
 
   DBMS_OUTPUT.PUT_LINE('Número Máximo de sesiones: '||v_maxesiones);
   DBMS_OUTPUT.PUT_LINE('Número de sesiones activas: '||v_sesionesactivas);
