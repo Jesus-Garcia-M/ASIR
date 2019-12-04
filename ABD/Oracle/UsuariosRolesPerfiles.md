@@ -1,4 +1,3 @@
-
 #### Crea un rol rolpractica1 con los privilegios necesarios para conectarse a la base de datos, crear tablas y vistas e insertar datos en la tabla EMP de SCOTT.
 - Creación del rol:
 ~~~
@@ -64,6 +63,10 @@ SQL>
 - Creación del usuario:
 ~~~
 SQL> CREATE USER usrpractica1 IDENTIFIED BY "usrpractica1" DEFAULT TABLESPACE users;
+
+Usuario creado.
+
+SQL>
 ~~~
 
 - Comprobación de cuota:
@@ -105,13 +108,13 @@ Usuario modificado.
 SQL>
 
 #----- Comprobación -----#
-SELECT concat(concat(tablespace_name, ' / '), username) AS "TS / User", max_bytes
+SELECT tablespace_name, username, max_bytes
 FROM dba_ts_quotas
   3  WHERE username = 'USRPRACTICA1';
 
-TS / User                                     |  MAX_BYTES
-_____________________________________________ | __________
-USERS / USRPRACTICA1                          |    1048576
+TABLESPACE_NAME                | USERNAME     |  MAX_BYTES
+______________________________ | ____________ | __________
+USERS                          | USRPRACTICA1 |    1048576
 
 SQL>
 ~~~
@@ -130,7 +133,7 @@ SQL>
 - Comprobación:
 ~~~
 # Al no tener cuota en el tablespace 'SYSTEM', no existe ninguna fila en la tabla.
-SELECT concat(concat(tablespace_name, ' / '), username) AS "TS / User", max_bytes
+SELECT max_bytes
 FROM dba_ts_quotas
 WHERE username = 'USRPRACTICA1'
   4  AND tablespace_name = 'SYSTEM';
@@ -143,7 +146,6 @@ SQL>
 #### Concede a usrpractica1 el rolpractica1.
 - Concesión del rol:
 ~~~
-#----- Concesión -----#
 SQL> GRANT rolpractica1 TO usrpractica1;
 
 Concesión terminada correctamente.
@@ -156,7 +158,7 @@ SQL>
 SQL> SELECT grantee FROM dba_role_privs WHERE granted_role = 'ROLPRACTICA1';
 
 GRANTEE
-________________________________________________________________________________
+____________________
 USRPRACTICA1
 SYS
 
@@ -182,7 +184,7 @@ Concesión terminada correctamente.
 SQL>
 ~~~
 
-- Prueba de funcionamiento:
+- Pruebas de funcionamiento:
 ~~~
 SQL> SELECT user FROM dual;
 
@@ -213,7 +215,6 @@ ALTER TABLE scott.pruebaprivs ADD nombre VARCHAR2(20)
 ERROR en línea 1:
 ORA-01031: privilegios insuficientes
 
-
 SQL>
 
 #----- Eliminación de tablas -----#
@@ -222,7 +223,6 @@ DROP TABLE scott.pruebaprivs
                  *
 ERROR en línea 1:
 ORA-01031: privilegios insuficientes
-
 
 SQL>
 ~~~
@@ -389,7 +389,29 @@ SQL>
 
 - Prueba de funcionamiento:
 ~~~
+oracle@OracleJessie:~$ rlwrap sqlplus usrpractica1/usrpractica1
 
+SQL*Plus: Release 12.1.0.2.0 Production on Mié Dic 4 08:37:23 2019
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+Hora de Última Conexión Correcta: Mar Dic 03 2019 12:32:12 +01:00
+
+Conectado a:
+Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production
+With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options
+
+
+Sesión modificada.
+
+SQL> SELECT * FROM scott.dept;
+SELECT * FROM scott.dept
+*
+ERROR en línea 1:
+ORA-02396: ha excedido el tiempo máximo de inactividad, vuelva a conectarse
+
+
+SQL> 
 ~~~
 
 #### Crea un perfil passwordsegura especificando que la contraseña caduca mensualmente y sólo se permiten tres intentos fallidos para acceder a la cuenta. En caso de superarse, la cuenta debe quedar bloqueada indefinidamente.
@@ -868,6 +890,84 @@ SQL>
 ~~~
 
 #### Realiza un procedimiento que reciba un nombre de usuario y un privilegio de sistema y nos muestre el mensaje 'SI, DIRECTO' si el usuario tiene ese privilegio concedido directamente, 'SI, POR ROL' si el usuario tiene ese privilegio en alguno de los roles que tiene concedidos y un 'NO' si el usuario no tiene dicho privilegio.
+- Código:
+~~~
+#----- Comprueba si el privilegio indicado se ha dado directamente -----#
+CREATE OR REPLACE FUNCTION PrivsSistema (p_usuario VARCHAR2,
+                                         p_priv    VARCHAR2)
+RETURN NUMBER
+AS
+  v_contador NUMBER := 0;
+
+BEGIN
+  -- Comprueba si el usuario proporcionado tiene el privilegio indicado, dejando el contador a 0 si no tiene dicho privilegio.
+  SELECT COUNT(*) INTO v_contador
+  FROM dba_sys_privs
+  WHERE grantee = UPPER(p_usuario)
+  AND privilege = UPPER(p_priv);
+
+  RETURN v_contador;
+
+END PrivsSistema;
+/
+
+
+
+
+
+#----- Comprueba si el privilegio indicado se ha dado a través de un rol -----#
+CREATE OR REPLACE FUNCTION PrivsSistemaRol (p_usuario VARCHAR2,
+                                            p_priv    VARCHAR2)
+RETURN NUMBER
+AS
+  v_contador NUMBER := 0;
+
+  -- Crea un cursor con todos los roles que tiene el usuario.
+  CURSOR c_roles IS
+    SELECT granted_role
+    FROM role_role_privs
+    WHERE role IN (SELECT granted_role
+                 FROM dba_role_privs
+                 WHERE grantee = UPPER(p_usuario));
+
+BEGIN
+  -- Recorre los roles, y comprueba si tienen el privilegio indicado, dejando el contador a 0 si ningún rol tiene el privilegio indicado.
+  FOR elem IN c_roles LOOP
+    SELECT COUNT(*) INTO v_contador
+    FROM role_sys_privs
+    WHERE role = elem.granted_role
+    AND privilege = UPPER(p_priv);
+    EXIT WHEN v_contador = 1;
+  END LOOP;
+
+  RETURN v_contador;
+
+END PrivsSistemaRol;
+/
+
+
+
+
+
+#----- Devuelve cómo se le ha dado el privilegio indicado al usuario establecido -----#
+CREATE OR REPLACE PROCEDURE TipoPrivilegio (p_usuario VARCHAR2,
+                                            p_priv    VARCHAR2)
+AS
+  v_directo NUMBER := PrivsSistema(p_usuario, p_priv);
+  v_rol NUMBER := PrivsRol(p_usuario, p_priv);
+
+BEGIN
+  IF v_directo = 1 THEN
+    DBMS_OUTPUT.PUT_LINE('Sí, directo.');
+  ELSIF v_rol = 1 THEN
+    DBMS_OUTPUT.PUT_LINE('Sí, por rol.');
+  ELSE
+    DBMS_OUTPUT.PUT_LINE('No.');
+  END IF;
+
+END TipoPrivilegio;
+/
+~~~
 
 #### Realiza un procedimiento llamado MostrarNumSesiones que reciba un nombre de usuario y muestre el número de sesiones concurrentes que puede tener abiertas como máximo y las que tiene abiertas realmente.
 - Código:
@@ -886,7 +986,7 @@ BEGIN
              WHERE username = UPPER(p_usuario))
   AND resource_name = 'SESSIONS_PER_USER';
 
-  -- Obtiene el número de sesiones activas que tiene el usuario indicado actualmente.
+  -- Obtiene el número de sesiones activas actualmente que tiene el usuario indicado.
   SELECT count(username) INTO v_sesionesactivas
   FROM v$session
   WHERE username = UPPER(p_usuario)

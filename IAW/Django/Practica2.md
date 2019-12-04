@@ -148,6 +148,14 @@ debian@produccion-django:~$
     Require all granted
   </Directory>
 
+# Contenido estático
+  Alias /static /var/www/django/static
+
+  <Directory /var/www/django/static>
+    Require all granted
+  </Directory>
+
+
 </VirtualHost>
 ~~~
 
@@ -197,9 +205,9 @@ Query OK, 0 rows affected (0.014 sec)
 MariaDB [(none)]> 
 ~~~
 
-- Configurar `Django` para utilizar la base de datos (`settings.py`):
+- Configuración de `Django` para utilizar la base de datos y acceder a la página (`settings.py`):
 ~~~
-...
+
 DATABASES = {
       'default': {
           'ENGINE': 'mysql.connector.django',
@@ -210,8 +218,9 @@ DATABASES = {
           'PORT': '',
       }
   }
-...
+
 DEBUG = False
+ALLOWED_HOSTS = ['django.jesus.org']
 ~~~
 
 - Creación de la estructura y los datos de la base de datos:
@@ -289,3 +298,15 @@ MariaDB [django]> show tables;
 
 MariaDB [django]> 
 ~~~
+
+### Modificación de la aplicación en el entorno de producción.
+- Modificación en el entorno de desarrollo (`templates/index.html`):
+~~~
+<center><img src="/static/img/otter.jpg"/></center>
+~~~
+
+- Creación de una nueva tabla:
+  - Añadir un nuevo modelo (`centro/models.py`):
+  ~~~
+
+  ~~~
