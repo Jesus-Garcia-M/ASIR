@@ -54,7 +54,7 @@ include "/etc/bind/named.conf.default-zones";
 
 - Modificación del fichero `/etc/bind/named.conf`:
 ~~~
-#----- Comentar la línea a continuación -----#
+#----- Comentar la siguiente línea -----#
 //include "/etc/bind/named.conf.default-zones";
 ~~~
 

@@ -9,5 +9,5 @@
 - `Oracle`: 1521
 - `DHCPv6`: 546, 547 (udp)
 - `SMTP`: 25, 465, 587
-- `LDAP`: 389 (tcp)
+- `LDAP`: 389
 - `LDAPS`: 636

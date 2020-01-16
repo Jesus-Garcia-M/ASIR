@@ -308,5 +308,86 @@ MariaDB [django]>
 - Creación de una nueva tabla:
   - Añadir un nuevo modelo (`centro/models.py`):
   ~~~
+class Modulos(models.Model):
+  Abr = models.CharField(max_length=4)
+  Nombre = models.CharField(max_length=50)
+  Unidad = models.ForeignKey(Cursos,blank=True,null=True,on_delete=models.SET_NULL)
 
+  def __unicode__(self):
+    return self.Abr+" - "+self.Nombre 
+
+  class Meta:
+    verbose_name="Modulo"
+    verbose_name_plural="Modulos"
   ~~~
+
+  - Cargar la migración:
+  ~~~
+  (PracticaDjango) jesus@jesus:~/Documentos/GitHub/PracticaDjango$ python manage.py makemigrations
+  Migrations for 'centro':
+    centro/migrations/0007_modulos.py
+      - Create model Modulos
+  (PracticaDjango) jesus@jesus:~/Documentos/GitHub/PracticaDjango$
+  ~~~
+
+  - Realizar la migración:
+  ~~~
+  (PracticaDjango) jesus@jesus:~/Documentos/GitHub/PracticaDjango$ python manage.py migrate
+  Operations to perform:
+  Apply all migrations: admin, auth, centro, contenttypes, convivencia, sessions
+  Running migrations:
+  Applying centro.0007_modulos... OK
+  (PracticaDjango) jesus@jesus:~/Documentos/GitHub/PracticaDjango$
+  ~~~
+
+  - Añadir el nuevo modelo a la administración de `Django` (`centro/admin.py`):
+  ~~~
+  from centro.models import Cursos,Alumnos,Departamentos,Profesores,Areas,Modulos
+  ...
+  admin.site.register(Modulos)
+  ~~~
+
+- Push de los cambios desde desarrollo:
+~~~
+(PracticaDjango) jesus@jesus:~/Documentos/GitHub/PracticaDjango$ git commit -am "Cambios"
+[master df3fc18] Cambios
+ 2 files changed, 21 insertions(+), 8 deletions(-)
+(PracticaDjango) jesus@jesus:~/Documentos/GitHub/PracticaDjango$ git push
+Enumerando objetos: 9, listo.
+Contando objetos: 100% (9/9), listo.
+Compresión delta usando hasta 8 hilos
+Comprimiendo objetos: 100% (5/5), listo.
+Escribiendo objetos: 100% (5/5), 632 bytes | 632.00 KiB/s, listo.
+Total 5 (delta 4), reusado 0 (delta 0)
+remote: Resolving deltas: 100% (4/4), completed with 4 local objects.
+To github.com:Jesus-Garcia-M/iaw_gestionGN.git
+   2cfb14a..df3fc18  master -> master
+(PracticaDjango) jesus@jesus:~/Documentos/GitHub/PracticaDjango$
+  ~~~
+
+- Pull de los cambios en producción:
+~~~
+root@produccion-django:/var/www/django# git pull
+remote: Enumerating objects: 5, done.
+remote: Counting objects: 100% (5/5), done.
+remote: Total 5 (delta 4), reused 5 (delta 4), pack-reused 0
+Unpacking objects: 100% (5/5), done.
+From https://github.com/Jesus-Garcia-M/iaw_gestionGN
+   2cfb14a..df3fc18  master     -> origin/master
+Updating 2cfb14a..df3fc18
+Fast-forward
+ centro/admin.py  | 17 +++++++++--------
+ centro/models.py | 12 ++++++++++++
+ 2 files changed, 21 insertions(+), 8 deletions(-)
+(django) root@produccion-django:/var/www/django# python manage.py makemigrations
+Migrations for 'centro':
+  centro/migrations/0007_modulos.py
+    - Create model Modulos
+(django) root@produccion-django:/var/www/django# python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, centro, contenttypes, convivencia, sessions
+Running migrations:
+  Applying centro.0007_modulos... OK
+(django) root@produccion-django:/var/www/django#
+root@produccion-django:/var/www/django# systemctl restart apache2
+~~~

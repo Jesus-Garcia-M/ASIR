@@ -319,7 +319,7 @@ SQL>
 ~~~
 
 #### Quita a usrpractica1 el privilegio de crear vistas. Comprueba que ya no puede hacerlo.
-- Creación del rol `rolpractica2` y asignación del rol `rolpractica1` al mismo:
+- Creación del rol `rolpractica2` y asignación de permisos:
 ~~~
 #----- Creación del rol -----#
 SQL> CREATE ROLE rolpractica2;
@@ -328,22 +328,60 @@ Rol creado.
 
 SQL>
 
-#----- Asignación de 'rolpractica1' a 'rolpractica2' -----#
-SQL> GRANT rolpractica1 TO rolpractica2;
+#----- Asignación de permisos -----#
+SQL> GRANT CREATE SESSION TO rolpractica2;
+
+Concesión terminada correctamente.
+
+SQL> GRANT CREATE TABLE TO rolpractica2;
+
+Concesión terminada correctamente.
+
+SQL> GRANT INSERT ON scott.emp TO rolpractica2;
 
 Concesión terminada correctamente.
 
 SQL>
 ~~~
 
-- Revocación del permiso `CREATE VIEW` al rol `rolpractica2`:
+- Asignación del rol `rolpractica2` al usuario `usrpractica1`:
+~~~
+SQL> GRANT rolpractica2 TO usrpractica1;
+
+Concesión terminada correctamente.
+
+SQL>
 ~~~
 
+- Quitar el rol `rolpractica1` al usuario `usrpractica1`:
+~~~
+SQL> REVOKE rolpractica1 FROM usrpractica1;
+
+Revocación terminada correctamente.
+
+SQL>
 ~~~
 
 - Prueba de funcionamiento:
 ~~~
+oracle@OracleJessie:~$ rlwrap sqlplus usrpractica1/usrpractica1
 
+SQL*Plus: Release 12.1.0.2.0 Production on Jue Dic 5 09:41:13 2019
+
+Hora de Última Conexión Correcta: Jue Dic 05 2019 09:36:33 +01:00
+
+Conectado a:
+Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production
+
+Sesión modificada.
+
+SQL> CREATE VIEW priv_createview AS (SELECT * FROM scott.emp);
+CREATE VIEW priv_createview AS (SELECT * FROM scott.emp)
+            *
+ERROR en línea 1:
+ORA-01031: privilegios insuficientes
+
+SQL>
 ~~~
 
 #### Crea un perfil NOPARESDECURRAR que limita a dos el número de minutos de inactividad permitidos en una sesión.
@@ -925,10 +963,9 @@ AS
   -- Crea un cursor con todos los roles que tiene el usuario.
   CURSOR c_roles IS
     SELECT granted_role
-    FROM role_role_privs
-    WHERE role IN (SELECT granted_role
-                 FROM dba_role_privs
-                 WHERE grantee = UPPER(p_usuario));
+    FROM dba_role_privs
+    START WITH grantee = UPPER(p_usuario)
+    CONNECT BY grantee = PRIOR granted_role;
 
 BEGIN
   -- Recorre los roles, y comprueba si tienen el privilegio indicado, dejando el contador a 0 si ningún rol tiene el privilegio indicado.
@@ -954,7 +991,7 @@ CREATE OR REPLACE PROCEDURE TipoPrivilegio (p_usuario VARCHAR2,
                                             p_priv    VARCHAR2)
 AS
   v_directo NUMBER := PrivsSistema(p_usuario, p_priv);
-  v_rol NUMBER := PrivsRol(p_usuario, p_priv);
+  v_rol NUMBER := PrivsSistemaRol(p_usuario, p_priv);
 
 BEGIN
   IF v_directo = 1 THEN
