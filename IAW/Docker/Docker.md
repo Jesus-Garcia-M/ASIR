@@ -155,7 +155,7 @@ root@docker:~/docker/ej1/compose#
 ~~~
 
 Prueba de funcionamiento:
-![Datos Persistentes](images/ej1/persistent)
+![Datos Persistentes](images/ej1/persistent.png)
 
 ### Tarea 2. Ejecución de una aplicación web PHP en dockerPermalink
 En este caso, la tarea será similar a la anterior, solo que utilizaremos la imagen de [PHP](https://hub.docker.com/_/php) en vez de la de Debian.
