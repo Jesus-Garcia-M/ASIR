@@ -1,6 +1,6 @@
 # Docker
 ### Tarea 1. Ejecución de una aplicación web PHP en docker.
-En esta tarea crearemos dos contenedores (base de datos y aplicación) para ejecutar la aplicación (Bookmedik)[https://github.com/evilnapsis/bookmedik] a partir de la imagen de (Debian)[https://hub.docker.com/_/debian].
+En esta tarea crearemos dos contenedores (base de datos y aplicación) para ejecutar la aplicación [Bookmedik](https://github.com/evilnapsis/bookmedik) a partir de la imagen de [Debian](https://hub.docker.com/_/debian).
 
 Configuración de `docker-compose`:
 ~~~
@@ -158,7 +158,7 @@ Prueba de funcionamiento:
 ![Datos Persistentes](images/ej1/persistent)
 
 ### Tarea 2. Ejecución de una aplicación web PHP en dockerPermalink
-En este caso, la tarea será similar a la anterior, solo que utilizaremos la imagen de (PHP)[https://hub.docker.com/_/php] en vez de la de Debian.
+En este caso, la tarea será similar a la anterior, solo que utilizaremos la imagen de [PHP](https://hub.docker.com/_/php) en vez de la de Debian.
 
 ### Tarea 4. Ejecución de un CMS en Docker (Imagen base).
 
