@@ -12,6 +12,8 @@
 	- `--add-architecture {arquitectura}`: Añade una arquitectura al sistema de paquetes.
 	- `--remove-architecture {arquitectura}`: Elimina una arquitectura del sistema de paquetes.
 	- `dpkg-reconfigure {paquete}`: Configura el paquete indicado.
+	- `dpkg --get-selections`: Lista los paquetes instalados en el sistema.
+	- `dpkg --set-selections`: Carga la lista de paquetes.
 
 - `tar`: Manejo de archivos.
 	- `-x`: Descomprimir.
