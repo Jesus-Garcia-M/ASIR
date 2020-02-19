@@ -22,8 +22,8 @@ acl externa src 192.168.200.0/24
 ## Permisos.
 http_access allow externa
 
-#----- Reiniciamos el servicio -----#
-root@proxy:~# systemctl restart squid
+#----- Recargamos el servicio -----#
+root@proxy:~# systemctl reload squid
 ~~~
 
 Una vez instalado y configurado `squid` pasaremos a configurar el cliente, para ello deberemos configurar la navegación a través de proxy en el navegador o bien configurando el proxy del sistema.
@@ -37,7 +37,7 @@ Configuración del proxy del sistema:
 
 Comprobamos el funcionamiento del proxy desde el servidor (`/var/log/squid/access.log`):
 ~~~
-root@proxy:~# cat /var/log/squid/access.log
+root@proxy:~# tail -f /var/log/squid/access.log
 ...
 1582016840.050    181 192.168.200.1 TCP_TUNNEL/200 5447 CONNECT upload.wikimedia.org:443 - HIER_DIRECT/91.198.174.208 -
 1582016840.057    223 192.168.200.1 TCP_TUNNEL/200 5662 CONNECT upload.wikimedia.org:443 - HIER_DIRECT/91.198.174.208 -
@@ -56,6 +56,9 @@ Añadimos una nueva ACL en `squid` para permitir el acceso a la red interna (`/e
 acl interna src 10.0.0.0/24
 ## Permisos.
 http_access allow interna
+
+#----- Recargamos el servicio -----#
+root@proxy:~# systemctl reload squid
 ~~~
 
 Configuramos el proxy en el cliente a través de variables de entorno:
@@ -66,8 +69,60 @@ root@buster:~# export https_proxy="https://10.0.0.10:3128"
 
 Comprobamos el funcionamiento del proxy desde el servidor (`/var/log/squid/access.log`):
 ~~~
-root@proxy:~# cat /var/log/squid/access.log
+root@proxy:~# tail -f /var/log/squid/access.log
 ...
 1582097900.980     77 10.0.0.11 TCP_MISS/301 857 GET http://google.es/ - HIER_DIRECT/172.217.168.163 text/html
 1582097903.213    223 10.0.0.11 TCP_MISS/200 3359 GET http://www.google.es/ - HIER_DIRECT/172.217.17.3 text/html
+~~~
+
+### Creación de listas negras.
+Para la creación de una lista negra utilizaremos un fichero en el que inidicaremos los dominios que vamos a bloquear (`/etc/squid/listanegra.txt`):
+~~~
+www.google.es
+~~~
+
+Una vez creada la lista añadiremos la siguiente configuración a `squid` (`/etc/squid/squid.conf`):
+~~~
+# Configuración de lista negra.
+## Definición de la ACL
+acl domain_blacklist dstdomain "/etc/squid/listanegra.txt"
+## Permisos.
+http_access deny all domain_blacklist
+
+#----- Recargamos el servicio -----#
+root@proxy:~# systemctl reload squid
+~~~
+
+Comprobamos el funcionamiento del proxy desde el servidor (`/var/log/squid/access.log`):
+~~~
+root@proxy:~# tail -f /var/log/squid/access.log
+...
+1582099414.745      0 10.0.0.11 TCP_DENIED/403 3961 GET http://www.google.es/ - HIER_NONE/- text/html
+~~~
+
+### Creación de listas blancas.
+Para la creación de una lista blanca utilizaremos un fichero en el que inidicaremos los dominios que vamos a permitir (`/etc/squid/listablanca.txt`):
+~~~
+www.google.es
+~~~
+
+Una vez creada la lista añadiremos la siguiente configuración a `squid` (`/etc/squid/squid.conf`):
+~~~
+# Configuración de lista blanca.
+## Definición de la ACL.
+acl listablanca dstdomain "/etc/squid/listablanca.txt"
+## Permisos.
+http_access allow listablanca
+http_access deny all
+
+#----- Recargamos el servicio -----#
+root@proxy:~# systemctl reload squid
+~~~
+
+Comprobamos el funcionamiento del proxy desde el servidor (`/var/log/squid/access.log`):
+~~~
+root@proxy:/etc/squid# tail -f /var/log/squid/access.log
+...
+1582099914.259      0 10.0.0.11 TCP_DENIED/403 3964 GET http://www.google.com/ - HIER_NONE/- text/html
+1582099922.808    124 10.0.0.11 TCP_MISS/200 3362 GET http://www.google.es/ - HIER_DIRECT/172.217.17.3 text/html
 ~~~
