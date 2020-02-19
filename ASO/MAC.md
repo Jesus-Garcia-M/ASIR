@@ -55,3 +55,75 @@ Instalamos el paquete `apparmor-utils` que añadirá nuevas funcionalidades como
 root@croqueta:~# apt install apparmor-utils
 ~~~
 
+Una vez instalado utilizaremos la herramienta `aa-genprof` para generar el perfil del programa deseado (En mi caso, `lynx`), pero no realizaremos el escaneo, únicamente la utilizaremos para generar el perfil:
+~~~
+root@apparmor:~# aa-genprof lynx
+Writing updated profile for /usr/bin/lynx.
+Setting /usr/bin/lynx to complain mode.
+
+Before you begin, you may wish to check if a
+profile already exists for the application you
+wish to confine. See the following wiki page for
+more information:
+https://gitlab.com/apparmor/apparmor/wikis/Profiles
+
+Profiling: /usr/bin/lynx
+
+Please start the application to be profiled in
+another window and exercise its functionality now.
+
+Once completed, select the "Scan" option below in 
+order to scan the system logs for AppArmor events. 
+
+For each AppArmor event, you will be given the 
+opportunity to choose whether the access should be 
+allowed or denied.
+
+[(S)can system log for AppArmor events] / (F)inish
+Setting /usr/bin/lynx to enforce mode.
+
+Reloaded AppArmor profiles in enforce mode.
+
+Please consider contributing your new profile!
+See the following wiki page for more information:
+https://gitlab.com/apparmor/apparmor/wikis/Profiles
+
+Finished generating profile for /usr/bin/lynx.
+root@apparmor:~#
+~~~
+
+Una vez creado el perfil lo activaremos en modo estricto:
+~~~
+root@apparmor:~# aa-enforce /etc/apparmor.d/usr.bin.lynx
+Setting /etc/apparmor.d/usr.bin.lynx to enforce mode.
+root@apparmor:~# 
+~~~
+
+Para la configuración del perfil (`/etc/apparmor.d/usr.bin.lynx`) he ido ejecutando `lynx` viendo los errores que me iba proporcionando y solucionandolos poco a poco, terminando la configuración de la siguiente forma:
+~~~
+# Last Modified: Wed Feb 19 18:22:39 2020
+#include <tunables/global>
+
+/usr/bin/lynx {
+  #include <abstractions/base>
+  # Permitir la resolución de nombres.
+  #include <abstractions/nameservice>
+
+  # Permitir al usuario el uso de ficheros temporales.
+  #include <abstractions/user-tmp>
+
+  # Permisos sobre el binario de lynx.
+  # m - Permite la ejecución de llamadas mmap.
+  # r - Permiso de lectura.
+  /usr/bin/lynx mr,
+  # Permiso de lectura sobre el fichero de configuración.
+  /etc/lynx/lynx.cfg r,
+  # Permiso de lectura sobe el fichero de configuración de estilo.
+  # Tipo de letra, colores etc...
+  /etc/lynx/lynx.lss r,
+  # Permiso de lectura para poder accedor a los MIME types.
+  # Saber el tipo de fichero según la extensión.
+  /etc/mailcap r,
+  /etc/mime.types r,
+}
+~~~
