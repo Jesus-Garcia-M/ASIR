@@ -56,7 +56,7 @@ Comprobamos el funcionamiento del balanceo:
 ![Balanceo 1](images/balanceo1.png)
 ![Balanceo 2](images/balanceo2.png)
 
-Comprobación de la página de estdísticas de `haproxy`:
+Comprobación de la página de estadísticas de `haproxy`:
 ![Estadísticas](images/estadisticas.png)
 
 Ya que anteriormente hemos indicado la opción `check port 80`, cuando apagamos uno de los servicios la página de estadísticas nos lo muestra:
