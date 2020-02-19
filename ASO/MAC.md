@@ -1,5 +1,5 @@
 # SELinux.
-La máquina `Salmorejo` siempre a tenido `SELinux` funcionando, por lo que he ido añadiendo distintas reglas (tanto en `SELinux` como en `firewalld`) para permitir el funcionamiento de distintos servicios.
+La máquina `Salmorejo` siempre ha tenido `SELinux` funcionando, por lo que he ido añadiendo distintas reglas (tanto en `SELinux` como en `firewalld`) para permitir el funcionamiento de distintos servicios.
 
 Primero comprobaré si `SELinux` y `firewalld` están funcionando y posteriormente listaré las distintas reglas añadidas:
 ~~~
