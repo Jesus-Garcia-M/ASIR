@@ -59,7 +59,7 @@ Comprobamos el funcionamiento del balanceo:
 Comprobación de la página de estadísticas de `haproxy`:
 ![Estadísticas](images/estadisticas.png)
 
-Ya que anteriormente hemos indicado la opción `check port 80`, cuando apagamos uno de los servicios la página de estadísticas nos lo muestra:
+Ya que anteriormente hemos indicado la opción `check port 80`, cuando apagamos uno de los servidores la página de estadísticas nos lo muestra:
 ![Fallo servidor](images/fallo.png)
 
 Comprobamos el log de uno de los servidores web (En este caso `apache1`):
