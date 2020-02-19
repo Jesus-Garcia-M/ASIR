@@ -14,7 +14,7 @@ running
 [root@salmorejo ~]#
 
 #----- Reglas de SELinux -----#
-# En mi caso he tenido que habilitar las siguientes funcionas:
+# En mi caso he tenido que habilitar las siguientes funciones:
 # Permitir el acceso a las distintas aplicaciones web:
 [root@salmorejo ~]# getsebool -a | grep httpd_can_network_connect
 httpd_can_network_connect --> on
@@ -52,7 +52,7 @@ public (active)
 # Apparmor.
 Instalamos el paquete `apparmor-utils` que añadirá nuevas funcionalidades como el asistente para la creación de perfiles:
 ~~~
-root@croqueta:~# apt install apparmor-utils
+root@apparmor:~# apt install apparmor-utils
 ~~~
 
 Una vez instalado utilizaremos la herramienta `aa-genprof` para generar el perfil del programa deseado (En mi caso, `lynx`), pero no realizaremos el escaneo, únicamente la utilizaremos para generar el perfil:
