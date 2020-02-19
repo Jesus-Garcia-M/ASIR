@@ -1,7 +1,7 @@
-1. Activa desde SQL*Plus* la auditoría de los intentos de acceso fallidos al sistema. Comprueba su funcionamiento. 
+1. Activa desde `SQL*Plus` la auditoría de los intentos de acceso fallidos al sistema. Comprueba su funcionamiento. 
 ~~~
 # Activar auditorias
-SQL> ALTER SYSTEM SET audit_trail=db scope=spfile sid='*';
+SQL> ALTER SYSTEM SET audit_trail=db scope=spfile;
 # Explicar opciones; db, db extended, os, xml, xml extended, none
 
 Sistema modificado.
@@ -9,7 +9,7 @@ Sistema modificado.
 SQL>
 
 # Activar la auditoria de intentos de autenticación fallidos.
-SQL> audit create session whenever not successful;
+SQL> AUDIT CREATE SESSION WHENEVER NOT SUCCESSFUL;
 
 Auditoría terminada correctamente.
 
@@ -51,7 +51,7 @@ SQL>
 3. Activa la auditoría de las operaciones DML realizadas por SCOTT. Comprueba su funcionamiento.
 ~~~
 # Activación de auditoría.
-SQL> AUDIT SELECT ANY TABLE, INSERT ANY TABLE, UPDATE ANY TABLE, DELETE ANY TABLE BY scott;
+SQL> AUDIT SELECT ANY TABLE, INSERT ANY TABLE, UPDATE ANY TABLE, DELETE ANY TABLE BY scott BY ACCESS;
 
 Auditoría terminada correctamente.
 
@@ -109,7 +109,18 @@ SQL> DELETE FROM pruebaprivs
 SQL> 
 
 ## Comprobación auditoría.
+SQL> SELECT os_username, username, action_name, obj_name, timestamp FROM dba_audit_object WHERE username = 'SCOTT';
 
+OS_USERNAME	     | USERNAME 	    | ACTION_NAME	   | OBJ_NAME		  | TIMESTAMP
+________________ | ______________ | ______________ | ____________________ | ____________________
+oracle	     | SCOTT	    | DELETE         | PRUEBAPRIVS	        | 18/02/20
+oracle	     | SCOTT	    | UPDATE         | PRUEBAPRIVS	        | 18/02/20
+oracle	     | SCOTT	    | SELECT         | PRUEBAPRIVS	        | 18/02/20
+oracle	     | SCOTT	    | INSERT         | PRUEBAPRIVS	        | 18/02/20
+
+10 filas seleccionadas.
+
+SQL> 
 ~~~
 
 4. Realiza una auditoría de grano fino para almacenar información sobre la inserción de empleados del departamento 10 en la tabla emp de scott.

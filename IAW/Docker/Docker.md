@@ -2,7 +2,7 @@
 ### Tarea 1. Ejecución de una aplicación web PHP en docker.
 En esta tarea crearemos dos contenedores (base de datos y aplicación) para ejecutar la aplicación [Bookmedik](https://github.com/evilnapsis/bookmedik) a partir de la imagen de [Debian](https://hub.docker.com/_/debian).
 
-Configuración de `docker-compose`:
+Configuramos `docker-compose` para crear el contenedor de base de datos:
 ~~~
 version: '3.1'
 
@@ -19,7 +19,7 @@ services:
       - /opt/docker/ej1/db:/var/lib/mysql
 ~~~
 
-Creación del contenedor `MariaDB` y de la base de datos:
+Creamos el contenedor de base de datos y la base de datos de la aplicación:
 ~~~
 root@docker:~/docker/ej1/compose# docker-compose up -d db
 Creating bookmedik_db ... done
@@ -28,9 +28,9 @@ root@docker:~/docker/ej1/compose#
 # Modificamos el fichero para dar permisos al usuario "bookmedik":
 GRANT ALL ON bookmedik.* TO bookmedik@'%';
 
-root@docker:~# cat schema.sql | docker exec -i mariadb /usr/bin/mysql -u root --password=root
+root@docker:~# cat schema.sql | docker exec -i bookmedik_db /usr/bin/mysql -u root --password=root
 root@docker:~# docker exec -it bookmedik_db bash
-root@8cea33540cd2:/# mysql -u root -p bookmedik
+root@8cea33540cd2:/# mysql -u bookmedik -p bookmedik
 Enter password: 
 Reading table information for completion of table and column names
 You can turn off this feature to get a quicker startup with -A
@@ -159,6 +159,60 @@ Prueba de funcionamiento:
 
 ### Tarea 2. Ejecución de una aplicación web PHP en dockerPermalink
 En este caso, la tarea será similar a la anterior, solo que utilizaremos la imagen de [PHP](https://hub.docker.com/_/php) en vez de la de Debian.
+
+Al igual que en el ejercicio anterior, configuraremos `docker-compose` con el contenedor de base de datos y crearemos el contenedor así como la base de datos para la aplicación:
+~~~
+#----- Configuración de docker-compose -----#
+version: '3.1'
+
+services:
+  db:
+    container_name: bookmedik_db_php
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_USER: bookmedik
+      MYSQL_PASSWORD: bookmedik
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - /opt/docker/ej2/db:/var/lib/mysql
+
+#----- Creación del contenedor y de la base de datos -----#
+root@docker:~/docker/ej2/compose# docker-compose up -d db
+Recreating bookmedik_db ... done
+root@docker:~/docker/ej2/compose#
+root@docker:~# cat schema.sql | docker exec -i bookmedik_db_php /usr/bin/mysql -u root --password=root
+root@docker:~# docker exec -it bookmedik_db_php bash
+root@33e7ba4761e8:/# mysql -u bookmedik -p bookmedik
+Enter password: 
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 9
+Server version: 10.4.12-MariaDB-1:10.4.12+maria~bionic mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [bookmedik]> show tables;
++---------------------+
+| Tables_in_bookmedik |
++---------------------+
+| category            |
+| medic               |
+| pacient             |
+| payment             |
+| reservation         |
+| status              |
+| user                |
++---------------------+
+7 rows in set (0.001 sec)
+
+MariaDB [bookmedik]> 
+~~~
+
 
 ### Tarea 4. Ejecución de un CMS en Docker (Imagen base).
 

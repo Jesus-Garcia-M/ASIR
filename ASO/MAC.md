@@ -50,7 +50,8 @@ public (active)
 ~~~ 
 
 # Apparmor.
-Instalación del paquete `apparmor-utils` que añadirá nuevas funcionalidades como el asistente para la creación de perfiles:
+Instalamos el paquete `apparmor-utils` que añadirá nuevas funcionalidades como el asistente para la creación de perfiles:
 ~~~
 root@croqueta:~# apt install apparmor-utils
 ~~~
+
