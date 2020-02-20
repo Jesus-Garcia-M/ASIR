@@ -14,6 +14,7 @@ services:
     environment:
       MYSQL_USER: bookmedik
       MYSQL_PASSWORD: bookmedik
+      MYSQL_DATABASE: bookmedik
       MYSQL_ROOT_PASSWORD: root
     volumes:
       - /opt/docker/ej1/db:/var/lib/mysql
@@ -25,8 +26,7 @@ root@docker:~/docker/ej1/compose# docker-compose up -d db
 Creating bookmedik_db ... done
 root@docker:~/docker/ej1/compose#
 
-# Modificamos el fichero para dar permisos al usuario "bookmedik":
-GRANT ALL ON bookmedik.* TO bookmedik@'%';
+# Antes de cargar el esquema debemos eliminar la línea "create database bookmedik;" ya que la hemos creado al crear el contenedor.
 
 root@docker:~# cat schema.sql | docker exec -i bookmedik_db /usr/bin/mysql -u root --password=root
 root@docker:~# docker exec -it bookmedik_db bash
@@ -80,7 +80,7 @@ class Database {
                 $this->user=getenv('MYSQL_USER');
                 $this->pass=getenv('MYSQL_PASSWORD');
                 $this->host=getenv('MYSQL_HOST');
-                $this->ddbb="bookmedik";
+                $this->ddbb=getenv('MYSQL_DB');
         }
 ~~~
 
@@ -89,7 +89,7 @@ Creamos el `Dockerfile` para posteriormente crear la imagen:
 FROM debian
 MAINTAINER Jesús García Muñox "jesus.garcia.inf@gmail.com"
 
-RUN apt update && apt upgrade -y && apt install -y apache2 libapache2-mod-php && apt install php7.3-mysql && apt clean && rm -rf /var/lib/apt/lists/*
+RUN apt update && apt upgrade -y && apt install -y apache2 libapache2-mod-php php7.3-mysql && apt clean && rm -rf /var/lib/apt/lists/*
 
 ENV APACHE_RUN_USER www-data
 ENV APACHE_RUN_GROUP www-data
@@ -122,6 +122,7 @@ Añadimos la configuración del nuevo contenedor a `docker-compose`:
     environment:
       MYSQL_USER: bookmedik
       MYSQL_PASSWORD: bookmedik
+      MYSQL_DB: bookmedik
       MYSQL_HOST: bookmedik_db
     ports:
       - 80:80
@@ -212,6 +213,7 @@ MariaDB [bookmedik]> show tables;
 
 MariaDB [bookmedik]> 
 ~~~
+
 
 
 ### Tarea 4. Ejecución de un CMS en Docker (Imagen base).
