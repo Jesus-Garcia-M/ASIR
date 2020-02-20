@@ -1,5 +1,5 @@
 # Docker
-### Tarea 1. Ejecución de una aplicación web PHP en docker.
+### Tarea 1. Ejecución de una aplicación web PHP en Docker.
 En esta tarea crearemos dos contenedores (base de datos y aplicación) para ejecutar la aplicación [Bookmedik](https://github.com/evilnapsis/bookmedik) a partir de la imagen de [Debian](https://hub.docker.com/_/debian).
 
 Configuramos `docker-compose` para crear el contenedor de base de datos:
@@ -174,6 +174,7 @@ services:
     environment:
       MYSQL_USER: bookmedik
       MYSQL_PASSWORD: bookmedik
+      MYSQL_DATABASE: bookmedik
       MYSQL_ROOT_PASSWORD: root
     volumes:
       - /opt/docker/ej2/db:/var/lib/mysql
@@ -214,6 +215,105 @@ MariaDB [bookmedik]> show tables;
 MariaDB [bookmedik]> 
 ~~~
 
+A continuación crearemos el `Dockerfile` para posteriormente crear nuestra imagen:
+~~~
+#----- Contenido del Dockerfile -----#
+FROM php:apache-buster
+MAINTAINER Jesús García Muñox "jesus.garcia.inf@gmail.com"
+
+COPY app/ /var/www/html
+
+RUN chown -R www-data:www-data /var/www/html && \
+    docker-php-ext-install mysqli
+
+ENV APACHE_RUN_USER www-data
+ENV APACHE_RUN_GROUP www-data
+ENV APACHE_LOG_DIR /var/log/apache2
+
+EXPOSE 80
+
+#----- Creación de la imagen -----#
+root@docker:~/docker/ej2/build# docker build -t jesusgarciam/bookmedik:v1 .
+Sending build context to Docker daemon  5.768MB
+Step 1/8 : FROM php:apache-buster
+ ---> 4165e46dd82e
+Step 2/8 : MAINTAINER Jesús García Muñox "jesus.garcia.inf@gmail.com"
+ ---> Using cache
+ ---> 0334930807cb
+Step 3/8 : COPY app/ /var/www/html
+ ---> Using cache
+ ---> 0d6a674c46c4
+Step 4/8 : RUN chown -R www-data:www-data /var/www/html &&     docker-php-ext-install mysqli
+ ---> Using cache
+ ---> da64d1e15a7f
+Step 5/8 : ENV APACHE_RUN_USER www-data
+ ---> Using cache
+ ---> 41b5092a0b85
+Step 6/8 : ENV APACHE_RUN_GROUP www-data
+ ---> Using cache
+ ---> 96df28561873
+Step 7/8 : ENV APACHE_LOG_DIR /var/log/apache2
+ ---> Using cache
+ ---> 61d95cc01638
+Step 8/8 : EXPOSE 80
+ ---> Using cache
+ ---> 2bd67c842c53
+Successfully built 2bd67c842c53
+Successfully tagged jesusgarciam/bookmedik:v1
+root@docker:~/docker/ej2/build#
+~~~
+
+Con la imagen creada, añadiremos la configuración a `docker-compose` y crearemos el escenario:
+~~~
+#----- Configuración de docker-compose -----#
+  app:
+    container_name: bookmedik
+    image: jesusgarciam/bookmedik:v1
+    restart: always
+    environment:
+      MYSQL_USER: bookmedik
+      MYSQL_PASSWORD: bookmedik
+      MYSQL_HOST: bookmedik_db_php
+      MYSQL_DB: bookmedik
+    ports:
+      - 80:80
+
+#----- Creación del escenario -----#
+root@docker:~/docker/ej2/compose# docker-compose up -d
+Creating bookmedik        ... done
+Creating bookmedik_db_php ... done
+root@docker:~/docker/ej2/compose# 
+~~~
+
+Por último, comprobamos el funcionamiento de la aplicación:
+![Log In](images/ej2/login.png)
+![App](images/ej2/app.png)
+
+Ya que hemos comprobado que la aplicación funciona correctamente, es hora de subirla a [Docker Hub](https://hub.docker.com/r/jesusgarciam/bookmedik):
+~~~
+root@docker:~/docker/ej2/build# docker push jesusgarciam/bookmedik:v1
+The push refers to repository [docker.io/jesusgarciam/bookmedik]
+1a6499b14757: Pushed 
+7d09081decab: Pushed 
+5456022dd98e: Mounted from library/php 
+0a43494cdc98: Mounted from library/php 
+d4a13b7a5f07: Mounted from library/php 
+740dbc321f02: Mounted from library/php 
+79b2bd968ae5: Mounted from library/php 
+806965415829: Mounted from library/php 
+63bdd471b6c2: Mounted from library/php 
+68ec2faa35f5: Mounted from library/php 
+1d9b8efc8fda: Mounted from library/php 
+f6240605700a: Mounted from library/php 
+e501e93022bc: Mounted from library/php 
+00ad11a7d941: Mounted from library/php 
+488dfecc21b1: Mounted from library/php 
+v1: digest: sha256:e79d089bf4031e5a514b2ccb667a33a674d4bd7c09dc167db39f568b89523989 size: 3457
+root@docker:~/docker/ej2/build#
+~~~
+
+### Tarea 3: Ejecución de una aplicación web PHP en Docker.
+A diferencia de los dos ejercicios anteriores, ahora utilizaremos `Nginx` como servidor web y `PHP-FPM` como servidor de aplicaciones, por lo que dispondremos de tres contenedores.
 
 
 ### Tarea 4. Ejecución de un CMS en Docker (Imagen base).
