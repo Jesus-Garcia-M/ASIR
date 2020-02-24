@@ -315,6 +315,60 @@ root@docker:~/docker/ej2/build#
 ### Tarea 3: Ejecución de una aplicación web PHP en Docker.
 A diferencia de los dos ejercicios anteriores, ahora utilizaremos `Nginx` como servidor web y `PHP-FPM` como servidor de aplicaciones, por lo que dispondremos de tres contenedores.
 
+Al igual que en los ejercicios anteriores, configuraremos el contenedor de base de datos en `docker-compose` y crearemos la base de datos:
+~~~
+#----- Configuración de docker-compose -----#
+version: '3.1'
+
+services:
+  db:
+    container_name: bookmedik_db_nginx
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_USER: bookmedik
+      MYSQL_PASSWORD: bookmedik
+      MYSQL_DATABASE: bookmedik
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - /opt/docker/ej3/db:/var/lib/mysql
+
+#----- Creación del contenedor y de la base de datos-----#
+root@docker:~/docker/ej3/compose# docker-compose up -d
+Creating bookmedik_db_nginx ... done
+root@docker:~# cat schema.sql | docker exec -i bookmedik_db_nginx /usr/bin/mysql -u root --password=root
+root@docker:~# docker exec -it bookmedik_db_nginx bash
+root@6a8043af2630:/# mysql -u bookmedik -p bookmedik
+Enter password: 
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 14
+Server version: 10.4.12-MariaDB-1:10.4.12+maria~bionic mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [bookmedik]> show tables;
++---------------------+
+| Tables_in_bookmedik |
++---------------------+
+| category            |
+| medic               |
+| pacient             |
+| payment             |
+| reservation         |
+| status              |
+| user                |
++---------------------+
+7 rows in set (0.001 sec)
+
+MariaDB [bookmedik]> 
+~~~
+
+Una vez creada la base de datos
 
 ### Tarea 4. Ejecución de un CMS en Docker (Imagen base).
 

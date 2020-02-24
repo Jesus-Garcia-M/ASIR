@@ -1106,7 +1106,7 @@ root@rendimiento:~#
 # Media: 5458.12 peticiones por segundo.
 ~~~
 
-##### Nginx + PHP-FPM (Socket UNIX).
+##### Nginx + PHP-FPM (Socket TCP/IP).
 - Al igual que antes, lo único necesario es cambiar la comfiguración de `PHP-FPM` tal y como hicimos en `Apache2` y modificar la configuración de los virtualhost de `Nginx`:
 ~~~
 location ~ \.php$ {
