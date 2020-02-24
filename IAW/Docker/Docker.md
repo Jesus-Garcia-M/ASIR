@@ -368,7 +368,93 @@ MariaDB [bookmedik]> show tables;
 MariaDB [bookmedik]> 
 ~~~
 
-Una vez creada la base de datos
+Una vez creada la base de datos, pasaremos a crear la imagen para `PHP-FPM` y posteriormente añadir la configuración a `docker-compose`:
+~~~
+#----- Contenido Dockerfile -----#
+FROM php:7-fpm
+MAINTAINER Jesús García Muñox "jesus.garcia.inf@gmail.com"
+
+RUN docker-php-ext-install mysqli
+
+ENV MYSQL_USER bookmedik
+ENV MYSQL_PASSWORD bookmedik
+ENV MYSQL_HOST bookmedik_db_nginx
+ENV MYSQL_DB bookmedik
+
+EXPOSE 9000
+
+#----- Creación de la imagen -----#
+root@docker:~/docker/ej3/build/fpm# docker build -t jesusgarciam/fpm:v2 .
+Sending build context to Docker daemon  2.048kB
+Step 1/8 : FROM php:7-fpm
+ ---> b302c71475f5
+Step 2/8 : MAINTAINER Jesús García Muñox "jesus.garcia.inf@gmail.com"
+ ---> Using cache
+ ---> 106d5f63ce2e
+Step 3/8 : RUN docker-php-ext-install mysqli
+ ---> Using cache
+ ---> 9ee746bf86de
+Step 4/8 : ENV MYSQL_USER bookmedik
+ ---> Running in a870e304b149
+Removing intermediate container a870e304b149
+ ---> c6e3e78348f0
+Step 5/8 : ENV MYSQL_PASSWORD bookmedik
+ ---> Running in 1a68759b5ce5
+Removing intermediate container 1a68759b5ce5
+ ---> d8cc05b29bae
+Step 6/8 : ENV MYSQL_HOST bookmedik_db_nginx
+ ---> Running in 7b5048ffc21c
+Removing intermediate container 7b5048ffc21c
+ ---> c6302d34b7da
+Step 7/8 : ENV MYSQL_DB bookmedik
+ ---> Running in 1ad39ff84265
+Removing intermediate container 1ad39ff84265
+ ---> ffd7530ad2ad
+Step 8/8 : EXPOSE 9000
+ ---> Running in da303445e98c
+Removing intermediate container da303445e98c
+ ---> 083acfa58967
+Successfully built 083acfa58967
+Successfully tagged jesusgarciam/fpm:v2
+root@docker:~/docker/ej3/build/fpm#
+
+#----- Configuración de docker-compose -----#
+  fpm:
+    container_name: bookmedik_fpm
+    image: jesusgarciam/fpm:v2
+    volumes:
+      - /opt/docker/ej3/app:/var/www/html
+~~~
+
+Con el servidor de aplicaciones y la base de datos funcionando, solo resta la configuración en `docker-compose` del servidor web:
+~~~
+  app:
+    container_name: bookmedik
+    image: nginx:latest
+    ports:
+      - 80:80
+    volumes:
+      - /opt/docker/ej3/app:/var/www/html
+      - ./bookmedik.conf:/etc/nginx/conf.d/default.conf
+~~~
+
+Una vez los tres contenedores estén configurados correctamente, los creamos y comprobamos su funcionamiento:
+~~~
+root@docker:~/docker/ej3/compose# docker-compose up -d
+Creating bookmedik_fpm      ... done
+Creating bookmedik_db_nginx ... done
+Creating bookmedik          ... done
+root@docker:~/docker/ej3/compose# docker ps
+CONTAINER ID        IMAGE                 COMMAND                  CREATED             STATUS              PORTS                NAMES
+aee7aaad8082        mariadb               "docker-entrypoint.s…"   6 seconds ago       Up 4 seconds        3306/tcp             bookmedik_db_nginx
+e2ea6d934c55        jesusgarciam/fpm:v2   "docker-php-entrypoi…"   6 seconds ago       Up 4 seconds        9000/tcp             bookmedik_fpm
+f7faa6c59868        nginx:latest          "nginx -g 'daemon of…"   6 seconds ago       Up 4 seconds        0.0.0.0:80->80/tcp   bookmedik
+root@docker:~/docker/ej3/compose# 
+~~~
+
+Prueba de funcionamiento:
+![Log In](images/ej3/login.png)
+![App](images/ej3/app.png)
 
 ### Tarea 4. Ejecución de un CMS en Docker (Imagen base).
 
