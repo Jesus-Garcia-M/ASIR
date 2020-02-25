@@ -1,6 +1,6 @@
 # Balanceador.
 Durante esta práctica utilizaremos la herramienta `haproxy` y realizaremos distintas configuraciones.
-Adicionalmente utilizaremos un escenario [Vagrant](Vagrantfile) con las siguientes máquinas:
+Adicionalmente utilizaremos un [escenario Vagrant](Vagrantfile) con las siguientes máquinas:
 - `balanceador`: Balanceador de carga, direccioón IP: 10.10.10.1.
 - `apache1`: Servidor web 1, dirección IP: 10.10.10.11.
 - `apache2`: Servidor web 2, dirección IP: 10.10.10.22.
