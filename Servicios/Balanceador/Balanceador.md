@@ -87,7 +87,7 @@ server dos 10.10.10.22:80 cookie servidordos maxconn 128
 root@balanceador:~# systemctl restart haproxy
 ~~~
 
-Para comprobar el funcionamiento accederemos a la dirección `172.22.1.151/sesion.php` y comprobaremos como, al recargar la página el número de visitas aumenta:
+Para comprobar el funcionamiento accederemos a la dirección `172.22.1.151/sesion.php` y comprobaremos como, al recargar la página, el número de visitas aumenta:
 ![Primera visita](images/incremento.png)
 ![Segunda visita](images/incremento1.png)
 
@@ -95,5 +95,5 @@ A continuación, utilizaremos una ventana de incógnito y comprobaremos que efec
 ![Reset visita](images/reset.png)
 ![Incremento visita](images/reset1.png)
 
-Por última, comprobaremos las cabeceras y comprobaremos que la cookie va en la petición:
+Por última, miraremos las cabeceras y comprobaremos que la cookie va en la petición:
 ![Envío Cookie](images/enviocookies.png)
