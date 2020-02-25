@@ -77,7 +77,7 @@ Como podemos comprobar la dirección que realiza la petición es la dirección i
 Para activar la persistencia de conexiones (`sticky cookies`) en `haproxy` añadiremos la siguiente configuración (`/etc/haproxy/haproxy.cfg`):
 ~~~
 # Indica la cookie que queremos que sea persistente.
-# En este caso "PHPSESID" que es la que guarda la sesión en PHP.
+# En este caso "PHPSESSID" que es la que guarda la sesión en PHP.
 cookie PHPSESSID prefix
 # Definición de los servidores.
 server uno 10.10.10.11:80 cookie servidoruno maxconn 128
