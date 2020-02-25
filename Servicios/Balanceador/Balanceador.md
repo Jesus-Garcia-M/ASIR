@@ -72,3 +72,28 @@ root@apache1:~# cat /var/log/apache2/access.log
 root@apache1:~#
 ~~~
 Como podemos comprobar la dirección que realiza la petición es la dirección interna del balanceador ya que es el balanceador el que se encarga de hacer la paticiones a los distintos servidores de acuerdo al tipo de balanceo que hayamos especificado anteriormente, en nuestro caso `roundrobin`.
+
+### Sticky Sessions.
+Para activar la persistencia de conexiones (`sticky cookies`) en `haproxy` añadiremos la siguiente configuración (`/etc/haproxy/haproxy.cfg`):
+~~~
+# Indica la cookie que queremos que sea persistente.
+# En este caso "PHPSESID" que es la que guarda la sesión en PHP.
+cookie PHPSESSID prefix
+# Definición de los servidores.
+server uno 10.10.10.11:80 cookie servidoruno maxconn 128
+server dos 10.10.10.22:80 cookie servidordos maxconn 128
+
+#----- Reiniciamos el servicio -----#
+root@balanceador:~# systemctl restart haproxy
+~~~
+
+Para comprobar el funcionamiento accederemos a la dirección `172.22.1.151/sesion.php` y comprobaremos como, al recargar la página el número de visitas aumenta:
+![Primera visita](images/incremento.png)
+![Segunda visita](images/incremento1.png)
+
+A continuación, utilizaremos una ventana de incógnito y comprobaremos que efectivamente, las cookies no se han guardado volviendo el contador a cero:
+![Reset visita](images/reset.png)
+![Incremento visita](images/reset1.png)
+
+Por última, comprobaremos las cabeceras y comprobaremos que la cookie va en la petición:
+![Envío Cookie](images/enviocookies.png)
