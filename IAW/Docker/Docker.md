@@ -456,20 +456,6 @@ Prueba de funcionamiento:
 ![Log In](images/ej3/login.png)
 ![App](images/ej3/app.png)
 
-### Tarea 4. Ejecución de un CMS en Docker (Imagen base).
-
-$databases['default']['default'] = array (
-  'database' => getenv('MYSQL_DB'),
-  'username' => getenv('MYSQL_USER'),
-  'password' => getenv('MYSQL_PASS'),
-  'prefix' => '',
-  'host' => getenv('MYSQL_HOST'),
-  'port' => '3306',
-  'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
-  'driver' => 'mysql',
-);
-
-
 ### Tarea 5. Ejecución de un CMS en Docker (Imagen del CMS).
 En este caso vamos a utilizar [Owncloud](https://hub.docker.com/_/owncloud) y la estructura será la siguiente:
 - 1 contenedor con el servidor de base de datos (`MariaDB`).
