@@ -4,7 +4,7 @@ Durante esta práctica, instalaremos `OpenCMS`, un CMS genérico escrito en `jav
 ### Paso previos.
 Antes de comenzar con la instalación de `OpenCMS`, deberemos instalar los paquetes necesarios para el mismo:
 ~~~
-default-jdk mariadb-server tomcat9 apache2 unzip
+root@java:~# apt install default-jdk tomcat9 apache2 unzip
 ~~~
 
 Ya que dispones de un servidor de base de datos (`tortilla`), crearemos una nueva base de datos en el mismo y le daremos permisos:
@@ -43,3 +43,45 @@ root@java:/tmp# root@java:/tmp# mv opencms.war /var/lib/tomcat9/webapps/
 ~~~
 
 A continuación, accederemos a la siguiente URL para comenzar la instalación: `http://172.22.201.81:8080/opencms/setup`.
+![Configuración de base de datos.](images/configdb.png)
+![Instalado](images/instalado.png)
+
+### Configuración Apache2.
+Como podemos comprobar, la página la está sirviendo `Tomcat` y no `apache2`, por lo que pasaremos a configurarlo a través del protocolo `ajp` para servir nuestra página:
+~~~
+#----- Activamos el módulo proxy ajp -----#
+root@java:~# a2enmod proxy_ajp
+Considering dependency proxy for proxy_ajp:
+Module proxy already enabled
+Enabling module proxy_ajp.
+To activate the new configuration, you need to run:
+  systemctl restart apache2
+root@java:~# 
+
+#----- Configuramos apache (/etc/apache2/sites-enabled/000-default.conf) -----#
+<VirtualHost *:80>
+        ServerAdmin webmaster@localhost
+        ServerName opencms.jesus.gonzalonazareno.org
+
+        ProxyPreserveHost On
+        ProxyRequests Off
+        <Proxy *>
+            Require all granted
+        </Proxy>
+        ProxyPass / ajp://172.22.201.81:8009/
+        ProxyPassReverse / ajp://172.22.201.81:8009/
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+#----- Cambiamos la configuración de tomcat (/var/lib/tomcat9/conf/server.xml) -----#
+# Descomentamos la siguiente línea:	
+<Connector port="8009" protocol="AJP/1.3" redirectPort="8443" />
+
+#----- Reiniciamos los servicios -----#
+root@java:~# systemctl restart tomcat9 apache2
+~~~
+
+Una vez configurado, comprobamos el funcionamiento:
+![Protocolo AJP](images/ajp.png)
