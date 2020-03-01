@@ -295,5 +295,68 @@ ALLOWED_HOSTS = ['python.jesus.gonzalonazareno.org']
 
 - Migración de la base de datos:
 ~~~
+(mezzanine) [root@salmorejo mezzanine]# python3 manage.py migrate
+~~~
 
+- Instalación de `gunicorn`:
+~~~
+(mezzanine) [root@salmorejo mezzanine]# pip install gunicorn
+~~~
+
+- Creación del socker para `gunicorn` (`/etc/systemd/system/gunicorn.socker`):
+~~~
+[Unit]
+Description=Socker GUnicorn
+
+[Socket]
+ListenStream=/run/gunicorn.sock
+
+[Install]
+WantedBy=sockets.target
+~~~
+
+- Creación de la unidad systemd para `gunicorn` (`/etc/systemd/system/gunicorn.service`):
+~~~
+[Unit]
+Description=Demonio GUnicorn
+After=network.target
+
+[Service]
+WorkingDirectory=/var/www/mezzanine
+ExecStart=/bin/bash /var/www/mezzanine/gunicorn_start
+ExecReload=/bin/bash /var/www/mezzanine/gunicorn_start
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+~~~
+
+- Contenido del scrip (`/var/www/mezzanine/gunicorn_start`):
+~~~
+#!/bin/bash
+
+NAME="mezzanine"
+DJANGODIR=/home/centos/mezzanine
+USER=nginx
+GROUP=nginx
+WORKERS=3
+BIND=unix:/run/gunicorn.sock
+DJANGO_SETTINGS_MODULE=mezzanine.settings
+DJANGO_WSGI_MODULE=mezzanine.wsgi
+LOGLEVEL=error
+
+cd $DJANGODIR
+source /home/centos/mezzanine/paquetes/bin/activate
+
+export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
+export PYTHONPATH=$DJANGODIR:$PYTHONPATH
+
+exec /home/centos/mezzanine/paquetes/bin/gunicorn ${DJANGO_WSGI_MODULE}:application \
+  --name $NAME \
+  --workers $WORKERS \
+  --user=$USER \
+  --group=$GROUP \
+  --bind=$BIND \
+  --log-level=$LOGLEVEL \
+  --log-file=-
 ~~~
