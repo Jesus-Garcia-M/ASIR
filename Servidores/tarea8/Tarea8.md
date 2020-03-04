@@ -258,7 +258,7 @@ data.json  deploy  dev.db  fabfile.py  manage.py  requirements.txt  static  tare
 
 - Instalación del fichero `requirements.txt`:
 ~~~
-(entorno) [root@salmorejo mezzanine]# pip3 install -r requirements.txt
+(entorno) [root@salmorejo tarea8]# pip3 install -r requirements.txt
 ~~~
 
 - Configuración de la base de datos (`tarea8/settings.py`:
@@ -351,7 +351,7 @@ Installed 154 object(s) from 1 fixture(s)
 
 - Instalación de `gunicorn`:
 ~~~
-(entorno) [root@salmorejo mezzanine]# pip install gunicorn
+(entorno) [root@salmorejo tarea8]# pip install gunicorn
 ~~~
 
 - Creación del socker para `gunicorn` (`/etc/systemd/system/gunicorn.socket`):
