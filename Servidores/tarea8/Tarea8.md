@@ -234,12 +234,12 @@ MariaDB [(none)]>
 
 - Creación del entorno virtual:
 ~~~
-[centos@salmorejo VirtualEnvs]$ python3 -m venv Mezzanine
+[centos@salmorejo tarea8]$ python3 -m venv tarea8
 ~~~
 
 - Clonación del repositorio:
 ~~~
-[centos@salmorejo www]$ sudo git clone https://github.com/Jesus-Garcia-M/Tarea8.git mezzanine
+[centos@salmorejo tarea8]$ sudo git clone https://github.com/Jesus-Garcia-M/Tarea8.git ./
 Clonando en 'mezzanine'...
 remote: Enumerating objects: 32, done.
 remote: Counting objects: 100% (32/32), done.
@@ -248,17 +248,17 @@ remote: Total 32 (delta 0), reused 32 (delta 0), pack-reused 0
 Desempaquetando objetos: 100% (32/32), listo.
 [centos@salmorejo www]$ ls mezzanine/
 data.json  deploy  dev.db  fabfile.py  manage.py  requirements.txt  static  tarea8
-[centos@salmorejo www]$
+[centos@salmorejo tarea8]$
 ~~~
 
 - Instalación del conector `mysql-connector-python`:
 ~~~
-(mezzanine) [centos@salmorejo ~]$ pip3 install mysql-connector-python
+(entorno) [root@salmorejo tarea8]# pip3 install mysql-connector-python
 ~~~
 
 - Instalación del fichero `requirements.txt`:
 ~~~
-(mezzanine) [centos@salmorejo mezzanine]$ pip3 install -r requirements.txt
+(entorno) [root@salmorejo mezzanine]# pip3 install -r requirements.txt
 ~~~
 
 - Configuración de la base de datos (`tarea8/settings.py`:
@@ -275,7 +275,7 @@ DATABASES = {
 }
 
 #----- Prueba de funcionamiento -----#
-(mezzanine) [centos@salmorejo tarea8]$ mysql -u mezzanine -p mezzanine -h tortilla
+(entorno) [centos@salmorejo tarea8]$ mysql -u mezzanine -p mezzanine -h tortilla
 Enter password: 
 Welcome to the MariaDB monitor.  Commands end with ; or \g.
 Your MariaDB connection id is 334
@@ -295,21 +295,72 @@ ALLOWED_HOSTS = ['python.jesus.gonzalonazareno.org']
 
 - Migración de la base de datos:
 ~~~
-(mezzanine) [root@salmorejo mezzanine]# python3 manage.py migrate
+(entorno) [root@salmorejo tarea8]# 
+Operations to perform:
+  Apply all migrations: admin, auth, blog, conf, contenttypes, core, django_comments, forms, galleries, generic, pages, redirects, sessions, sites, twitter
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying sites.0001_initial... OK
+  Applying blog.0001_initial... OK
+  Applying blog.0002_auto_20150527_1555... OK
+  Applying blog.0003_auto_20170411_0504... OK
+  Applying conf.0001_initial... OK
+  Applying core.0001_initial... OK
+  Applying core.0002_auto_20150414_2140... OK
+  Applying django_comments.0001_initial... OK
+  Applying django_comments.0002_update_user_email_field_length... OK
+  Applying django_comments.0003_add_submit_date_index... OK
+  Applying pages.0001_initial... OK
+  Applying forms.0001_initial... OK
+  Applying forms.0002_auto_20141227_0224... OK
+  Applying forms.0003_emailfield... OK
+  Applying forms.0004_auto_20150517_0510... OK
+  Applying forms.0005_auto_20151026_1600... OK
+  Applying forms.0006_auto_20170425_2225... OK
+  Applying galleries.0001_initial... OK
+  Applying galleries.0002_auto_20141227_0224... OK
+  Applying generic.0001_initial... OK
+  Applying generic.0002_auto_20141227_0224... OK
+  Applying generic.0003_auto_20170411_0504... OK
+  Applying pages.0002_auto_20141227_0224... OK
+  Applying pages.0003_auto_20150527_1555... OK
+  Applying pages.0004_auto_20170411_0504... OK
+  Applying redirects.0001_initial... OK
+  Applying sessions.0001_initial... OK
+  Applying sites.0002_alter_domain_unique... OK
+  Applying twitter.0001_initial... OK
+~~~
+
+- Carga de datos:
+~~~
+(entorno) [root@salmorejo tarea8]# python manage.py loaddata data.json
+Installed 154 object(s) from 1 fixture(s)
+(entorno) [root@salmorejo tarea8]#
 ~~~
 
 - Instalación de `gunicorn`:
 ~~~
-(mezzanine) [root@salmorejo mezzanine]# pip install gunicorn
+(entorno) [root@salmorejo mezzanine]# pip install gunicorn
 ~~~
 
-- Creación del socker para `gunicorn` (`/etc/systemd/system/gunicorn.socker`):
+- Creación del socker para `gunicorn` (`/etc/systemd/system/gunicorn.socket`):
 ~~~
 [Unit]
 Description=Socker GUnicorn
 
 [Socket]
-ListenStream=/run/gunicorn.sock
+ListenStream=127.0.0.1:8080
 
 [Install]
 WantedBy=sockets.target
@@ -322,36 +373,36 @@ Description=Demonio GUnicorn
 After=network.target
 
 [Service]
-WorkingDirectory=/var/www/mezzanine
-ExecStart=/bin/bash /var/www/mezzanine/gunicorn_start
-ExecReload=/bin/bash /var/www/mezzanine/gunicorn_start
+WorkingDirectory=/var/www/tarea8
+ExecStart=/bin/bash /var/www/tarea8/gunicorn_start
+ExecReload=/bin/bash /var/www/tarea8/gunicorn_start
 RemainAfterExit=yes
 
 [Install]
 WantedBy=multi-user.target
 ~~~
 
-- Contenido del scrip (`/var/www/mezzanine/gunicorn_start`):
+- Contenido del scrip (`/var/www/tarea8/gunicorn_start`):
 ~~~
 #!/bin/bash
 
-NAME="mezzanine"
-DJANGODIR=/home/centos/mezzanine
+NAME="tarea8"
+DJANGODIR=/var/www/tarea8
 USER=nginx
 GROUP=nginx
-WORKERS=3
-BIND=unix:/run/gunicorn.sock
-DJANGO_SETTINGS_MODULE=mezzanine.settings
-DJANGO_WSGI_MODULE=mezzanine.wsgi
+WORKERS=1
+BIND=127.0.0.1:8080
+DJANGO_SETTINGS_MODULE=tarea8.settings
+DJANGO_WSGI_MODULE=tarea8.wsgi
 LOGLEVEL=error
 
 cd $DJANGODIR
-source /home/centos/mezzanine/paquetes/bin/activate
+source /var/www/tarea8/entorno/bin/activate
 
 export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
 export PYTHONPATH=$DJANGODIR:$PYTHONPATH
 
-exec /home/centos/mezzanine/paquetes/bin/gunicorn ${DJANGO_WSGI_MODULE}:application \
+exec /var/www/tarea8/entorno/bin/gunicorn ${DJANGO_WSGI_MODULE}:application \
   --name $NAME \
   --workers $WORKERS \
   --user=$USER \
@@ -360,3 +411,43 @@ exec /home/centos/mezzanine/paquetes/bin/gunicorn ${DJANGO_WSGI_MODULE}:applicat
   --log-level=$LOGLEVEL \
   --log-file=-
 ~~~
+
+- Iniciamos `gunicorn`:
+~~~
+(entorno) [root@salmorejo ~]# systemctl start gunicorn
+(entorno) [root@salmorejo ~]# systemctl status gunicorn
+● gunicorn.service - Demonio GUnicorn
+   Loaded: loaded (/etc/systemd/system/gunicorn.service; disabled; vendor preset: disabled)
+   Active: active (running) since Wed 2020-03-04 11:38:55 UTC; 17min ago
+ Main PID: 1912 (gunicorn)
+    Tasks: 2 (limit: 4946)
+   Memory: 47.8M
+   CGroup: /system.slice/gunicorn.service
+           ├─1912 /var/www/tarea8/entorno/bin/python3 /var/www/tarea8/entorno/bin/gunicorn tarea8.wsgi:application --name tarea8 --workers 1 --user=>
+           └─1915 /var/www/tarea8/entorno/bin/python3 /var/www/tarea8/entorno/bin/gunicorn tarea8.wsgi:application --name tarea8 --workers 1 --user=>
+
+Mar 04 11:38:55 salmorejo.jesus.gonzalonazareno.org systemd[1]: Started Demonio GUnicorn.
+lines 1-11/11 (END)
+~~~
+
+- Por último creamos el virtualhost en `nginx` (`/etc/nginx/conf.d/mezzanine.conf`):
+~~~
+server {
+        listen 80;
+        server_name python.jesus.gonzalonazareno.org;
+        root /var/www/tarea8;
+    location / {
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+      proxy_set_header Host $http_host;
+      proxy_redirect off;
+      proxy_pass http://127.0.0.1:8080;
+    }
+    location /static {
+        alias /var/www/tarea8/static;
+    }
+}
+~~~
+
+- Comprobamos el funcionamiento:
+![Prueba de funcionamiento](images/funcionamiento.png)
