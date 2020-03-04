@@ -450,4 +450,4 @@ server {
 ~~~
 
 - Comprobamos el funcionamiento:
-![Prueba de funcionamiento](images/funcionamiento.png)
+![Prueba de funcionamiento](funcionamiento.png)
