@@ -78,6 +78,25 @@ drwxr-xr-x 4 root root 4096 Feb 24 17:57 ..
 root@croqueta:~#
 ~~~
 
+### GSSAPI.
+~~~
+root@croqueta:~# apt install libsasl2-modules-gssapi-mit
+root@croqueta:~# chmod 640 /etc/krb5.keytab
+root@croqueta:~# chgrp openldap /etc/krb5.keytab
+root@croqueta:~# ls -l /etc/krb5.keytab
+-rw-r----- 1 root openldap 1346 Feb 26 12:39 /etc/krb5.keytab
+root@croqueta:~# 
+
+# Comprobación
+root@croqueta:~# ldapsearch -x -b "" -s base -LLL supportedSASLMechanisms
+dn:
+supportedSASLMechanisms: GSSAPI
+
+root@croqueta:~#
+~~~
+
+
+
 ### Name Service Switch.
 Instalación de `libnss-ldapd`:
 ~~~
@@ -250,4 +269,48 @@ krb5-config krb5-user
 
 # Tortilla:
 
+~~~
+
+### NFS4
+~~~
+root@croqueta:~# kadmin.local
+kadmin.local:  add_principal -randkey nfs/croqueta.jesus.gonzalonazareno.org
+WARNING: no policy specified for nfs/croqueta.jesus.gonzalonazareno.org@JESUS.GONZALONAZARENO.ORG; defaulting to no policy
+Principal "nfs/croqueta.jesus.gonzalonazareno.org@JESUS.GONZALONAZARENO.ORG" created.
+kadmin.local:  add_principal -randkey nfs/tortilla.jesus.gonzalonazareno.org
+WARNING: no policy specified for nfs/tortilla.jesus.gonzalonazareno.org@JESUS.GONZALONAZARENO.ORG; defaulting to no policy
+Principal "nfs/tortilla.jesus.gonzalonazareno.org@JESUS.GONZALONAZARENO.ORG" created.
+kadmin.local:  ktadd nfs/croqueta.jesus.gonzalonazareno.org
+Entry for principal nfs/croqueta.jesus.gonzalonazareno.org with kvno 2, encryption type aes256-cts-hmac-sha1-96 added to keytab FILE:/etc/krb5.keytab.
+Entry for principal nfs/croqueta.jesus.gonzalonazareno.org with kvno 2, encryption type arcfour-hmac added to keytab FILE:/etc/krb5.keytab.
+Entry for principal nfs/croqueta.jesus.gonzalonazareno.org with kvno 2, encryption type des3-cbc-sha1 added to keytab FILE:/etc/krb5.keytab.
+Entry for principal nfs/croqueta.jesus.gonzalonazareno.org with kvno 2, encryption type des-cbc-crc added to keytab FILE:/etc/krb5.keytab.
+kadmin.local:  ktadd -k /tmp/krb5.keytab nfs/tortilla.jesus.gonzalonazareno.org
+Entry for principal nfs/tortilla.jesus.gonzalonazareno.org with kvno 2, encryption type aes256-cts-hmac-sha1-96 added to keytab WRFILE:/tmp/krb5.keytab.
+Entry for principal nfs/tortilla.jesus.gonzalonazareno.org with kvno 2, encryption type arcfour-hmac added to keytab WRFILE:/tmp/krb5.keytab.
+Entry for principal nfs/tortilla.jesus.gonzalonazareno.org with kvno 2, encryption type des3-cbc-sha1 added to keytab WRFILE:/tmp/krb5.keytab.
+Entry for principal nfs/tortilla.jesus.gonzalonazareno.org with kvno 2, encryption type des-cbc-crc added to keytab WRFILE:/tmp/krb5.keytab.
+kadmin.local: 
+
+
+root@croqueta:~# scp /tmp/krb5.keytab tortilla:/etc/krb5.keytab
+root@tortilla's password: 
+krb5.keytab                             100%  446   492.7KB/s   00:00    
+root@croqueta:~# 
+
+
+root@croqueta:~# mkdir -p /srv/nfs4/home
+root@croqueta:~# mount --bind /home/usuarios/ /srv/nfs4/home
+(conf fichero)
+
+root@croqueta:~# showmount -e
+Export list for croqueta.jesus.gonzalonazareno.org:
+/srv/nfs4/home gss/krb5i
+/srv/nfs4      gss/krb5i
+root@croqueta:~# 
+
+
+
+# Cliente
+root@tortilla:/home/ubuntu# mount -t nfs4 -o sec=krb5i croqueta:/home /home
 ~~~
