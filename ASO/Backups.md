@@ -699,5 +699,4 @@ FileDaemon {
   Plugin Directory = /usr/lib64/bacula
   FDAddress = 10.0.0.5
 }
-
 ~~~
