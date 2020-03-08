@@ -283,17 +283,6 @@ Client {
   AutoPrune = yes
 }
 
-Client {
-  Name = Pruebas
-  Address = 10.0.0.16
-  FDPort = 9102
-  Catalog = Catalogo
-  Password = "pass"
-  File Retention = 30 days
-  Job Retention = 2 months
-  AutoPrune = yes
-}
-
 ##############################
 # Jobs, FileSets y Schedules #
 ##############################
