@@ -201,7 +201,7 @@ wp-np      NodePort    10.109.69.178   <none>        80:32031/TCP   3m8s
 
 Creamos un secreto con las variables para la creción de la base de datos así como para la conexión a la misma:
 ~~~
-kubectl create secret generic db-secret --namespace=despliegue-ns \
+  kubectl create secret generic db-secret --namespace=despliegue-ns \
 --from-literal=dbuser=wp_user \
 --from-literal=dbname=wp_db \
 --from-literal=dbpassword=wp_pass \
@@ -324,8 +324,16 @@ kubectl create -f wp-deploy.yaml
 deployment.apps/wp-deploy created
 
 # Comprobación:
+kubectl get deploy,rs,pods -n despliegue-ns
+NAME                          READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/wp-deploy     1/1     1            1           40s
+deployment.apps/wpdb-deploy   1/1     1            1           57s
 
+NAME                                    DESIRED   CURRENT   READY   AGE
+replicaset.apps/wp-deploy-8575c8cb4d    1         1         1       40s
+replicaset.apps/wpdb-deploy-877cc7fdb   1         1         1       57s
+
+NAME                              READY   STATUS    RESTARTS   AGE
+pod/wp-deploy-8575c8cb4d-54fzh    1/1     Running   0          40s
+pod/wpdb-deploy-877cc7fdb-8wkrj   1/1     Running   0          57s
 ~~~
-
-Por último, accedemos a nuestra aplicación a través del navegador:
-![Aplicación]
